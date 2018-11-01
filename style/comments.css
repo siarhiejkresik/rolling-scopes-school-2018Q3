@@ -2,7 +2,7 @@
   height: 190px;
   padding-top: 48px;
   padding-bottom: 48px;
-  color: white;
+  color: #ffffff;
   font-size: 20px;
   display: flex;
   flex-direction: column;
@@ -51,11 +51,11 @@
   height: 8px;
   margin-left: 6px;
   margin-right: 6px;
-  border: 1px solid white;
+  border: 1px solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
 }
 
 .slider-controls .active {
-  background: white;
+  background: #ffffff;
 }

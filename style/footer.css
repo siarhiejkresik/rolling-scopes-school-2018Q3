@@ -30,7 +30,7 @@ body > footer {
 
 .footer-nav a.active,
 .footer-nav a:hover {
-  color: white;
+  color: #ffffff;
 }
 
 .footer-main {
@@ -65,12 +65,12 @@ body > footer {
 
 .footer-main a {
   text-decoration: none;
-  color: rgb(104, 104, 104);
+  color: #686868;
 }
 
 .footer-main a:hover {
   text-decoration: none;
-  color: white;
+  color: #ffffff;
 }
 
 .footer-links a::before {

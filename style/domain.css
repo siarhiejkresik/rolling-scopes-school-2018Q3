@@ -12,7 +12,7 @@
   font-family: 'Lato', sans;
   font-weight: 700;
   font-size: 24.5px;
-  color: rgba(56, 55, 55, 255);
+  color: #383737;
   margin-bottom: 27px;
 }
 
@@ -20,7 +20,7 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
   font-size: 15.8px;
-  color: rgb(162, 162, 162);
+  color: #a2a2a2;
 }
 
 form {
@@ -37,7 +37,7 @@ form {
 form * {
   font-family: Lato;
   font-size: 16px;
-  color: rgb(203, 203, 203);
+  color: #cbcbcb;
 }
 
 form > * {
@@ -47,10 +47,10 @@ form > * {
 form input {
   flex-grow: 1;
   border-width: 0;
-  border-left: 1px solid rgb(203, 203, 203);
-  border-right: 1px solid rgb(203, 203, 203);
+  border-left: 1px solid #cbcbcb;
+  border-right: 1px solid #cccccc;
   font-weight: 700;
-  color: rgba(134, 134, 134, 255);
+  color: #868686;
 }
 
 form select {
@@ -68,7 +68,7 @@ form select:focus {
 
 .domain-table {
   border: 1px solid #d9d9d9;
-  color: rgba(203, 203, 203, 255);
+  color: #cbcbcb;
   display: grid;
   grid-template-columns: repeat(4, 222px);
   grid-template-rows: repeat(2, 95px);
