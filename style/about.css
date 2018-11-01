@@ -1,6 +1,6 @@
 .about {
   height: 398px;
-  margin: 0px 200px;
+  margin: 0px var(--content-indent);
   padding: 108px 0;
   background-image: linear-gradient(to right, #d7d7d7 4px, transparent 4px);
   background-position: top;

@@ -1,5 +1,5 @@
 .packages {
-  padding: 100px 200px;
+  padding: 100px var(--content-indent);
   background: url('../assets/backgrounds/work.jpg');
   background-repeat: no-repeat;
   display: flex;
