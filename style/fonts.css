@@ -1,1 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather:400i|Montserrat:200|Neuton:400i');
+/* main font */
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+/* other fonts */
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400i|Montserrat:200');

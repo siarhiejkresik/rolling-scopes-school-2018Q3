@@ -85,7 +85,8 @@
 }
 
 .hello p {
-  font-family: 'Merriweather', serif;
+  font-family: Georgia, 'Noto Serif', 'Times New Roman', 'Times', serif;
+  font-size: 32px;
   font-style: italic;
   font-size: 32px;
 }
