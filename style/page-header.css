@@ -2,8 +2,8 @@
   height: 1065px;
   background: url('../assets/backgrounds/server-room.jpg');
   color: #ffffff;
-  display: grid;
-  grid-template-rows: 90px 1fr 123px;
+  display: flex;
+  flex-direction: column;
 }
 
 .page-menu {
@@ -15,47 +15,65 @@
 }
 
 .page-nav {
-  height: 90px;
   font-weight: 700;
   list-style: none;
   display: flex;
 }
 
 .page-nav a {
-  padding: 35px 0;
-  margin-left: 35px;
+  padding: 36px 0;
+  margin-left: 70px;
   display: flex;
   text-decoration: none;
-  color: #ffffff;
+  color: inherit;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 1s;
 }
 
-.page-nav a.active,
 .page-nav a:hover {
-  border-bottom: 1px solid #ffffff;
+  border-bottom-color: #ffffff;
+  transition: border-bottom-color 0.5s;
 }
 
-.member {
-  /* outline: 1px dotted red; */
+.membership {
   display: grid;
+  height: 123px;
   grid-template-columns: 1fr 1.05fr;
   justify-content: center;
   font-weight: 700;
   font-size: 23px;
 }
 
-.login {
+.membership a {
+  text-decoration: none;
+  padding: 40px;
+  color: inherit;
+  transition: transform 0.25s, font-size 0.25s;
+}
+
+.membership a:hover {
+  transform: translateY(-3px);
+  font-size: 28px;
+}
+
+.membership .login,
+.membership .register {
   padding-top: 6px;
-  padding-left: 230px;
-  position: relative;
-  /* width: 50%; */
-  background: #21424a;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login::after {
-  /* background: #21424a; */
+.membership .login {
+  padding-left: 230px;
+  position: relative;
+  background: #21424a;
+  justify-content: center;
+  align-items: center;
+}
+
+.membership .login::after {
+  content: '';
   position: absolute;
   bottom: 0;
   right: -30px;
@@ -65,23 +83,25 @@
   border-top: 123px solid #21424a;
   border-right: 30px solid transparent;
   content: '';
-  /* transform: skewY(-1.5deg); */
 }
 
-.register {
-  padding-top: 6px;
+.membership .register {
   padding-right: 175px;
   background: #2fac6c;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .hello {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+h1 {
+  margin: 16px;
+  font-size: 66px;
+  font-weight: 900;
 }
 
 .hello p {
@@ -89,4 +109,6 @@
   font-size: 32px;
   font-style: italic;
   font-size: 32px;
+  font-style: italic;
+  line-height: 1.5;
 }

@@ -30,25 +30,6 @@ body > footer {
   padding-right: var(--content-indent);
 }
 
-h1 {
-  margin-bottom: 0px;
-  font-size: 66px;
-  font-weight: 900;
-}
-
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.spc-btw {
-  justify-content: space-between;
-}
-
 
 .color-yellow {
   color: var(--main-color-yellow);
