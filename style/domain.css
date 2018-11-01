@@ -1,0 +1,78 @@
+.domain {
+  height: 578px;
+  padding-top: 88px;
+  padding-bottom: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.domain h2 {
+  font-family: 'Lato', sans;
+  font-weight: 700;
+  font-size: 24.5px;
+  color: rgba(56, 55, 55, 255);
+  margin-bottom: 27px;
+}
+
+.domain-comment {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: 15.8px;
+  color: rgb(162, 162, 162);
+}
+
+form {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border: 1px solid #d9d9d9;
+  width: 890px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+form * {
+  font-family: Lato;
+  font-size: 16px;
+  color: rgb(203, 203, 203);
+}
+
+form > * {
+  padding: 7px 15px;
+}
+
+form input {
+  flex-grow: 1;
+  border-width: 0;
+  border-left: 1px solid rgb(203, 203, 203);
+  border-right: 1px solid rgb(203, 203, 203);
+  font-weight: 700;
+  color: rgba(134, 134, 134, 255);
+}
+
+form select {
+  background: inherit;
+  border-width: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+form input:focus,
+form select:focus {
+  outline: unset;
+}
+
+.domain-table {
+  border: 1px solid #d9d9d9;
+  color: rgba(203, 203, 203, 255);
+  display: grid;
+  grid-template-columns: repeat(4, 222px);
+  grid-template-rows: repeat(2, 95px);
+  grid-gap: 1px;
+  align-items: center;
+  justify-items: center;
+}

@@ -1,0 +1,112 @@
+body > footer {
+  background: #2a2a2a;
+  color: #686868;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5em;
+}
+
+.footer-header {
+  height: 76px;
+  border-bottom: 1px solid #474747;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-nav {
+  display: flex;
+  list-style: none;
+}
+
+.footer-nav a {
+  font-size: 13px;
+  line-height: 1;
+  text-decoration: none;
+  color: inherit;
+  margin-left: 45px;
+  font-weight: 500;
+}
+
+.footer-nav a.active,
+.footer-nav a:hover {
+  color: white;
+}
+
+.footer-main {
+  padding-top: 34px;
+  padding-bottom: 34px;
+  display: grid;
+  grid-template-columns: 377px auto 318px;
+}
+
+.footer-main > * {
+  padding: 20px;
+  border-right: 1px solid #474747;
+}
+
+.footer-main > :first-child {
+  padding-left: 0;
+  padding-right: 84px;
+  /* outline: 1px dotted red; */
+}
+
+.footer-main > :last-child {
+  padding-right: 0;
+  padding-left: 78px;
+  border-right: unset;
+}
+
+.footer-links {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.footer-main a {
+  text-decoration: none;
+  color: rgb(104, 104, 104);
+}
+
+.footer-main a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.footer-links a::before {
+  font-family: 'FontAwesome';
+  font-weight: 700;
+  content: '\f105';
+}
+
+.footer-main a[href^='tel:']::before {
+  font-family: 'FontAwesome';
+  content: '\f095';
+  font-size: 15px;
+  vertical-align: middle;
+}
+.footer-main a[href^='mailto:']::before {
+  font-family: 'FontAwesome';
+  content: '\f0e0';
+  font-size: 13px;
+}
+
+.footer-main .fa,
+.footer-main a::before {
+  padding-right: 8px;
+  transition: padding-right 0.25s;
+}
+
+.footer-main .fa,
+.footer-links a:hover::before {
+  padding-right: 15px;
+}
+
+.footer-main .fa-envelope {
+  font-size: 13px;
+}
+
+address {
+  font-style: unset;
+  line-height: 2;
+}

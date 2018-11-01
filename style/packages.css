@@ -1,0 +1,124 @@
+.packages {
+  padding: 100px 200px;
+  background: url('../assets/packages_background.jpg');
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: space-between;
+}
+
+.package {
+  padding: 36px 28px 18px;
+  border-top: 5px solid;
+  /* margin-right: 20px;
+  margin-left: 20px; */
+  width: 255px;
+  background: white;
+  text-align: center;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.06);
+}
+
+/* .package:hover {
+  transform: translateY(-8px);
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  transition-duration: 0.5s;
+} */
+
+.package header {
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.package footer {
+  padding: 32px auto;
+}
+
+.package h3,
+.package-select {
+  color: rgba(40, 40, 40, 0.91);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 16px;
+  margin: 16px;
+  position: relative;
+}
+
+.package .icon {
+  /* font-size: 28px; */
+  width: 55px;
+  height: 55px;
+  border: 6px solid;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* .package .icon::before {
+  display: block;
+  content: '';
+  position: relative;
+  left: 30%;
+  top: -32px;
+  width: 0px;
+  height: 0px;
+  background: red;
+  border: 4px solid;
+  border-radius: 50%;
+} */
+
+.package .icon i {
+  /* transform: translateX(-50%); */
+  font-size: 18px;
+}
+
+.package-features {
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
+  /* line-height: 2em; */
+  height: 284px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.package-features p {
+  display: flex;
+  font-weight: 700;
+}
+
+.package-features span {
+  flex: 1;
+  font-weight: 300;
+  font-size: 15px;
+  color: #b4b4b4;
+}
+
+.package-price {
+  width: 105px;
+  margin: 32px auto 0;
+  padding-bottom: 5px;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1;
+  border-bottom: 3px solid;
+}
+
+.package-price span {
+  color: #2c2c2c;
+}
+
+.package-price .dollar {
+  font-size: 16px;
+  vertical-align: text-top;
+  position: relative;
+  top: 2px;
+}
+
+.package-price .month {
+  color: #8d8d8d;
+  font-size: 13px;
+  font-weight: 400;
+}
