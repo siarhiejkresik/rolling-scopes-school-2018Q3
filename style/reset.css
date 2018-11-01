@@ -32,3 +32,8 @@ input,
 select {
   vertical-align: middle;
 }
+
+/* remove dotted outline on active elements in Firefox */
+:-moz-focusring {
+	outline: none;
+}
