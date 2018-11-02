@@ -354,12 +354,4 @@ button.exit {
   right: 0%;
   bottom: 0%;
 }
-
-._dev_toolbar {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 2;
-}
 </style>
