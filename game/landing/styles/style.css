@@ -1,0 +1,160 @@
+@font-face {
+  font-family: "Lato";
+  src: url("../fonts/Lato-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans;
+  font-size: 16px;
+}
+
+h2 {
+  font-size: 60px;
+  text-align: center;
+  margin-top: 0;;
+}
+
+main {
+  display: grid;
+  grid-template-rows: 100vh;
+}
+
+section {
+  padding: 60px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.main {
+  color: gainsboro;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.main::after {
+  content: "";
+  background-image: url('../images/languages-tree.jpg');
+  background-size: cover;
+  background-position: top;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.screenshots {
+  background: repeating-linear-gradient(45deg, #dedede 2px, #dadada 3px, #dadada 4px, #dedede 7px);
+}
+
+.about {
+  background: #17202A;
+  color: ivory;
+  font-size: 24px;
+  text-transform: capitalize;
+}
+
+footer {
+  height: 80px;
+}
+
+.rs {
+  margin: 40px;
+  padding: 10px;
+  background: gainsboro;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px 3px rgba(23, 32, 43, 0.2) inset;
+}
+
+.rs img {
+  transform: translate(-1%, 1%)
+}
+
+.promote {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  position: relative;
+  width: 30%;
+  margin: 20px;
+  margin-bottom: 50px;
+  padding: 40px;
+  text-align: center;
+  font-size: 24px;
+  text-shadow: 0px 0px 3px ivory;
+  line-height: 1.9;
+}
+
+.img-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 90%;
+}
+
+.img-container img {
+  display: block;
+  object-fit: cover;
+  height: 200px;
+  margin: 20px;
+  box-shadow: 0px 0px 31px 5px #c5c5c5;
+}
+
+.logo {
+  font-size: 100px;
+  margin: 40px;
+  margin-top: 0;
+  padding: 40px;
+  padding-left: 100px;
+  padding-right: 100px;
+  border-top: 4px double rgba(238, 236, 224, 0.8);
+  border-bottom: 4px double rgba(238, 236, 224, 0.8);
+  text-shadow: 0px 0px 100px red;
+}
+
+.button {
+  border-radius: 4px;
+  border-style: solid;
+  background: #adc708;
+  border-color: #829606;
+  border-width: 0;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 1.4em;
+  font-weight: bold;
+  padding-bottom: .8em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  padding-top: 0.8em;
+  text-decoration: none;
+}
+
+.button.green {
+  animation-name: greenPulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes greenPulse {
+  from {
+    background-color: #749a02;
+    box-shadow: 0 0 90px #333;
+  }
+  50% {
+    background-color: #91bd09;
+    box-shadow: 0 0 180px #91bd09;
+  }
+  to {
+    background-color: #749a02;
+    box-shadow: 0 0 90px #333;
+  }
+}
