@@ -4,7 +4,7 @@
     <draggable
       class="mt-5 mb-4 text-center"
       v-model="answer"
-      :reset="createNewTaskTrigger">
+      @submit="sendAnswerReady">
     </draggable>
    </div>  
 </template>
