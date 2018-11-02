@@ -69,10 +69,10 @@
       :no-close-on-esc=true
       :hide-header-close=true
       :centered=true
-      :title="taskStatuses[task.status].title" 
-      :header-bg-variant="taskStatuses[task.status].headerBg"
-      :header-text-variant="taskStatuses[task.status].headerText"
-      :busy="taskStatuses[task.status].busy"
+      :title="task.status.title" 
+      :header-bg-variant="task.status.headerBg"
+      :header-text-variant="task.status.headerText"
+      :busy="task.status.busy"
       v-model="task.showTask"
       @answerChanged="onTaskAnswerChange"
       @ok="onTaskAnswerSelected"
@@ -177,7 +177,7 @@ export default {
       taskStatuses: taskStatuses,
       task: {
         current: undefined,
-        status: 'neutral',
+        status: taskStatuses.neutral,
         isRightAnswer: false,
         newTaskTrigger: false,
         showTask: false
@@ -229,7 +229,7 @@ export default {
       }
       // show modal with the current task
       this.task.isRightAnswer = false;
-      this.task.status = 'neutral';
+      this.task.status = taskStatuses.neutral;
       this.task.showTask = true;
     },
     onTaskAnswerChange(value) {
@@ -244,7 +244,9 @@ export default {
         this.task.showTask = false;
         this.task.isRightAnswer ? this.onTaskSuccess() : this.onTaskFail();
       }, 2000);
-      this.task.isRightAnswer ? (this.task.status = 'success') : (this.task.status = 'fail');
+      this.task.isRightAnswer
+        ? (this.task.status = taskStatuses.success)
+        : (this.task.status = taskStatuses.fail);
     },
     onTaskSuccess() {
       this.spell.verticalAxis = 4 / 5;
