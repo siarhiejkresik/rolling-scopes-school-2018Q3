@@ -1,9 +1,11 @@
 <template>
   <div class="battle shadow-lg rounded">
-    <div class="stats rounded-top text-light">
+    <div class="stats rounded-top text-light p-3">
       <model-stats
         :name="player.name"
-        :health="player.health"></model-stats>
+        :health="player.health"
+        :healthMax="player.healthMax"
+        :isRight=false></model-stats>
       <div class="wins text-center">
         <div>Перамог</div>
         <div class="badge badge-info">{{ numOfWins }}</div>
@@ -11,6 +13,8 @@
       <model-stats
         :name="enemy.name"
         :health="enemy.health"
+        :healthMax="enemy.healthMax"
+        :isRight=true
         class="text-right"></model-stats>
     </div>
 
@@ -150,12 +154,14 @@ export default {
       enemy: {
         name: getRandomName(),
         health: 100,
+        healthMax: 100,
         model: createRandomModel(),
         scale: 0.4
       },
       player: {
         name: undefined,
         health: 100,
+        healthMax: 100,
         model: createRandomModel(),
         scale: 0.6
       },
@@ -163,7 +169,7 @@ export default {
       spells: spells,
       spell: {
         current: undefined,
-        power: 20,
+        power: 50,
         animation: undefined,
         runAnimationTrigger: false,
         verticalAxis: undefined
@@ -270,12 +276,13 @@ export default {
       }
     },
     newRound() {
-      this.enemy.health = 100 + this.numOfWins * 20;
+      this.enemy.healthMax += this.numOfWins * 20;
+      this.enemy.health = this.enemy.healthMax;
       this.enemy.scale = increaseNotOver(this.enemy.scale, 0.1, 0.8);
       this.enemy.name = getRandomName();
       this.enemy.model = createRandomModel();
 
-      this.player.health = 100;
+      this.player.health = this.player.healthMax;
 
       this.ctx.clearRect(0, 0, 1200, 700);
       this.renderTrigger = !this.renderTrigger;
@@ -298,19 +305,18 @@ export default {
 .battle {
   position: relative;
   width: 1200px;
-  height: 800px;
+  height: 820px;
 }
 
 .stats {
   position: relative;
   width: 100%;
-  height: 100px;
+  /* height: 100px; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 5px;
   justify-content: center;
   align-items: center;
-  padding: 20px;
   background: rgb(23, 162, 184, 0.4);
 }
 
