@@ -118,6 +118,7 @@ const ENEMY_VERTICAL_AXIS = 4 / 5;
 const BOTTOM_LINE = 10;
 
 const SPELL_POWER = 40;
+const SPELL_DURATION = 5000;
 
 export default {
   components: {
@@ -209,7 +210,7 @@ export default {
         this.spell.animation = undefined;
         this.enemy.health = decreaseNotOver(this.enemy.health, this.spell.power, 0);
         this.isEnemyDead();
-      }, 5000);
+      }, SPELL_DURATION);
     },
     onTaskFail() {
       this.spell.verticalAxis = this.player.verticalAxis;
@@ -218,7 +219,7 @@ export default {
         this.spell.animation = undefined;
         this.player.health = decreaseNotOver(this.player.health, this.spell.power, 0);
         this.isPlayerDead();
-      }, 5000);
+      }, SPELL_DURATION);
     },
     isPlayerDead() {
       if (this.player.health === 0) {
