@@ -11,19 +11,7 @@
 
 <script>
 export default {
-  props: ['message'],
-  computed: {
-    isLoaded() {
-      return this.$store.state.assets.isLoaded;
-    }
-  },
-  watch: {
-    isLoaded: function() {
-      if (this.isLoaded) {
-        this.$emit('loaded');
-      }
-    }
-  }
+  props: ['message']
 };
 </script>
 

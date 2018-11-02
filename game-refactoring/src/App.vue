@@ -68,6 +68,13 @@ export default {
       this.view = 'BATTLE';
     }
   },
+  watch: {
+    isLoaded: function() {
+      if (this.isLoaded) {
+        this.onLoaded();
+      }
+    }
+  },
   mounted: function() {
     this.$store.dispatch('assets/load');
   }
