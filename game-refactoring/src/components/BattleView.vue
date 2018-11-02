@@ -61,7 +61,7 @@
       @ok="onSpellSelected"
       id="spell-chooser">
       <spell-chooser :spells="spells"></spell-chooser>
-     </b-modal>
+    </b-modal>
     <tasks
       v-model="task"
       @taskResult="onTaskResult">
@@ -149,9 +149,6 @@ export default {
     };
   },
   computed: {
-    _dev_mode() {
-      return process.env.NODE_ENV !== 'production';
-    },
     ctx() {
       let ctx = this.$refs.canvas.getContext('2d');
       return ctx;
