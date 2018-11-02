@@ -8,6 +8,7 @@
     </menu-view>
     <loading-view
       v-else-if="view === 'LOADING'"
+      message="ПАЧАКАЙЦЕ"
       @loaded='onLoaded'>
     </loading-view>
     <login-view
