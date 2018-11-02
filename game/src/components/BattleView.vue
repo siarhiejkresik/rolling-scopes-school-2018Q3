@@ -25,14 +25,14 @@
       :height="canvas.height"
       class="rounded-bottom">
         <model
-          :vertical-axis="canvas.width * 1/5"
+          :vertical-axis="canvas.width * player.verticalAxis"
           :bottom-line="canvas.height-10"
           :model="player.model"
           :scale="player.scale"
           :renderTrigger="renderTrigger"
           class="player"></model>
         <model
-          :vertical-axis="canvas.width * 4/5"
+          :vertical-axis="canvas.width * enemy.verticalAxis"
           :bottom-line="canvas.height-10"
           :model="enemy.model"
           :scale="enemy.scale"
@@ -156,14 +156,16 @@ export default {
         health: 100,
         healthMax: 100,
         model: createRandomModel(),
-        scale: 0.4
+        scale: 0.4,
+        verticalAxis: 4 / 5
       },
       player: {
         name: undefined,
         health: 100,
         healthMax: 100,
         model: createRandomModel(),
-        scale: 0.6
+        scale: 0.6,
+        verticalAxis: 1 / 5
       },
       numOfWins: 0,
       spells: spells,
@@ -249,7 +251,7 @@ export default {
         : (this.task.status = taskStatuses.fail);
     },
     onTaskSuccess() {
-      this.spell.verticalAxis = 4 / 5;
+      this.spell.verticalAxis = this.enemy.verticalAxis;
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
       setTimeout(() => {
         this.spell.animation = undefined;
@@ -258,7 +260,7 @@ export default {
       }, 5000);
     },
     onTaskFail() {
-      this.spell.verticalAxis = 1 / 5;
+      this.spell.verticalAxis = this.player.verticalAxis;
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
       setTimeout(() => {
         this.spell.animation = undefined;
