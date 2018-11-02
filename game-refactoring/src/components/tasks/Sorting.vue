@@ -3,9 +3,8 @@
     <h2 class="text-center">Цягні літары каб выйшла загаданае слова...</h2>
     <draggable
       class="mt-5 mb-4 text-center"
-      :word="answer"
-      :reset="createNewTaskTrigger"
-      @input="onAnswerChange">
+      v-model="answer"
+      :reset="createNewTaskTrigger">
     </draggable>
    </div>  
 </template>
@@ -45,9 +44,6 @@ export default {
       if (process.env.NODE_ENV !== 'production') {
         console.log('word:', this.word);
       }
-    },
-    onAnswerChange(value) {
-      this.answer = value;
     }
   }
 };

@@ -41,6 +41,10 @@ export default {
   components: {
     draggable
   },
+  model: {
+    prop: 'word',
+    event: 'changed'
+  },
   props: ['word', 'reset'],
   data() {
     return {
@@ -123,7 +127,7 @@ export default {
       }
     },
     changed() {
-      this.$emit('input', toString(this.letters));
+      this.$emit('changed', toString(this.letters));
     },
     keyHandler(e) {
       switch (e.code) {
