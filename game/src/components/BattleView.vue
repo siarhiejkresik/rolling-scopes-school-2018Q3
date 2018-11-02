@@ -8,7 +8,7 @@
         :isRight=false></model-stats>
       <div class="wins text-center">
         <div>Перамог</div>
-        <div class="badge badge-info">{{ numOfWins }}</div>
+        <div class="badge badge-info pt-2">{{ numOfWins }}</div>
       </div>
       <model-stats
         :name="enemy.name"
@@ -321,12 +321,16 @@ export default {
 }
 
 .wins {
-  justify-self: center;
-  font-size: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1.5em;
 }
 
 .badge {
-  transform: scale(1.25);
+  font-size: 1em;
 }
 
 canvas {
