@@ -62,27 +62,10 @@
       id="spell-chooser">
       <spell-chooser :spells="spells"></spell-chooser>
      </b-modal>
-
-    <b-modal
-      ok-title="Адказаць" cancel-title="Здацца" cancel-variant="danger"
-      :no-close-on-backdrop=true
-      :no-close-on-esc=true
-      :hide-header-close=true
-      :centered=true
-      :title="task.status.title" 
-      :header-bg-variant="task.status.headerBg"
-      :header-text-variant="task.status.headerText"
-      :busy="task.status.busy"
-      v-model="task.showTask"
-      @answerChanged="onTaskAnswerChange"
-      @ok="onTaskAnswerSelected"
-      @cancel="onTaskFail"
-      ref="tasks">
-      <component
-        :is="task.current"
-        :create-new-task-trigger="task.newTaskTrigger"></component>
-     </b-modal>
-
+    <tasks
+      v-model="task"
+      @taskResult="onTaskResult">
+    </tasks>
   </div>
 </template>
 
@@ -94,6 +77,7 @@ import ModelStats from './ModelStats.vue';
 import Model from './Model.vue';
 import SpellCanvas from './SpellCanvas.vue';
 import SpellChooser from './SpellChooser.vue';
+import Tasks from './Tasks.vue';
 
 import tasks from './tasks/index.js';
 import animations from '../scripts/Animations/index.js';
@@ -120,31 +104,11 @@ const spells = [
   }
 ];
 
-const taskStatuses = {
-  success: {
-    headerBg: 'success',
-    headerText: 'light',
-    title: 'Правільна!',
-    busy: true
-  },
-  fail: {
-    headerBg: 'danger',
-    headerText: 'light',
-    title: 'Няправільна!',
-    busy: true
-  },
-  neutral: {
-    headerBg: 'info',
-    headerText: 'light',
-    title: 'Заданне',
-    busy: false
-  }
-};
-
 export default {
   components: {
     SpellCanvas,
     SpellChooser,
+    Tasks,
     Model,
     ModelStats,
     ...tasks
@@ -176,14 +140,7 @@ export default {
         runAnimationTrigger: false,
         verticalAxis: undefined
       },
-      taskStatuses: taskStatuses,
-      task: {
-        current: undefined,
-        status: taskStatuses.neutral,
-        isRightAnswer: false,
-        newTaskTrigger: false,
-        showTask: false
-      },
+      task: undefined,
       renderTrigger: false,
       canvas: {
         height: 700,
@@ -210,46 +167,27 @@ export default {
       }
       // TODO: rework this ugly method
       // choose task
-      this.task.newTaskTrigger = !this.task.newTaskTrigger;
       switch (this.spell.current) {
         case this.spells[0].name:
-          this.task.current = tasks.Translation;
+          this.task = tasks.Translation;
           this.spell.animation = animations.Raindrop;
           break;
         case this.spells[1].name:
-          this.task.current = tasks.Arithmethic;
+          this.task = tasks.Arithmethic;
           this.spell.animation = animations.Lightnings;
           break;
         case this.spells[2].name:
-          this.task.current = tasks.Sorting;
+          this.task = tasks.Sorting;
           this.spell.animation = animations.Fire;
           break;
         case this.spells[3].name:
-          this.task.current = tasks.Audition;
+          this.task = tasks.Audition;
           this.spell.animation = animations.Lightnings;
           break;
       }
-      // show modal with the current task
-      this.task.isRightAnswer = false;
-      this.task.status = taskStatuses.neutral;
-      this.task.showTask = true;
     },
-    onTaskAnswerChange(value) {
-      this.task.isRightAnswer = value;
-      if (this._dev_mode) {
-        console.log('BATTLE: is a changed answer correct?', value);
-      }
-    },
-    onTaskAnswerSelected(event) {
-      event.preventDefault();
-      setTimeout(() => {
-        this.task.showTask = false;
-        this.task.current = undefined;
-        this.task.isRightAnswer ? this.onTaskSuccess() : this.onTaskFail();
-      }, 2000);
-      this.task.isRightAnswer
-        ? (this.task.status = taskStatuses.success)
-        : (this.task.status = taskStatuses.fail);
+    onTaskResult(taskResult) {
+      taskResult ? this.onTaskSuccess() : this.onTaskFail();
     },
     onTaskSuccess() {
       this.spell.verticalAxis = this.enemy.verticalAxis;
