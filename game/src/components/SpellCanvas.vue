@@ -8,12 +8,6 @@ export default {
   computed: {
     ctx: function() {
       return this.$refs.canvas.getContext('2d');
-    },
-    height: function() {
-      this.ctx.canvas.height;
-    },
-    width: function() {
-      this.ctx.canvas.width;
     }
   },
   methods: {
