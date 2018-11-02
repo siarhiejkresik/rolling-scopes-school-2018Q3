@@ -1,18 +1,18 @@
 <template>
-    <div>
-      <h2 class="text-center">Як будзе па-беларуску...</h2>
-      <div class="mt-5 mb-5 text-center font-weight-bold h1">{{ word }}</div>
-      <b-form @submit="sendAnswerReady">
-        <b-form-input
-          v-model="answer"
-          type="text"
-          size="lg"
-          placeholder="прыклад адказу: мама"
-          class="mt-3"
-          ref="inputs">
-        </b-form-input>
-      </b-form>
-    </div>  
+  <div>
+    <h2 class="text-center">Як будзе па-беларуску...</h2>
+    <div class="mt-5 mb-5 text-center font-weight-bold h1">{{ word }}</div>
+    <b-form @submit="sendAnswerReady">
+      <b-form-input
+        v-model="answer"
+        type="text"
+        size="lg"
+        placeholder="прыклад адказу: мама"
+        class="mt-3"
+        ref="inputs">
+      </b-form-input>
+    </b-form>
+  </div>  
 </template>
 
 <script>
