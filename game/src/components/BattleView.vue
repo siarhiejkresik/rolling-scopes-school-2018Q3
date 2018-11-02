@@ -169,7 +169,7 @@ export default {
       spells: spells,
       spell: {
         current: undefined,
-        power: 50,
+        power: 40,
         animation: undefined,
         runAnimationTrigger: false,
         verticalAxis: undefined
