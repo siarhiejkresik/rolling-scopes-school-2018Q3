@@ -188,7 +188,7 @@ export default {
     },
     onTaskSuccess() {
       this.spell.verticalAxis = this.enemy.verticalAxis;
-      this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
+      this.triggerSpellAnimation();
       setTimeout(() => {
         this.spell.animation = undefined;
         this.enemy.health = decreaseNotOver(this.enemy.health, this.spell.power, 0);
@@ -225,7 +225,7 @@ export default {
       this.player.health = this.player.healthMax;
 
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.renderTrigger = !this.renderTrigger;
+      this.triggerRendering();
     },
     gameEnd() {
       this.$store.commit('records/checkForNewRecord', {
@@ -233,6 +233,12 @@ export default {
         numOfWins: this.numOfWins
       });
       this.$emit('showScores');
+    },
+    triggerRendering() {
+      this.renderTrigger = !this.renderTrigger;
+    },
+    triggerSpellAnimation() {
+      this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
     }
   },
   mounted: function() {
