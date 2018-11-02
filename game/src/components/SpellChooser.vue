@@ -31,14 +31,8 @@ export default {
   watch: {
     selected: function(value) {
       this.$parent.$emit('spellSet', value);
-      console.log('SPELL CHOOSER: selected', value);
     }
   }
 };
 </script>
 
-<style scoped>
-strong {
-  color: unset;
-}
-</style>
