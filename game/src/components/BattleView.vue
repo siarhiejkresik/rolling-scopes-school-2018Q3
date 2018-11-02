@@ -94,22 +94,24 @@ import SpellChooser from './SpellChooser.vue';
 import * as tasks from './tasks/index.js';
 import * as animations from '../scripts/Animations/index.js';
 
+import { decreaseNotOver, increaseNotOver } from '../scripts/utils.js';
+
 // TODO: we need an another way to show spell images
 const spells = [
   {
-    name: 'Агонь',
+    name: 'Агонь'
     // symbol: '🔥'
   },
   {
-    name: 'Вада',
+    name: 'Вада'
     // symbol: '🌊'
   },
   {
-    name: 'Прырода',
+    name: 'Прырода'
     // symbol: '🍀'
   },
   {
-    name: 'Маланка',
+    name: 'Маланка'
     // symbol: '🌀'
   }
 ];
@@ -161,10 +163,10 @@ export default {
       spells: spells,
       spell: {
         current: undefined,
-        power: 100,
+        power: 20,
         animation: undefined,
         runAnimationTrigger: false,
-        verticalAxis: undefined,
+        verticalAxis: undefined
       },
       taskStatuses: taskStatuses,
       task: {
@@ -203,19 +205,19 @@ export default {
       switch (this.spell.current) {
         case this.spells[0].name:
           this.task.current = 'Translation';
-          this.spell.animation = animations.Raindrop
+          this.spell.animation = animations.Raindrop;
           break;
         case this.spells[1].name:
           this.task.current = 'Arithmethic';
-          this.spell.animation = animations.Lightnings
+          this.spell.animation = animations.Lightnings;
           break;
         case this.spells[2].name:
           this.task.current = 'Sorting';
-          this.spell.animation = animations.Raindrop
+          this.spell.animation = animations.Raindrop;
           break;
         case this.spells[3].name:
           this.task.current = 'Audition';
-          this.spell.animation = animations.Lightnings
+          this.spell.animation = animations.Lightnings;
           break;
       }
       // show modal with the current task
@@ -242,20 +244,18 @@ export default {
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
       setTimeout(() => {
         this.spell.animation = undefined;
-        this.enemy.health =
-          this.enemy.health - this.spell.power < 0 ? 0 : this.enemy.health - this.spell.power;
+        this.enemy.health = decreaseNotOver(this.enemy.health, this.spell.power, 0);
         this.isEnemyDead();
-      }, 6000);
+      }, 5000);
     },
     onTaskFail() {
       this.spell.verticalAxis = 1 / 5;
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
       setTimeout(() => {
         this.spell.animation = undefined;
-        this.player.health =
-          this.player.health - this.spell.power < 0 ? 0 : this.player.health - this.spell.power;
+        this.player.health = decreaseNotOver(this.player.health, this.spell.power, 0);
         this.isPlayerDead();
-      }, 6000);
+      }, 5000);
     },
     isPlayerDead() {
       if (this.player.health === 0) {
@@ -270,7 +270,7 @@ export default {
     },
     newRound() {
       this.enemy.health = 100 + this.numOfWins * 20;
-      this.enemy.scale += 0.1;
+      this.enemy.scale = increaseNotOver(this.enemy.scale, 0.1, 0.8);
       this.enemy.name = getRandomName();
       this.enemy.model = createRandomModel();
 
