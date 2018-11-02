@@ -211,19 +211,19 @@ export default {
       this.task.newTaskTrigger = !this.task.newTaskTrigger;
       switch (this.spell.current) {
         case this.spells[0].name:
-          this.task.current = 'Translation';
+          this.task.current = tasks.Translation;
           this.spell.animation = animations.Raindrop;
           break;
         case this.spells[1].name:
-          this.task.current = 'Arithmethic';
+          this.task.current = tasks.Arithmethic;
           this.spell.animation = animations.Lightnings;
           break;
         case this.spells[2].name:
-          this.task.current = 'Sorting';
+          this.task.current = tasks.Sorting;
           this.spell.animation = animations.Fire;
           break;
         case this.spells[3].name:
-          this.task.current = 'Audition';
+          this.task.current = tasks.Audition;
           this.spell.animation = animations.Lightnings;
           break;
       }
