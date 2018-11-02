@@ -1,6 +1,8 @@
 import parts from '../assets/data/model/parts.json';
 import { randomObjectElement } from '../scripts/utils.js';
 
+// TODO: rename module
+
 export function createRandomModel() {
   return {
     skin: randomObjectElement(parts.skin),

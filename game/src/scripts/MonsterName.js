@@ -7,6 +7,9 @@ const secondNames =
 const lastNames =
   'Алесь Васіль Гапей Лука Лёва Макей Мартын Мацвей Мікола Міхаіл Навум Несцер Рыгор Сцяпан Тонік';
 
+// TODO: rename module, move constants into an another file
+// TODO: create an array of names from an string only once
+
 const capitalize = str => str && str[0].toUpperCase() + str.slice(1);
 const stringToArray = str => str.trim().split(/ +/);
 
