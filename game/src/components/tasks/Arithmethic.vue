@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import { randomInt, randomArrayElement } from '../../scripts/utils.js';
+import Mixin from './Mixin.js';
 
 export default {
-  props: ['createNewTaskTrigger'],
+  mixins: [Mixin],
   data() {
     return {
       options: {
@@ -88,17 +88,6 @@ export default {
       const mul = a * b;
       return { a: a, b: b, result: mul };
     }
-  },
-  watch: {
-    isCorrectAnswer: function() {
-      this.$parent.$emit('answerChanged', this.isCorrectAnswer);
-    },
-    createNewTaskTrigger: function() {
-      this.generateNewTask();
-    }
-  },
-  created() {
-    this.generateNewTask();
   }
 };
 </script>
