@@ -83,6 +83,7 @@ export default {
 </script>
 
 <style>
+@import url('../assets/styles/latofonts.css');
 body,
 html {
   margin: 0;
@@ -95,6 +96,7 @@ body {
   justify-content: center;
   align-items: center;
   background: repeating-linear-gradient(45deg, #dedede 2px, #dadada 3px, #dadada 4px, #dedede 7px);
+  font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .fade-enter-active {
