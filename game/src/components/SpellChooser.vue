@@ -24,7 +24,7 @@ export default {
   computed: {
     options() {
       return this.spells.map(spell => {
-        return { value: spell.name, text: `${spell.symbol} ${spell.name}` };
+        return { value: spell.name, text: `${spell.name}` };
       });
     }
   },

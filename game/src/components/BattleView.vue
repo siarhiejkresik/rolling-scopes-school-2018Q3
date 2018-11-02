@@ -94,23 +94,23 @@ import SpellChooser from './SpellChooser.vue';
 import * as tasks from './tasks/index.js';
 import * as animations from '../scripts/Animations/index.js';
 
-
+// TODO: we need an another way to show spell images
 const spells = [
   {
     name: 'Агонь',
-    symbol: '🔥 '
+    // symbol: '🔥'
   },
   {
     name: 'Вада',
-    symbol: '🌊 '
+    // symbol: '🌊'
   },
   {
     name: 'Прырода',
-    symbol: '🍀'
+    // symbol: '🍀'
   },
   {
-    name: 'Вецер',
-    symbol: '🌀'
+    name: 'Маланка',
+    // symbol: '🌀'
   }
 ];
 
