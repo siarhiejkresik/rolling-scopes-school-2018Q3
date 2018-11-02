@@ -1,4 +1,4 @@
-import {randomArrayElement} from './utils.js';
+import { randomArrayElement } from './utils.js';
 
 const firstNames =
   'васпане вясёлы грэшны дурны зялёны кволы лядашчы магутны моцны п’яны святы спагадны сумны хірлявы цвярозы';
