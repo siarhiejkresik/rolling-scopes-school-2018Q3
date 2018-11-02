@@ -48,6 +48,10 @@ module.exports = {
         }
       },
       {
+        test: /\.txt$/,
+        use: 'raw-loader'
+      },
+      {
         test: /\.(py|xml)$/,
         loader: 'ignore-loader'
       }
@@ -60,7 +64,8 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    overlay: true
   },
   performance: {
     hints: false
