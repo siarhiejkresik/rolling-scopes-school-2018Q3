@@ -149,8 +149,10 @@ export default {
     }
   },
   mounted() {
-    // TODO: add listener removing feature!
     window.addEventListener('keydown', this.keyHandler);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.keyHandler);
   },
   watch: {
     letters() {
