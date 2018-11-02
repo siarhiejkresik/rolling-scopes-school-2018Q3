@@ -8,26 +8,10 @@ let cH;
 let groundHeight = 40;
 let area = {};
 
-// let canvas;
-// let width = 650;
-// let height = 400;
 let particles;
 let max = 60;
-// let mouseX = 0;
-// let mouseY = 0;
-
 let speed = 3;
 let size = 20;
-
-class Particle {
-  constructor(x, y, xs, ys) {
-    this.x = x;
-    this.y = y;
-    this.xs = xs;
-    this.ys = ys;
-    this.life = 0;
-  }
-}
 
 function initCanvas(verticalAxis) {
   cW = ctx.canvas.width;
@@ -45,6 +29,16 @@ function initCanvas(verticalAxis) {
   area.center = verticalAxis * cW;
   ctx.globalCompositeOperation = 'lighter';
   particles = [];
+}
+
+class Particle {
+  constructor(x, y, xs, ys) {
+    this.x = x;
+    this.y = y;
+    this.xs = xs;
+    this.ys = ys;
+    this.life = 0;
+  }
 }
 
 function render() {
@@ -115,6 +109,7 @@ function loop() {
     ctx.restore();
   }
 }
+
 import soundSource from '../../assets/sounds/Fire.ogg';
 const playSound = (src, duration) => {
   const audio = document.getElementById('audio');
