@@ -1,5 +1,6 @@
 <template>
   <main id="app">
+  <transition name="fade" mode="out-in">
     <landing-view
       v-if="view === 'LANDING'"
       @startGame='onStartGame'
@@ -22,6 +23,7 @@
       v-else-if="view === 'SCORES'"
       @exitGame='onExitGame'>
     </scores-view> 
+  </transition>    
   </main>
 </template>
 
@@ -93,5 +95,16 @@ body {
   justify-content: center;
   align-items: center;
   background: repeating-linear-gradient(45deg, #dedede 2px, #dadada 3px, #dadada 4px, #dedede 7px);
+}
+
+.fade-enter-active {
+  transition: all .8s ease-out;
+}
+.fade-leave-active {
+  transition: all .8s ease-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
