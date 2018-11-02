@@ -1,26 +1,57 @@
 <template>
-  <section>
-    <div class="header">
-      <div>Перамог: {{ numOfMobs }}</div>
-      <b-button @click="onTaskSuccess">Win!</b-button>
-      <b-button @click="onTaskFail">Lose!</b-button>
-      <b-button class="exit shadow-lg" @click="gameEnd">Закончыць</b-button>
-    </div>
-    
-    <div class="stats">
-      <player-stats :name="playerName" :health="healthPlayer"></player-stats>
-      <player-stats :name="mobName" :health="healthMob"></player-stats>
+  <div class="battle shadow-lg rounded">
+    <div class="stats rounded-top text-light">
+      <model-stats
+        :name="player.name"
+        :health="player.health"></model-stats>
+      <div class="wins text-center">
+        <div>Перамог</div>
+        <div class="badge badge-info">{{ numOfWins }}</div>
+      </div>
+      <model-stats
+        :name="enemy.name"
+        :health="enemy.health"
+        class="text-right"></model-stats>
     </div>
 
-    <canvas id="canvas" ref="canvas" width="1200" height="600"></canvas>
-    <mob :vertical-axis=250 :bottom-line=230 class="player"></mob>
-    <mob :vertical-axis=1200-250 :bottom-line=230 class="enemy"></mob>
+    <canvas
+      id="canvas"
+      ref="canvas"
+      :width="canvas.width"
+      :height="canvas.height"
+      class="rounded-bottom">
+        <model
+          :vertical-axis="canvas.width * 1/5"
+          :bottom-line="canvas.height-10"
+          :model="player.model"
+          :scale="player.scale"
+          :renderTrigger="renderTrigger"
+          class="player"></model>
+        <model
+          :vertical-axis="canvas.width * 4/5"
+          :bottom-line="canvas.height-10"
+          :model="enemy.model"
+          :scale="enemy.scale"
+          :renderTrigger="renderTrigger"
+          class="enemy"></model>
+    </canvas>
 
-    <b-button v-b-modal.spell-chooser size="lg" class="spell">Заклінанні</b-button>
+    <spell-canvas
+      :width="canvas.width" :height="canvas.height"
+      :animation="spell.animation"
+      :verticalAxis="spell.verticalAxis"
+      :runAnimationTrigger="spell.runAnimationTrigger"
+      class="rounded-bottom"></spell-canvas>
+
+    <b-button class="exit text-light" variant="link" @click="gameEnd">Выйсці</b-button>
+    <b-button
+      v-b-modal.spell-chooser
+      variant="outline" size="lg"
+      :disabled="spell.animation !== undefined"
+      class="spell">Заклінанні</b-button>
     <b-modal
       title="Выберы заклінанне" 
-      ok-title="Выбраць"
-      cancel-title="Назад"
+      ok-title="Выбраць" cancel-title="Назад"
       :centered=true
       @spellSet="onSpellChange"
       @ok="onSpellSelected"
@@ -29,35 +60,36 @@
      </b-modal>
 
     <b-modal
-      class=""
-      ok-title="Адказаць"
-      cancel-title="Здацца"
-      cancel-variant="danger"
+      ok-title="Адказаць" cancel-title="Здацца" cancel-variant="danger"
       :no-close-on-backdrop=true
       :no-close-on-esc=true
       :hide-header-close=true
       :centered=true
-      :title="taskStatuses[currentTaskStatus].title" 
-      :header-bg-variant="taskStatuses[currentTaskStatus].headerBg"
-      :header-text-variant="taskStatuses[currentTaskStatus].headerText"
-      :busy="taskStatuses[currentTaskStatus].busy"
-      v-model="showTask"
+      :title="taskStatuses[task.status].title" 
+      :header-bg-variant="taskStatuses[task.status].headerBg"
+      :header-text-variant="taskStatuses[task.status].headerText"
+      :busy="taskStatuses[task.status].busy"
+      v-model="task.showTask"
       @answerChanged="onTaskAnswerChange"
       @ok="onTaskAnswerSelected"
       @cancel="onTaskFail"
       ref="tasks">
-      <component :is="currentTask" :create-new-task-trigger="newTaskTrigger"></component>
+      <component
+        :is="task.current"
+        :create-new-task-trigger="task.newTaskTrigger"></component>
      </b-modal>
 
-  </section>
+  </div>
 </template>
 
 <script>
-import getRandomName from '../scripts/Monster.js';
+import getRandomName from '../scripts/MonsterName.js';
+import { createRandomModel } from '../scripts/MonsterModel.js';
+import * as animations from '../scripts/Animations/index.js';
 
-import Player from './Player.vue';
-import PlayerStats from './PlayerStats.vue';
-import Mob from './Mob.vue';
+import ModelStats from './ModelStats.vue';
+import Model from './Model.vue';
+import SpellCanvas from './SpellCanvas.vue';
 import SpellChooser from './SpellChooser.vue';
 
 import Arithmethic from './tasks/Arithmethic.vue';
@@ -107,10 +139,10 @@ const taskStatuses = {
 
 export default {
   components: {
+    SpellCanvas,
     SpellChooser,
-    Mob,
-    Player,
-    PlayerStats,
+    Model,
+    ModelStats,
     Arithmethic,
     Audition,
     Sorting,
@@ -118,146 +150,195 @@ export default {
   },
   data() {
     return {
-      healthPlayer: 100,
-      healthMob: 100,
-      numOfMobs: 0,
-      spellMight: 100,
+      enemy: {
+        name: getRandomName(),
+        health: 100,
+        model: createRandomModel(),
+        scale: 0.4
+      },
+      player: {
+        name: undefined,
+        health: 100,
+        model: createRandomModel(),
+        scale: 0.6
+      },
+      numOfWins: 0,
       spells: spells,
-      currentSpell: undefined,
-      currentTask: undefined,
+      spell: {
+        current: undefined,
+        power: 100,
+        animation: undefined,
+        runAnimationTrigger: false,
+        verticalAxis: undefined,
+      },
       taskStatuses: taskStatuses,
-      currentTaskStatus: 'neutral',
-      isCurrentTaskRightAnswer: false,
-      newTaskTrigger: false,
-      showTask: false
+      task: {
+        current: undefined,
+        status: 'neutral',
+        isRightAnswer: false,
+        newTaskTrigger: false,
+        showTask: false
+      },
+      renderTrigger: false,
+      canvas: {
+        height: 700,
+        width: 1200
+      }
     };
   },
   computed: {
+    _dev_mode() {
+      return process.env.NODE_ENV !== 'production';
+    },
     ctx() {
       let ctx = this.$refs.canvas.getContext('2d');
       return ctx;
-    },
-    playerName() {
-      return this.$store.state.player.name;
-    },
-    mobName() {
-      return getRandomName();
     }
   },
   methods: {
     onSpellChange(spellName) {
-      this.currentSpell = spellName;
+      this.spell.current = spellName;
     },
     onSpellSelected() {
-      if (!this.currentSpell) {
+      if (!this.spell.current) {
         return;
       }
       // choose task
-      this.newTaskTrigger = !this.newTaskTrigger;
-      switch (this.currentSpell) {
+      this.task.newTaskTrigger = !this.task.newTaskTrigger;
+      switch (this.spell.current) {
         case this.spells[0].name:
-          this.currentTask = 'Translation';
+          this.task.current = 'Translation';
+          this.spell.animation = animations.Raindrop
           break;
         case this.spells[1].name:
-          this.currentTask = 'Arithmethic';
+          this.task.current = 'Arithmethic';
+          this.spell.animation = animations.Lightnings
           break;
         case this.spells[2].name:
-          this.currentTask = 'Sorting';
+          this.task.current = 'Sorting';
+          this.spell.animation = animations.Raindrop
           break;
         case this.spells[3].name:
-          this.currentTask = 'Audition';
+          this.task.current = 'Audition';
+          this.spell.animation = animations.Lightnings
           break;
       }
       // show modal with the current task
-      this.currentTaskStatus = 'neutral';
-      this.showTask = true;
+      this.task.isRightAnswer = false;
+      this.task.status = 'neutral';
+      this.task.showTask = true;
     },
     onTaskAnswerChange(value) {
-      this.isCurrentTaskRightAnswer = value;
-      if (process.env.NODE_ENV !== 'production') {
+      this.task.isRightAnswer = value;
+      if (this._dev_mode) {
         console.log('BATTLE: is a changed answer correct?', value);
       }
     },
     onTaskAnswerSelected(event) {
       event.preventDefault();
       setTimeout(() => {
-        this.showTask = false;
-        this.isCurrentTaskRightAnswer ? this.onTaskSuccess() : this.onTaskFail();
+        this.task.showTask = false;
+        this.task.isRightAnswer ? this.onTaskSuccess() : this.onTaskFail();
       }, 2000);
-      this.isCurrentTaskRightAnswer
-        ? (this.currentTaskStatus = 'success')
-        : (this.currentTaskStatus = 'fail');
+      this.task.isRightAnswer ? (this.task.status = 'success') : (this.task.status = 'fail');
     },
     onTaskSuccess() {
-      //TODO:
-      this.healthMob = this.healthMob - this.spellMight < 0 ? 0 : this.healthMob - this.spellMight;
-      this.isEnemyDead();
+      this.spell.verticalAxis = 4 / 5;
+      this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
+      setTimeout(() => {
+        this.spell.animation = undefined;
+        this.enemy.health =
+          this.enemy.health - this.spell.power < 0 ? 0 : this.enemy.health - this.spell.power;
+        this.isEnemyDead();
+      }, 6000);
     },
     onTaskFail() {
-      //TODO:
-      this.healthPlayer =
-        this.healthPlayer - this.spellMight < 0 ? 0 : this.healthPlayer - this.spellMight;
-      this.isPlayerDead();
+      this.spell.verticalAxis = 1 / 5;
+      this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
+      setTimeout(() => {
+        this.spell.animation = undefined;
+        this.player.health =
+          this.player.health - this.spell.power < 0 ? 0 : this.player.health - this.spell.power;
+        this.isPlayerDead();
+      }, 6000);
     },
     isPlayerDead() {
-      if (this.healthPlayer === 0) {
+      if (this.player.health === 0) {
         this.gameEnd();
       }
     },
     isEnemyDead() {
-      if (this.healthMob === 0) {
-        this.healthMob = 100 + this.numOfMobs * 0;
-        this.numOfMobs += 1;
+      if (this.enemy.health === 0) {
+        this.numOfWins += 1;
+        this.newRound();
       }
+    },
+    newRound() {
+      this.enemy.health = 100 + this.numOfWins * 20;
+      this.enemy.scale += 0.1;
+      this.enemy.name = getRandomName();
+      this.enemy.model = createRandomModel();
+
+      this.player.health = 100;
+
+      this.ctx.clearRect(0, 0, 1200, 700);
+      this.renderTrigger = !this.renderTrigger;
     },
     gameEnd() {
       this.$store.commit('records/checkForNewRecord', {
-        playerName: this.playerName,
-        numOfMobs: this.numOfMobs
+        playerName: this.player.name,
+        numOfWins: this.numOfWins
       });
       this.$emit('showScores');
+    }
+  },
+  mounted: function() {
+    this.player.name = this.$store.state.player.name;
+  },
+  watch: {
+    spell: function() {
+      console.log('BATTLE this.spell.animation', this.spell.animation);
     }
   }
 };
 </script>
 
 <style scoped>
-section {
+.battle {
+  position: relative;
   width: 1200px;
   height: 800px;
-  outline: 5px red solid;
-  margin: 0 auto;
-  position: relative;
 }
 
 .stats {
   position: relative;
   width: 100%;
   height: 100px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 5px;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  color: red;
-  outline: 2px green solid;
-  background: rgba(205, 92, 92, 0.521);
+  background: rgb(23, 162, 184, 0.4);
 }
 
-.header {
-  height: 100px;
+.wins {
+  justify-self: center;
+  font-size: 20px;
+}
+
+.badge {
+  transform: scale(1.25);
 }
 
 canvas {
-  background: url('../assets/images/Background.png') repeat-x fixed bottom;
-  outline: 3px blue solid;
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
 }
 
-button {
-  display: block;
+#canvas {
+  background: url('../assets/images/Background.png') repeat-x fixed bottom;
 }
 
 button.spell {
@@ -269,7 +350,15 @@ button.spell {
 
 button.exit {
   position: absolute;
-  right: 2%;
-  top: 2%;
+  right: 0%;
+  bottom: 0%;
+}
+
+._dev_toolbar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 2;
 }
 </style>
