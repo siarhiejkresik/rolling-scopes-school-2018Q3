@@ -1,7 +1,7 @@
 <template>
     <div class="pagination-centered">
       <h2 class="text-center">Колькі будзе...</h2>
-      <div class="operation mt-5 mb-5 text-center">
+      <div class="operation mt-5 mb-5 text-center font-weight-bold">
         {{ numbers.a }} {{ operation }} {{ numbers.b }} = {{ answerNumber }}
       </div>
       <b-form-input

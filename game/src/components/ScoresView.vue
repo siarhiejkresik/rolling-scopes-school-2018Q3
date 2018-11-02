@@ -16,7 +16,8 @@
         </template>
       </b-table>
       <b-button
-        class="shadow-lg"
+        class="w-50"
+        size="lg"
         @click="exit">Выйсці</b-button>
     </div>
   </section>

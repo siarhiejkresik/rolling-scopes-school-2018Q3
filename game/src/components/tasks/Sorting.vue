@@ -9,7 +9,7 @@
       <transition-group> 
         <div
           class="letter
-           pb-3 border rounded shadow-sm 
+           pb-1 border rounded shadow-sm 
            justify-content-center align-items-center
            text-lowercase font-weight-light"
           v-for="(element, index) in wordArray"
