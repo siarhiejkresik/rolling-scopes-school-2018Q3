@@ -1,7 +1,8 @@
 <template>
     <div class="pagination-centered">
       <h2 class="text-center">Колькі будзе...</h2>
-      <div class="operation m-3 text-center"><span>{{ numbers.a }}</span> {{ operation }} {{ numbers.b }} = {{ answerNumber }}</div>
+        {{ numbers.a }} {{ operation }} {{ numbers.b }} = {{ answerNumber }}
+      </div>
       <b-form-input
         v-model="answer"
         type="text"
@@ -13,6 +14,7 @@
 
 <script>
 import Mixin from './Mixin.js';
+import { randomInt, randomObjectElement } from '../../scripts/utils.js';
 
 export default {
   mixins: [Mixin],
@@ -25,7 +27,12 @@ export default {
           b: 20
         }
       },
-      operations: ['+', '-', '×', '÷'],
+      operations: {
+        add: '+',
+        sub: '-',
+        mul: '×',
+        div: '÷'
+      },
       operation: undefined,
       answer: null
     };
@@ -37,24 +44,28 @@ export default {
     numbers() {
       let numbers;
       switch (this.operation) {
-        case '+':
-        case '-':
+        case this.operations.add:
+        case this.operations.sub:
           numbers = this.generateAddSubNumbers();
           break;
-        case '×':
-        case '÷':
+        case this.operations.mul:
+        case this.operations.div:
           numbers = this.generateDivMulNumbers();
           break;
+        // TODO:
+        // default:
+        //   console.log('this.operation', this.operation);
+        //   throw new Error('unknow operation');
       }
       switch (this.operation) {
-        case '-':
-        case '÷':
+        case this.operations.sub:
+        case this.operations.div:
           [numbers.a, numbers.result] = [numbers.result, numbers.a];
       }
       return numbers;
     },
     isCorrectAnswer() {
-      return this.numbers && Number(this.answer) === this.numbers.result;
+      return this.numbers !== undefined && Number(this.answer) === this.numbers.result;
     }
   },
   methods: {
@@ -66,7 +77,7 @@ export default {
       let operationNew = this.operation;
       // TODO: possible infinite loop
       while (this.operation === operationNew) {
-        operationNew = randomArrayElement(this.operations);
+        operationNew = randomObjectElement(this.operations);
       }
       return operationNew;
     },
