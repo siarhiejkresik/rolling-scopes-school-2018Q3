@@ -44,15 +44,22 @@ export default {
   computed: {
     isLoaded() {
       return this.$store.state.assets.isLoaded;
+    },
+    isLoggedIn() {
+      return this.$store.state.player.name !== undefined;
     }
   },
   methods: {
     onStartGame() {
+      if (!this.isLoggedIn) {
+        this.view = 'LOGIN';
+        return;
+      }
       if (!this.isLoaded) {
         this.view = 'LOADING';
         return;
       }
-      this.$store.state.player.name === undefined ? (this.view = 'LOGIN') : (this.view = 'BATTLE');
+      this.view = 'BATTLE';
     },
     onExitGame() {
       this.view = 'MENU';
@@ -60,18 +67,15 @@ export default {
     onShowScores() {
       this.view = 'SCORES';
     },
-    onLoaded() {
-      this.onStartGame();
-    },
     onLogIn(playerName) {
       this.$store.commit('player/setName', playerName);
-      this.view = 'BATTLE';
+      this.onStartGame();
     }
   },
   watch: {
     isLoaded: function() {
-      if (this.isLoaded) {
-        this.onLoaded();
+      if (this.isLoaded && this.view === 'LOADING') {
+        this.onStartGame();
       }
     }
   },
