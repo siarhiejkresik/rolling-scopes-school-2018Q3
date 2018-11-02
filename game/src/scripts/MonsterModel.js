@@ -1,4 +1,4 @@
-import parts from '../assets/images/models/parts.json';
+import parts from '../assets/data/model/parts.json';
 import { randomObjectElement } from '../scripts/utils.js';
 
 export function createRandomModel() {
