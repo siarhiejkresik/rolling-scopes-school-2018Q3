@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import * as views from './views.js';
+import views from './views.js';
 
 export default {
   name: 'app',

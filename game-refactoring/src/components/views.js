@@ -4,7 +4,7 @@ import LoadingView from './LoadingView.vue';
 import LoginView from './LoginView.vue';
 import ScoresView from './ScoresView.vue';
 
-export {
+export default {
   BattleView,
   LandingView,
   LoadingView,
