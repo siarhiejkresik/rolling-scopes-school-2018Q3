@@ -329,7 +329,7 @@ canvas {
 }
 
 #canvas {
-  background: url('../assets/images/Background.png') repeat-x fixed bottom;
+  background: url('../assets/images/Background.png') repeat-x bottom;
 }
 
 button.spell {
