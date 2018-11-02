@@ -26,14 +26,14 @@
       class="rounded-bottom">
         <model
           :vertical-axis="canvas.width * player.verticalAxis"
-          :bottom-line="canvas.height-10"
+          :bottom-line="canvas.height - player.bottomLine"
           :model="player.model"
           :scale="player.scale"
           :renderTrigger="renderTrigger"
           class="player"></model>
         <model
           :vertical-axis="canvas.width * enemy.verticalAxis"
-          :bottom-line="canvas.height-10"
+          :bottom-line="canvas.height - enemy.bottomLine"
           :model="enemy.model"
           :scale="enemy.scale"
           :renderTrigger="renderTrigger"
@@ -85,7 +85,7 @@ import animations from '../scripts/animations/index.js';
 import { decreaseNotOver, increaseNotOver } from '../scripts/utils.js';
 
 // TODO: we need an another way to show spell images
-const spells = [
+const SPELLS = [
   {
     name: 'Вада'
     // symbol: '🌊'
@@ -104,6 +104,21 @@ const spells = [
   }
 ];
 
+const HEALTH = 100;
+const ENEMY_HEALTH_INCREMENT = 20;
+
+const PLAYER_SCALE = 0.6;
+const ENEMY_SCALE = 0.4;
+const ENEMY_SCALE_INCREMENT = 0.1;
+const ENEMY_SCALE_CEILING = 0.8;
+
+const PLAYER_VERTICAL_AXIS = 1 / 5;
+const ENEMY_VERTICAL_AXIS = 4 / 5;
+
+const BOTTOM_LINE = 10;
+
+const SPELL_POWER = 40;
+
 export default {
   components: {
     SpellCanvas,
@@ -117,25 +132,26 @@ export default {
     return {
       enemy: {
         name: getRandomName(),
-        health: 100,
-        healthMax: 100,
+        health: HEALTH,
+        healthMax: HEALTH,
         model: createRandomModel(),
-        scale: 0.4,
-        verticalAxis: 4 / 5
+        scale: ENEMY_SCALE,
+        verticalAxis: ENEMY_VERTICAL_AXIS,
+        bottomLine: BOTTOM_LINE
       },
       player: {
         name: undefined,
-        health: 100,
-        healthMax: 100,
+        health: HEALTH,
+        healthMax: HEALTH,
         model: createRandomModel(),
-        scale: 0.6,
-        verticalAxis: 1 / 5
+        scale: PLAYER_SCALE,
+        verticalAxis: PLAYER_VERTICAL_AXIS,
+        bottomLine: BOTTOM_LINE
       },
       numOfWins: 0,
-      spells: spells,
       spell: {
         current: undefined,
-        power: 40,
+        power: SPELL_POWER,
         animation: undefined,
         runAnimationTrigger: false,
         verticalAxis: undefined
@@ -165,19 +181,19 @@ export default {
       // TODO: rework this ugly method
       // choose task
       switch (this.spell.current) {
-        case this.spells[0].name:
+        case SPELLS[0].name:
           this.task = tasks.Translation;
           this.spell.animation = animations.Raindrop;
           break;
-        case this.spells[1].name:
+        case SPELLS[1].name:
           this.task = tasks.Arithmethic;
           this.spell.animation = animations.Lightnings;
           break;
-        case this.spells[2].name:
+        case SPELLS[2].name:
           this.task = tasks.Sorting;
           this.spell.animation = animations.Fire;
           break;
-        case this.spells[3].name:
+        case SPELLS[3].name:
           this.task = tasks.Audition;
           this.spell.animation = animations.Lightnings;
           break;
@@ -216,9 +232,13 @@ export default {
       }
     },
     newRound() {
-      this.enemy.healthMax += this.numOfWins * 20;
+      this.enemy.healthMax += this.numOfWins * ENEMY_HEALTH_INCREMENT;
       this.enemy.health = this.enemy.healthMax;
-      this.enemy.scale = increaseNotOver(this.enemy.scale, 0.1, 0.8);
+      this.enemy.scale = increaseNotOver(
+        this.enemy.scale,
+        ENEMY_SCALE_INCREMENT,
+        ENEMY_SCALE_CEILING
+      );
       this.enemy.name = getRandomName();
       this.enemy.model = createRandomModel();
 
@@ -240,6 +260,9 @@ export default {
     triggerSpellAnimation() {
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
     }
+  },
+  created: function() {
+    this.spells = SPELLS;
   },
   mounted: function() {
     this.player.name = this.$store.state.player.name;
