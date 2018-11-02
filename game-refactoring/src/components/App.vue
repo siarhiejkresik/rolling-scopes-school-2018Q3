@@ -1,11 +1,11 @@
 <template>
   <main id="app">
   <transition name="fade" mode="out-in">
-    <landing-view
-      v-if="view === 'LANDING'"
+    <menu-view
+      v-if="view === 'MENU'"
       @startGame='onStartGame'
       @showScores='onShowScores'>
-    </landing-view>
+    </menu-view>
     <loading-view
       v-else-if="view === 'LOADING'"
       @loaded='onLoaded'>
@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      view: 'LANDING'
+      view: 'MENU'
     };
   },
   computed: {
@@ -54,7 +54,7 @@ export default {
       this.$store.state.player.name === undefined ? (this.view = 'LOGIN') : (this.view = 'BATTLE');
     },
     onExitGame() {
-      this.view = 'LANDING';
+      this.view = 'MENU';
     },
     onShowScores() {
       this.view = 'SCORES';

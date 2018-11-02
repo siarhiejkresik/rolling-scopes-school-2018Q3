@@ -1,13 +1,13 @@
 import BattleView from './BattleView.vue';
-import LandingView from './LandingView.vue';
 import LoadingView from './LoadingView.vue';
 import LoginView from './LoginView.vue';
+import MenuView from './MenuView.vue';
 import ScoresView from './ScoresView.vue';
 
 export default {
   BattleView,
-  LandingView,
   LoadingView,
   LoginView,
+  MenuView,
   ScoresView
 };
