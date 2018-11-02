@@ -73,13 +73,13 @@
 import getRandomName from '../scripts/MonsterName.js';
 import { createRandomModel } from '../scripts/MonsterModel.js';
 
-import ModelStats from './ModelStats.vue';
-import Model from './Model.vue';
-import SpellCanvas from './SpellCanvas.vue';
-import SpellChooser from './SpellChooser.vue';
-import Tasks from './Tasks.vue';
+import ModelStats from '../components/ModelStats.vue';
+import Model from '../components/Model.vue';
+import SpellCanvas from '../components/SpellCanvas.vue';
+import SpellChooser from '../components/SpellChooser.vue';
+import Tasks from '../components/Tasks.vue';
 
-import tasks from './tasks/index.js';
+import tasks from '../components/tasks/index.js';
 import animations from '../scripts/animations/index.js';
 
 import { decreaseNotOver, increaseNotOver } from '../scripts/utils.js';

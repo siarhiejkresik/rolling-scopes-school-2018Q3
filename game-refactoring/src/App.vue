@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import views from './views.js';
+import views from './screens/index.js';
 
 export default {
   name: 'app',
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style>
-@import url('../assets/styles/latofonts.css');
+@import url('./assets/styles/latofonts.css');
 body,
 html {
   margin: 0;
