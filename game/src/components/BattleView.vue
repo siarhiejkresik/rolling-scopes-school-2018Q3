@@ -288,7 +288,7 @@ export default {
 
       this.player.health = this.player.healthMax;
 
-      this.ctx.clearRect(0, 0, 1200, 700);
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.renderTrigger = !this.renderTrigger;
     },
     gameEnd() {
