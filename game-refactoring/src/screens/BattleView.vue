@@ -214,7 +214,7 @@ export default {
     },
     onTaskFail() {
       this.spell.verticalAxis = this.player.verticalAxis;
-      this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
+      this.triggerSpellAnimation();
       setTimeout(() => {
         this.spell.animation = undefined;
         this.player.health = decreaseNotOver(this.player.health, this.spell.power, 0);
