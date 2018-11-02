@@ -24,8 +24,7 @@ body {
   font-family: 'Lato', 'Segoe UI', sans-serif;
 }
 
-body main > section,
-body > footer {
+body main > section {
   padding-left: var(--content-indent);
   padding-right: var(--content-indent);
 }

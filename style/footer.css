@@ -1,9 +1,20 @@
-body > footer {
+.footer {
+  padding-left: var(--content-indent);
+  padding-right: var(--content-indent);
   background: #2a2a2a;
   color: #686868;
-  font-weight: 400;
   font-size: 15px;
-  line-height: 1.5em;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.5s;
+}
+
+.footer a:hover {
+  color: #ffffff;
+  transition: color 0.5s;
 }
 
 .footer-header {
@@ -16,61 +27,51 @@ body > footer {
 
 .footer-nav {
   display: flex;
-  list-style: none;
 }
 
 .footer-nav a {
   font-size: 13px;
-  line-height: 1;
-  text-decoration: none;
-  color: inherit;
   margin-left: 45px;
   font-weight: 700;
-}
-
-.footer-nav a.active,
-.footer-nav a:hover {
-  color: #ffffff;
 }
 
 .footer-main {
   padding-top: 34px;
   padding-bottom: 34px;
+  line-height: 26px;
   display: grid;
   grid-template-columns: 377px auto 318px;
 }
 
 .footer-main > * {
-  padding: 20px;
+  padding: 16px;
   border-right: 1px solid #474747;
 }
 
 .footer-main > :first-child {
   padding-left: 0;
-  padding-right: 84px;
-  /* outline: 1px dotted red; */
+  padding-right: 80px;
 }
 
 .footer-main > :last-child {
   padding-right: 0;
-  padding-left: 78px;
+  padding-left: 80px;
   border-right: unset;
 }
 
 .footer-links {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  margin-left: 92px;
+  margin-right: 23px;
+  line-height: 29px;
+  columns: 2;
 }
 
-.footer-main a {
-  text-decoration: none;
-  color: #686868;
+.footer-main .design-by {
+  margin-top: 12px;
 }
 
-.footer-main a:hover {
-  text-decoration: none;
-  color: #ffffff;
+.footer-main .design-by b {
+  font-weight: 700;
 }
 
 .footer-links a::before {
@@ -79,34 +80,32 @@ body > footer {
   content: '\f105';
 }
 
-.footer-main a[href^='tel:']::before {
+.phone a::before {
   font-family: 'FontAwesome';
   content: '\f095';
   font-size: 15px;
   vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
-.footer-main a[href^='mailto:']::before {
+
+.mail a::before {
   font-family: 'FontAwesome';
   content: '\f0e0';
   font-size: 13px;
 }
 
-.footer-main .fa,
 .footer-main a::before {
   padding-right: 8px;
+  transition: padding-right 0.5s;
+}
+
+.footer-links a:hover::before {
+  padding-right: 15px;
   transition: padding-right 0.25s;
 }
 
-.footer-main .fa,
-.footer-links a:hover::before {
-  padding-right: 15px;
-}
-
-.footer-main .fa-envelope {
-  font-size: 13px;
-}
-
-address {
-  font-style: unset;
-  line-height: 2;
+.footer-main address {
+  font-style: inherit;
+  line-height: 29px;
 }
