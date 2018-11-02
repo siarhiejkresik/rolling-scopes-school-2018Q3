@@ -289,11 +289,6 @@ export default {
   },
   mounted: function() {
     this.player.name = this.$store.state.player.name;
-  },
-  watch: {
-    spell: function() {
-      console.log('BATTLE this.spell.animation', this.spell.animation);
-    }
   }
 };
 </script>
