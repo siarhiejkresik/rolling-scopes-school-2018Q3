@@ -20,7 +20,7 @@ export default {
   methods: {
     draw() {
       // offsets
-      const shoesOffsets = { x: 84, y: -this.model.shoes.height };
+      const shoesOffsets = { x: 86, y: -this.model.shoes.height };
 
       const skinLegOffsets = {
         x: 52,
