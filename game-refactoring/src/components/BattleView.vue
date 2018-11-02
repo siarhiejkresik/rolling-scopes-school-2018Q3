@@ -244,6 +244,7 @@ export default {
       event.preventDefault();
       setTimeout(() => {
         this.task.showTask = false;
+        this.task.current = undefined;
         this.task.isRightAnswer ? this.onTaskSuccess() : this.onTaskFail();
       }, 2000);
       this.task.isRightAnswer
