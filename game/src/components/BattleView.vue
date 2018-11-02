@@ -85,17 +85,15 @@
 <script>
 import getRandomName from '../scripts/MonsterName.js';
 import { createRandomModel } from '../scripts/MonsterModel.js';
-import * as animations from '../scripts/Animations/index.js';
 
 import ModelStats from './ModelStats.vue';
 import Model from './Model.vue';
 import SpellCanvas from './SpellCanvas.vue';
 import SpellChooser from './SpellChooser.vue';
 
-import Arithmethic from './tasks/Arithmethic.vue';
-import Audition from './tasks/Audition.vue';
-import Sorting from './tasks/Sorting.vue';
-import Translation from './tasks/Translation.vue';
+import * as tasks from './tasks/index.js';
+import * as animations from '../scripts/Animations/index.js';
+
 
 const spells = [
   {
@@ -143,10 +141,7 @@ export default {
     SpellChooser,
     Model,
     ModelStats,
-    Arithmethic,
-    Audition,
-    Sorting,
-    Translation
+    ...tasks
   },
   data() {
     return {
