@@ -95,8 +95,8 @@ import Model from './Model.vue';
 import SpellCanvas from './SpellCanvas.vue';
 import SpellChooser from './SpellChooser.vue';
 
-import * as tasks from './tasks/index.js';
-import * as animations from '../scripts/Animations/index.js';
+import tasks from './tasks/index.js';
+import animations from '../scripts/Animations/index.js';
 
 import { decreaseNotOver, increaseNotOver } from '../scripts/utils.js';
 
