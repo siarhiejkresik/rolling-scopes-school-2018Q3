@@ -18,6 +18,7 @@
 <script>
 import Mixin from './Mixin.js';
 import { randomArrayElement } from '../../scripts/utils.js';
+
 import translations from '../../assets/data/translations.json';
 
 export default {

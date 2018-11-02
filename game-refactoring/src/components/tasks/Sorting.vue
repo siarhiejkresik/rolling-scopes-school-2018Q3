@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import { randomArrayElement } from '../../scripts/utils.js';
-import words from '../../assets/data/words.json';
-
 import Mixin from './Mixin.js';
 import draggable from './Draggable.vue';
+import { randomArrayElement } from '../../scripts/utils.js';
+
+import words from '../../assets/data/words.json';
 
 export default {
   components: {
