@@ -28,12 +28,12 @@
 </template>
 
 <script>
-import views from './screens/index.js';
+import screens from './screens/index.js';
 
 export default {
   name: 'app',
   components: {
-    ...views
+    ...screens
   },
   data() {
     return {
