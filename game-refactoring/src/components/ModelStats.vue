@@ -13,17 +13,32 @@
 </template>
 
 <script>
+const HEALTH = {
+  NORMAL: {
+    part: 0.4,
+    style: 'info'
+  },
+  LOW: {
+    part: 0.25,
+    style: 'warning'
+  },
+  CRITICAL: {
+    part: 0,
+    style: 'danger'
+  }
+};
+
 export default {
   props: ['name', 'health', 'healthMax', 'isRight'],
   computed: {
     healthBarColorVariant() {
       const part = this.health / this.healthMax;
-      if (part > 0.40) {
-        return 'info';
-      } else if (part > 0.25) {
-        return 'warning';
+      if (part > HEALTH.NORMAL.part) {
+        return HEALTH.NORMAL.style;
+      } else if (part > HEALTH.LOW.part) {
+        return HEALTH.LOW.style;
       }
-      return 'danger';
+      return HEALTH.CRITICAL.style;
     }
   }
 };
