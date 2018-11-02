@@ -15,6 +15,9 @@ export default {
   computed: {
     ctx() {
       return this.$parent.ctx; // TODO: bad
+    },
+    modelResources() {
+      return this.$store.state.assets.resources.model;
     }
   },
   methods: {
@@ -75,27 +78,24 @@ export default {
       this.drawElement(this.model.pants, pantsOffsets);
     },
     drawElement(element, offsets, mirror = false) {
-      let img = new Image();
-      img.onload = () => {
-        this.ctx.save();
-        if (mirror) {
-          this.ctx.scale(-1, 1);
-          this.ctx.translate(-2 * this.verticalAxis, 0);
-        }
-        this.ctx.drawImage(
-          img,
-          element.x,
-          element.y,
-          element.width,
-          element.height,
-          this.verticalAxis + offsets.x * this.scale - element.width * this.scale / 2,
-          this.bottomLine + offsets.y * this.scale,
-          element.width * this.scale,
-          element.height * this.scale
-        );
-        this.ctx.restore();
-      };
-      img.src = require('../assets/data/model/' + element.file);
+      let img = this.modelResources[element.file];
+      this.ctx.save();
+      if (mirror) {
+        this.ctx.scale(-1, 1);
+        this.ctx.translate(-2 * this.verticalAxis, 0);
+      }
+      this.ctx.drawImage(
+        img,
+        element.x,
+        element.y,
+        element.width,
+        element.height,
+        this.verticalAxis + offsets.x * this.scale - element.width * this.scale / 2,
+        this.bottomLine + offsets.y * this.scale,
+        element.width * this.scale,
+        element.height * this.scale
+      );
+      this.ctx.restore();
     }
   },
   watch: {
