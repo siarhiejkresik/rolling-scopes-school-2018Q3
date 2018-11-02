@@ -45,7 +45,6 @@ export default {
   },
   data() {
     return {
-      // view: 'BATTLE'
       view: 'LANDING'
     };
   },
@@ -96,14 +95,15 @@ body {
   justify-content: center;
   align-items: center;
   background: repeating-linear-gradient(45deg, #dedede 2px, #dadada 3px, #dadada 4px, #dedede 7px);
-  font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .fade-enter-active {
-  transition: all .8s ease-out;
+  transition: all 0.8s ease-out;
 }
 .fade-leave-active {
-  transition: all .8s ease-out;
+  transition: all 0.8s ease-out;
 }
 .fade-enter,
 .fade-leave-to {
