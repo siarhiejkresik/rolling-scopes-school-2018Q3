@@ -80,7 +80,7 @@ class Raindrops {
   }
 }
 
-function init() {
+function playAnimation() {
   raindrops = new Raindrops();
   loop();
 }
@@ -100,13 +100,24 @@ function loop() {
   }
 }
 
+import soundSource from '../../assets/sounds/Raindrops.ogg';
+const playSound = (src, duration) => {
+  const audio = document.getElementById('audio');
+  audio.src = src;
+  audio.type = 'audio/ogg; codecs="vorbis"';
+  audio.play();
+  setTimeout(() => {
+    audio.pause();
+    audio.src = undefined;
+  }, duration);
+};
+
 export default function run(context, verticalAxis) {
   start = new Date().getTime();
   duration = 5000;
   ctx = context;
   ctx.save();
   initCanvas(verticalAxis);
-  init();
+  playSound(soundSource, duration);
+  playAnimation();
 }
-
-
