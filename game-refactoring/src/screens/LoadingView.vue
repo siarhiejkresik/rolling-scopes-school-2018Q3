@@ -1,3 +1,8 @@
+/* A simple component to show a message and a spinner while your application loads.
+
+You can show a loading message by setting 'message' property.
+*/
+
 <template>
   <div class="container flex-centered">
     <div class="content flex-centered flex-column">
