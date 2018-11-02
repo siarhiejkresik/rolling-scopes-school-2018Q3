@@ -112,7 +112,7 @@ const spells = [
   },
   {
     name: 'Маланка'
-    // symbol: '🌀'
+    // symbol: '⚡'
   }
 ];
 
@@ -200,20 +200,21 @@ export default {
       if (!this.spell.current) {
         return;
       }
+      // TODO: rework this ugly method
       // choose task
       this.task.newTaskTrigger = !this.task.newTaskTrigger;
       switch (this.spell.current) {
         case this.spells[0].name:
           this.task.current = 'Translation';
-          this.spell.animation = animations.Raindrop;
+          this.spell.animation = animations.Fire;
           break;
         case this.spells[1].name:
           this.task.current = 'Arithmethic';
-          this.spell.animation = animations.Lightnings;
+          this.spell.animation = animations.Raindrop;
           break;
         case this.spells[2].name:
           this.task.current = 'Sorting';
-          this.spell.animation = animations.Raindrop;
+          this.spell.animation = animations.Lightnings;
           break;
         case this.spells[3].name:
           this.task.current = 'Audition';
