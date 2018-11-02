@@ -17,23 +17,25 @@
 import Mixin from './Mixin.js';
 import { randomInt, randomObjectElement } from '../../scripts/utils.js';
 
+const OPTIONS = {
+  maxNumber: 999,
+  maxDivMulNumbers: {
+    a: 49,
+    b: 20
+  }
+};
+
+const OPERATIONS = {
+  add: '+',
+  sub: '-',
+  mul: '×',
+  div: '÷'
+};
+
 export default {
   mixins: [Mixin],
   data() {
     return {
-      options: {
-        maxNumber: 999,
-        maxDivMulNumbers: {
-          a: 49,
-          b: 20
-        }
-      },
-      operations: {
-        add: '+',
-        sub: '-',
-        mul: '×',
-        div: '÷'
-      },
       operation: undefined,
       answer: null
     };
@@ -45,12 +47,12 @@ export default {
     numbers() {
       let numbers;
       switch (this.operation) {
-        case this.operations.add:
-        case this.operations.sub:
+        case OPERATIONS.add:
+        case OPERATIONS.sub:
           numbers = this.generateAddSubNumbers();
           break;
-        case this.operations.mul:
-        case this.operations.div:
+        case OPERATIONS.mul:
+        case OPERATIONS.div:
           numbers = this.generateDivMulNumbers();
           break;
         // TODO:
@@ -59,8 +61,8 @@ export default {
         //   throw new Error('unknow operation');
       }
       switch (this.operation) {
-        case this.operations.sub:
-        case this.operations.div:
+        case OPERATIONS.sub:
+        case OPERATIONS.div:
           [numbers.a, numbers.result] = [numbers.result, numbers.a];
       }
       return numbers;
@@ -78,16 +80,16 @@ export default {
       let operationNew = this.operation;
       // TODO: possible infinite loop
       while (this.operation === operationNew) {
-        operationNew = randomObjectElement(this.operations);
+        operationNew = randomObjectElement(OPERATIONS);
       }
       return operationNew;
     },
     generateAddSubNumbers() {
-      const x = randomInt(this.options.maxNumber) + 1;
+      const x = randomInt(OPTIONS.maxNumber) + 1;
       let y = x;
       // TODO: possible infinite loop
       while (y === x) {
-        y = randomInt(this.options.maxNumber - 1) + 1;
+        y = randomInt(OPTIONS.maxNumber - 1) + 1;
       }
       const a = Math.min(x, y);
       const sum = Math.max(x, y);
@@ -95,8 +97,8 @@ export default {
       return { a: a, b: b, result: sum };
     },
     generateDivMulNumbers() {
-      const a = randomInt(this.options.maxDivMulNumbers.a) + 1;
-      const b = randomInt(this.options.maxDivMulNumbers.b) + 1;
+      const a = randomInt(OPTIONS.maxDivMulNumbers.a) + 1;
+      const b = randomInt(OPTIONS.maxDivMulNumbers.b) + 1;
       const mul = a * b;
       return { a: a, b: b, result: mul };
     }

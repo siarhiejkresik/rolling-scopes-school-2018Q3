@@ -23,7 +23,6 @@ export default {
   mixins: [Mixin],
   data() {
     return {
-      words: words,
       word: undefined,
       answer: undefined
     };
@@ -35,7 +34,7 @@ export default {
   },
   methods: {
     generateNewTask() {
-      this.word = randomArrayElement(this.words);
+      this.word = randomArrayElement(words);
       this.answer = this.word
         .split('')
         .sort(() => 0.5 - Math.random())

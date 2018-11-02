@@ -21,14 +21,13 @@ export default {
   mixins: [Mixin],
   data() {
     return {
-      translations: translations,
       answer: null,
       word: undefined
     };
   },
   computed: {
     correctAnswers() {
-      return this.translations[this.word];
+      return translations[this.word];
     },
     isCorrectAnswer() {
       return this.word !== undefined && this.correctAnswers.includes(this.answer);
@@ -36,8 +35,7 @@ export default {
   },
   methods: {
     generateNewTask() {
-      this.answer = null;
-      this.word = randomArrayElement(Object.keys(this.translations));
+      this.word = randomArrayElement(Object.keys(translations));
     }
   }
 };
