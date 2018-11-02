@@ -95,7 +95,7 @@ export default {
         );
         this.ctx.restore();
       };
-      img.src = require('../assets/images/models/' + element.file);
+      img.src = require('../assets/data/model/' + element.file);
     }
   },
   watch: {

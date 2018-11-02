@@ -1,4 +1,4 @@
-import model from '../../assets/images/models/model';
+import model from '../../assets/data/model/model';
 import { imageLoader, loadResources } from '../../scripts/preloader.js';
 
 const state = {
