@@ -2,26 +2,26 @@
   <main id="app">
   <transition name="fade" mode="out-in">
     <menu-view
-      v-if="view === 'MENU'"
+      v-if="view === VIEWS.MENU"
       @startGame='onStartGame'
       @showScores='onShowScores'>
     </menu-view>
     <loading-view
-      v-else-if="view === 'LOADING'"
+      v-else-if="view === VIEWS.LOADING"
       message="ПАЧАКАЙЦЕ"
       @loaded='onLoaded'>
     </loading-view>
     <login-view
-      v-else-if="view === 'LOGIN'"
+      v-else-if="view === VIEWS.LOGIN"
       @logIn='onLogIn'>
     </login-view>
     <battle-view
-      v-else-if="view === 'BATTLE'"
+      v-else-if="view === VIEWS.BATTLE"
       @exitGame='onExitGame'
       @showScores='onShowScores'>
     </battle-view>
     <scores-view
-      v-else-if="view === 'SCORES'"
+      v-else-if="view === VIEWS.SCORES"
       @exitGame='onExitGame'>
     </scores-view> 
   </transition>    
@@ -31,6 +31,14 @@
 <script>
 import screens from './screens/index.js';
 
+const VIEWS = {
+  MENU: 0,
+  LOADING: 1,
+  LOGIN: 2,
+  BATTLE: 3,
+  SCORES: 4
+};
+
 export default {
   name: 'app',
   components: {
@@ -38,7 +46,7 @@ export default {
   },
   data() {
     return {
-      view: 'MENU'
+      view: undefined
     };
   },
   computed: {
@@ -52,20 +60,20 @@ export default {
   methods: {
     onStartGame() {
       if (!this.isLoggedIn) {
-        this.view = 'LOGIN';
+        this.view = this.VIEWS.LOGIN;
         return;
       }
       if (!this.isLoaded) {
-        this.view = 'LOADING';
+        this.view = this.VIEWS.LOADING;
         return;
       }
-      this.view = 'BATTLE';
+      this.view = this.VIEWS.BATTLE;
     },
     onExitGame() {
-      this.view = 'MENU';
+      this.view = this.VIEWS.MENU;
     },
     onShowScores() {
-      this.view = 'SCORES';
+      this.view = this.VIEWS.SCORES;
     },
     onLogIn(playerName) {
       this.$store.commit('player/setName', playerName);
@@ -74,10 +82,14 @@ export default {
   },
   watch: {
     isLoaded: function() {
-      if (this.isLoaded && this.view === 'LOADING') {
+      if (this.isLoaded && this.view === this.views.LOADING) {
         this.onStartGame();
       }
     }
+  },
+  created: function() {
+    this.VIEWS = VIEWS;
+    this.view = VIEWS.MENU;
   },
   mounted: function() {
     this.$store.dispatch('assets/load');
