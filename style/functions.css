@@ -1,6 +1,5 @@
 .functions {
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding: 48px var(--content-indent);
   display: flex;
   justify-content: space-between;
 }
@@ -9,23 +8,15 @@
   width: 226px;
   text-align: center;
   padding-top: 32px;
-  padding-bottom: 45px;
+  padding-bottom: 49px;
   color: #7e7e7e;
   line-height: 1.4;
 }
 
-.function h3 {
-  font-weight: 700;
-  font-size: 18px;
-  color: #303030;
-  /* margin-bottom:10px; */
-}
-
 .function .icon {
-  /* outline: 1px dotted red; */
   width: 60px;
   height: 60px;
-  margin: 20px auto;
+  margin: 20px auto 16px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -33,4 +24,10 @@
   color: #ffffff;
   font-size: 28px;
   box-shadow: 0px 3px 3px #dcdcdc;
+}
+
+.function h3 {
+  font-weight: 700;
+  font-size: 18px;
+  color: #303030;
 }
