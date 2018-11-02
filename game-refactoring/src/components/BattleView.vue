@@ -289,6 +289,10 @@ button.spell {
   transform: translate(-50%, 0);
 }
 
+button.spell:focus {
+  box-shadow: 0px 0 30px 0.1rem var(--primary);
+}
+
 button.exit {
   position: absolute;
   right: 0%;
