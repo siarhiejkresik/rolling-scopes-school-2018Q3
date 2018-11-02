@@ -12,17 +12,6 @@
           variant="link"
           @click="$emit('showScores')">Дасягненні</b-button>
     </section>
-
-    <section>
-      <h2>
-        Выявы
-      </h2> 
-      <carousel></carousel>
-    </section>
-
-    <section>
-      Зроблена:
-    </section>
   </section>
 </template>
 
