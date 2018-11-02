@@ -17,4 +17,8 @@ const increaseNotOver = (variable, value, bound) => {
   return variable + value > bound ? bound : variable + value;
 };
 
-export { randomArrayElement, randomObjectElement, randomInt, decreaseNotOver, increaseNotOver };
+const pause = time => {
+  return new Promise(resolve => {
+    setTimeout(resolve, time);
+  });
+};
