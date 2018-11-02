@@ -10,4 +10,11 @@ const randomArrayElement = array => {
 
 const randomObjectElement = obj => obj[randomArrayElement(Object.keys(obj))];
 
-export { randomArrayElement, randomObjectElement, randomInt };
+const decreaseNotOver = (variable, value, bound) => {
+  return variable - value < bound ? bound : variable - value;
+};
+const increaseNotOver = (variable, value, bound) => {
+  return variable + value > bound ? bound : variable + value;
+};
+
+export { randomArrayElement, randomObjectElement, randomInt, decreaseNotOver, increaseNotOver };
