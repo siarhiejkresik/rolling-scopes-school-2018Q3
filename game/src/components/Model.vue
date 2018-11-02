@@ -39,7 +39,7 @@ export default {
       const neckOffsets = { x: 0, y: shirtOffsets.y - this.model.skin.neck.height + 30 };
       const headOffsets = { x: 0, y: neckOffsets.y - this.model.skin.head.height + 10 };
       const hairOffsets = {
-        x: 0,
+        x: this.model.hair.width > 160 ? 8 : 0, // TODO: hardcoded
         y: headOffsets.y + this.model.skin.head.height / 2 - this.model.hair.height + 15
       };
       const faceOffsets = {
