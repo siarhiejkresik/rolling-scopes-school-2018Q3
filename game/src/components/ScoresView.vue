@@ -29,7 +29,7 @@ export default {
       fields: [
         { key: 'index', label: 'Месца' },
         { key: 'playerName', label: 'Імя гульца' },
-        { key: 'numOfMobs', label: 'Перамог' }
+        { key: 'numOfWins', label: 'Перамог' }
       ]
     };
   },
