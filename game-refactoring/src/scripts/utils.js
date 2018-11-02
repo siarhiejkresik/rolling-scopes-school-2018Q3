@@ -22,3 +22,12 @@ const pause = time => {
     setTimeout(resolve, time);
   });
 };
+
+export {
+  randomArrayElement,
+  randomObjectElement,
+  randomInt,
+  decreaseNotOver,
+  increaseNotOver,
+  pause
+};
