@@ -22,16 +22,18 @@
 <script>
 import draggable from 'vuedraggable';
 
-const state = {
-  undefined: 0,
-  focused: 1,
-  selected: 2
+const STATE = {
+  UNDEFINED: 0,
+  FOCUSED: 1,
+  SELECTED: 2,
+  SUBMIT: 3
 };
 
-const keys = {
-  select: 'Space',
-  toRight: 'ArrowRight',
-  toLeft: 'ArrowLeft'
+const KEYS = {
+  SELECT: 'Space',
+  TO_RIGHT: 'ArrowRight',
+  TO_LEFT: 'ArrowLeft',
+  SUBMIT: 'Enter'
 };
 
 const toArray = string => string.split('');
@@ -50,15 +52,15 @@ export default {
     return {
       letters: toArray(this.word),
       letterIndex: undefined,
-      letterState: state.undefined
+      letterState: STATE.UNDEFINED
     };
   },
   computed: {
     isLetterFocused() {
-      return this.letterState === state.focused;
+      return this.letterState === STATE.FOCUSED;
     },
     isLetterSelected() {
-      return this.letterState === state.selected;
+      return this.letterState === STATE.SELECTED;
     }
   },
   methods: {
@@ -101,15 +103,15 @@ export default {
     },
     onSelectLetter() {
       switch (this.letterState) {
-        case state.undefined: {
+        case STATE.UNDEFINED: {
           return;
         }
-        case state.focused: {
-          this.letterState = state.selected;
+        case STATE.FOCUSED: {
+          this.letterState = STATE.SELECTED;
           break;
         }
-        case state.selected: {
-          this.letterState = state.focused;
+        case STATE.SELECTED: {
+          this.letterState = STATE.FOCUSED;
           break;
         }
         default: {
@@ -118,12 +120,12 @@ export default {
       }
     },
     resetLetter() {
-      this.letterState = state.undefined;
+      this.letterState = STATE.UNDEFINED;
       this.letterIndex = undefined;
     },
     unsetUndefinedLetterState() {
-      if (this.letterState === state.undefined) {
-        this.letterState = state.focused;
+      if (this.letterState === STATE.UNDEFINED) {
+        this.letterState = STATE.FOCUSED;
       }
     },
     changed() {
@@ -131,18 +133,23 @@ export default {
     },
     keyHandler(e) {
       switch (e.code) {
-        case keys.select: {
+        case KEYS.SELECT: {
           this.onSelectLetter();
           break;
         }
-        case keys.toRight: {
+        case KEYS.TO_RIGHT: {
           this.unsetUndefinedLetterState();
           this.onMoveRight();
           break;
         }
-        case keys.toLeft: {
+        case KEYS.TO_LEFT: {
           this.unsetUndefinedLetterState();
           this.onMoveLeft();
+          break;
+        }
+        case KEYS.SUBMIT: {
+          this.resetLetter();
+          this.$emit('submit');
           break;
         }
       }
