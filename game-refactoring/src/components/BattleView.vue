@@ -80,7 +80,7 @@ import SpellChooser from './SpellChooser.vue';
 import Tasks from './Tasks.vue';
 
 import tasks from './tasks/index.js';
-import animations from '../scripts/Animations/index.js';
+import animations from '../scripts/animations/index.js';
 
 import { decreaseNotOver, increaseNotOver } from '../scripts/utils.js';
 
