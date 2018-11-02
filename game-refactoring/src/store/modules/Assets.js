@@ -1,21 +1,18 @@
-import model from '../../assets/data/model/model';
-import { imageLoader, loadResources } from '../../scripts/preloader.js';
+import config from '../../scripts/preload/assets/index.js';
+import load from '../../scripts/preload/preloader';
 
 const state = {
   isLoaded: false,
-  resources: []
+  resources: undefined
 };
 
 const mutations = {
   load(state) {
-    loadResources(model, imageLoader).then(imgs => {
-      // TODO: fix "Error: [vuex] Do not mutate vuex store state outside mutation handlers."
-      state.resources.push(imgs);
-      mutations.setLoaded(state);
+    // TODO: fix `Error: [vuex] Do not mutate vuex store state outside mutation handlers.`
+    load(config).then(resources => {
+      state.resources = resources;
+      state.isLoaded = true;
     });
-  },
-  setLoaded(state) {
-    state.isLoaded = true;
   }
 };
 
