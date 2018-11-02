@@ -22,7 +22,7 @@
 <script>
 import draggable from 'vuedraggable';
 
-const letterState = {
+const state = {
   undefined: 0,
   focused: 1,
   selected: 2
@@ -50,15 +50,15 @@ export default {
     return {
       letters: toArray(this.word),
       letterIndex: undefined,
-      letterState: letterState.undefined
+      letterState: state.undefined
     };
   },
   computed: {
     isLetterFocused() {
-      return this.letterState === letterState.focused;
+      return this.letterState === state.focused;
     },
     isLetterSelected() {
-      return this.letterState === letterState.selected;
+      return this.letterState === state.selected;
     }
   },
   methods: {
@@ -101,15 +101,15 @@ export default {
     },
     onSelectLetter() {
       switch (this.letterState) {
-        case letterState.undefined: {
+        case state.undefined: {
           return;
         }
-        case letterState.focused: {
-          this.letterState = letterState.selected;
+        case state.focused: {
+          this.letterState = state.selected;
           break;
         }
-        case letterState.selected: {
-          this.letterState = letterState.focused;
+        case state.selected: {
+          this.letterState = state.focused;
           break;
         }
         default: {
@@ -118,12 +118,12 @@ export default {
       }
     },
     resetLetter() {
-      this.letterState = letterState.undefined;
+      this.letterState = state.undefined;
       this.letterIndex = undefined;
     },
     unsetUndefinedLetterState() {
-      if (this.letterState === letterState.undefined) {
-        this.letterState = letterState.focused;
+      if (this.letterState === state.undefined) {
+        this.letterState = state.focused;
       }
     },
     changed() {
