@@ -99,20 +99,20 @@ import { decreaseNotOver, increaseNotOver } from '../scripts/utils.js';
 // TODO: we need an another way to show spell images
 const spells = [
   {
-    name: 'Агонь'
-    // symbol: '🔥'
-  },
-  {
     name: 'Вада'
     // symbol: '🌊'
   },
   {
-    name: 'Прырода'
-    // symbol: '🍀'
-  },
-  {
     name: 'Маланка'
     // symbol: '⚡'
+  },
+  {
+    name: 'Агонь'
+    // symbol: '🔥'
+  },
+  {
+    name: 'Прырода'
+    // symbol: '🍀'
   }
 ];
 
@@ -206,15 +206,15 @@ export default {
       switch (this.spell.current) {
         case this.spells[0].name:
           this.task.current = 'Translation';
-          this.spell.animation = animations.Fire;
+          this.spell.animation = animations.Raindrop;
           break;
         case this.spells[1].name:
           this.task.current = 'Arithmethic';
-          this.spell.animation = animations.Raindrop;
+          this.spell.animation = animations.Lightnings;
           break;
         case this.spells[2].name:
           this.task.current = 'Sorting';
-          this.spell.animation = animations.Lightnings;
+          this.spell.animation = animations.Fire;
           break;
         case this.spells[3].name:
           this.task.current = 'Audition';
