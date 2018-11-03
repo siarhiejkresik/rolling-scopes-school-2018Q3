@@ -26,12 +26,6 @@ body {
   font-family: 'Lato', 'Segoe UI', sans-serif;
 }
 
-body main > section {
-  padding-left: var(--content-indent);
-  padding-right: var(--content-indent);
-}
-
-
 .color-yellow {
   color: var(--main-color-yellow);
 }
@@ -71,5 +65,3 @@ body main > section {
 .bg-color-green {
   background-color: var(--main-color-gren);
 }
-
-
