@@ -44,26 +44,31 @@
       <p class="domain-comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor mauris ac
         nulla interdum, id
         molestier.</p>
-      <form>
+      <form class="domain-selector">
         <div>www.</div>
-        <input type="text" placeholder="What do you want?">
-        <select>
-          <option value=".com">.com</option>
-          <option value=".net">.net</option>
-          <option value=".org">.org</option>
-        </select>
+        <input type="text" onfocus="this.placeholder=''" onblur="this.placeholder='What do you want?'">
+        <div class="select-wrapper">
+          <select>
+            <option value=".com">.com</option>
+            <option value=".net">.net</option>
+            <option value=".org">.org</option>
+          </select>
+        </div>
       </form>
-      <div class="domain-table">
-        <div>.COM</div>
-        <div>1 Year</div>
-        <div>$9.00 USD</div>
-        <div>Transfer Price No</div>
-        <div>.NET</div>
-        <div>1 Year</div>
-        <div>$9.00 USD</div>
-        <div>Transfer Price No</div>
-
-      </div>
+      <table class="domain-table">
+        <tr>
+          <td>.COM</td>
+          <td>1 Year</td>
+          <td>$9.00 USD</td>
+          <td>Transfer Price No</td>
+        </tr>
+        <tr>
+          <td>.NET</td>
+          <td>1 Year</td>
+          <td>$9.00 USD</td>
+          <td>Transfer Price No</td>
+        </tr>
+      </table>
     </section>
 
     <section class="packages">
@@ -286,6 +291,42 @@
       </address>
     </div>
   </footer>
+  <script>
+    const isScrolledIntoView = el => {
+      const { top, bottom } = el.getBoundingClientRect();
+      return top >= 0 && bottom <= window.innerHeight;
+    }
+    const animate = (elements, animation, delay = 0, beforeCallback) => {
+      Array.prototype.forEach.call(elements, (el, i) => {
+        setTimeout(() => {
+          if (beforeCallback) {
+            beforeCallback(el)
+          };
+          if (animation) {
+            el.classList.add(animation);
+          }
+        }, i * delay)
+      });
+    }
+    const setElementVisible = el => el.style.visibility = 'visible';
+    const hideCircleArrow = () => {
+      document.getElementById('packages-placeholder').style.opacity = 0;
+    }
+
+    const packages = document.getElementsByClassName('package');
+    const first_pkg = packages[0];
+    if (first_pkg) {
+      const animatePackages = () => {
+        if (isScrolledIntoView(first_pkg)) {
+          hideCircleArrow();
+          animate(packages, 'slide-in-right', 500, setElementVisible);
+          window.removeEventListener('scroll', animatePackages);
+        };
+      }
+      window.addEventListener('scroll', animatePackages);
+    }
+
+  </script>
 
 </body>
 
