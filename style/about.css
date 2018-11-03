@@ -1,5 +1,5 @@
 .about {
-  height: 401px;
+  height: 400px;
   margin: 0px var(--content-indent);
   padding: 106px 0;
   background-image: linear-gradient(to right, #d7d7d7 4px, transparent 4px);
@@ -49,7 +49,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* line-height: 2; */
 }
 
 .person img {
@@ -60,6 +59,7 @@
   margin-bottom: 18px;
 }
 
+.person a:link,
 .person a:visited {
   color: unset;
   text-decoration: none;
@@ -73,7 +73,6 @@
 }
 
 .person-prof {
-  margin-bottom: 11px;
   font-size: 15px;
   font-weight: 400;
 }
@@ -82,15 +81,17 @@
   color: #bfbfbf;
   display: flex;
   align-content: space-between;
+  align-items: center;
 }
 
 .person-social .fa {
-  margin-left: 11px;
-  margin-right: 11px;
+  padding: 11px;
+  transition: color 0.5s;
 }
 
 .person-social .fa:hover {
   color: #1f89ba;
+  transition: color 0.5s;
 }
 
 .person-social .fa-twitter {
