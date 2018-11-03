@@ -1,7 +1,6 @@
 .comments {
   height: 190px;
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding: 48px var(--content-indent);
   color: #ffffff;
   font-size: 20px;
   display: flex;
@@ -54,8 +53,11 @@
   border: 1px solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
+  transition: background-color 0.5s;
 }
 
+.slider-controls li:hover,
 .slider-controls .active {
-  background: #ffffff;
+  background-color: #ffffff;
+  transition: background-color 0.5s;
 }
