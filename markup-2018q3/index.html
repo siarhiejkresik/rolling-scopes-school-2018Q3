@@ -300,43 +300,7 @@
       </address>
     </div>
   </footer>
-  <script>
-    const isScrolledIntoView = el => {
-      const { top, bottom } = el.getBoundingClientRect();
-      return top >= 0 && bottom <= window.innerHeight;
-    }
-    const animate = (elements, animation, delay = 0, beforeCallback) => {
-      Array.prototype.forEach.call(elements, (el, i) => {
-        setTimeout(() => {
-          if (beforeCallback) {
-            beforeCallback(el)
-          };
-          if (animation) {
-            el.classList.add(animation);
-          }
-        }, i * delay)
-      });
-    }
-    const setElementVisible = el => el.style.visibility = 'visible';
-    const hideCircleArrow = () => {
-      document.getElementById('packages-placeholder').style.opacity = 0;
-    }
-
-    const packages = document.getElementsByClassName('package');
-    const first_pkg = packages[0];
-    if (first_pkg) {
-      const animatePackages = () => {
-        if (isScrolledIntoView(first_pkg)) {
-          hideCircleArrow();
-          animate(packages, 'slide-in-right', 500, setElementVisible);
-          window.removeEventListener('scroll', animatePackages);
-        };
-      }
-      window.addEventListener('scroll', animatePackages);
-    }
-
-  </script>
-
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>
