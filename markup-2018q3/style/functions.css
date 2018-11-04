@@ -1,16 +1,22 @@
 .functions {
-  padding: 48px var(--content-indent);
+  padding: 48px calc(var(--content-indent) - 32px);
   display: flex;
   justify-content: space-between;
 }
 
 .function {
-  width: 226px;
+  width: 290px;
   text-align: center;
-  padding-top: 32px;
+  padding: 32px;
   padding-bottom: 49px;
   color: #7e7e7e;
   line-height: 1.4;
+  transition: box-shadow 0.75s;
+}
+
+.function:hover {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.5s;
 }
 
 .function .icon {
@@ -30,4 +36,10 @@
   font-weight: 700;
   font-size: 18px;
   color: #303030;
+}
+
+.function > a {
+  display: block;
+  color: unset;
+  text-decoration: none;
 }
