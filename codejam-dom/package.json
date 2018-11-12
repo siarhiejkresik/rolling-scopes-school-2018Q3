@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "live": "live-server src/"
   },
   "author": "",
   "license": "ISC",
