@@ -1,3 +1,4 @@
+const LOCALSTORAGE_KEY = 'NotifierDisabled';
 const NAVBAR_INDICATORS_GROUP_NAME = 'indicators';
 const INDICATOR_ID_PATTERN = 'id-';
 const MESSAGE_ELEMENT_CLASS = 'message';
@@ -27,6 +28,13 @@ export default class Notifier {
       { target: this.root, event: 'click', fn: this.handleNavBarClickEvent },
       { target: window, event: 'keypress', fn: this.handleKeyPressEvent },
     ];
+  }
+  static isDisabled() {
+    return localStorage.getItem(LOCALSTORAGE_KEY) === String(true);
+  }
+
+  static toggleDisable(boolFlag) {
+    localStorage.setItem(LOCALSTORAGE_KEY, boolFlag);
   }
   renderMessages(messages) {
     const fragment = document.createDocumentFragment();
