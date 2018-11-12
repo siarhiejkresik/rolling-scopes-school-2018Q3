@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 const LOCALSTORAGE_KEY = 'NotifierDisabled';
 const NAVBAR_INDICATORS_GROUP_NAME = 'indicators';
 const INDICATOR_ID_PATTERN = 'id-';
@@ -8,6 +10,7 @@ const KEYS_MAP = {
   CLOSE: 'Digit3',
   DISABLE: 'Digit4',
 };
+
 export default class Notifier {
   constructor(id) {
     this.numberOfMessages = null;
@@ -29,6 +32,41 @@ export default class Notifier {
       { target: window, event: 'keypress', fn: this.handleKeyPressEvent },
     ];
   }
+
+  set activeMessageIndex(messageIndex) {
+    if (messageIndex === this._activeMessageIndex) {
+      return;
+    }
+    const { numberOfMessages } = this;
+    if (messageIndex > numberOfMessages - 1) {
+      this._activeMessageIndex = 0;
+    } else if (messageIndex < 0) {
+      this._activeMessageIndex = numberOfMessages - 1;
+    } else {
+      this._activeMessageIndex = messageIndex;
+    }
+    // update view on index change
+    this.changeActiveMessage();
+    this.changeActiveNavBarIndicator();
+  }
+
+  get activeMessageIndex() {
+    return this._activeMessageIndex;
+  }
+
+  init(messages, index = 0) {
+    const { length } = messages;
+    if (!length || Notifier.isDisabled()) {
+      return;
+    }
+    this.numberOfMessages = length;
+    this.renderMessages(messages);
+    this.renderNavbarIndicators();
+    this.activeMessageIndex = index;
+    this.addEventListeners();
+    this.show();
+  }
+
   show() {
     if (Notifier.isDisabled()) {
       return;
@@ -48,6 +86,21 @@ export default class Notifier {
   static toggleDisable(boolFlag) {
     localStorage.setItem(LOCALSTORAGE_KEY, boolFlag);
   }
+
+  changeActiveMessage() {
+    const messages = this.messagesArea.querySelectorAll(`.${MESSAGE_ELEMENT_CLASS}`);
+    messages.forEach((message) => {
+      // eslint-disable-next-line no-param-reassign
+      message.hidden = true;
+    });
+    messages[this.activeMessageIndex].hidden = false;
+  }
+
+  changeActiveNavBarIndicator() {
+    const indicators = this.navBarIndicators.querySelectorAll('input');
+    indicators[this.activeMessageIndex].checked = true;
+  }
+
   renderMessages(messages) {
     const fragment = document.createDocumentFragment();
     messages.forEach((message) => {
@@ -146,3 +199,4 @@ export default class Notifier {
       default:
     }
   }
+}
