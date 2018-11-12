@@ -29,6 +29,18 @@ export default class Notifier {
       { target: window, event: 'keypress', fn: this.handleKeyPressEvent },
     ];
   }
+  show() {
+    if (Notifier.isDisabled()) {
+      return;
+    }
+    this.root.hidden = false;
+  }
+
+  close() {
+    this.removeEventListeners();
+    this.root.hidden = true;
+  }
+
   static isDisabled() {
     return localStorage.getItem(LOCALSTORAGE_KEY) === String(true);
   }
