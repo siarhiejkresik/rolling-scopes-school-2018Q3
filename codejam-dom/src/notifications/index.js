@@ -1,3 +1,9 @@
+const KEYS_MAP = {
+  PREV: 'Digit1',
+  NEXT: 'Digit2',
+  CLOSE: 'Digit3',
+  DISABLE: 'Digit4',
+};
 export default class Notifier {
   constructor(id) {
     this.numberOfMessages = null;
@@ -19,4 +25,24 @@ export default class Notifier {
       { target: window, event: 'keypress', fn: this.handleKeyPressEvent },
     ];
   }
-}
+  handleKeyPressEvent({ code }) {
+    switch (code) {
+      case KEYS_MAP.PREV:
+        this.activeMessageIndex -= 1;
+        break;
+      case KEYS_MAP.NEXT:
+        this.activeMessageIndex += 1;
+        break;
+      case KEYS_MAP.CLOSE:
+        this.close();
+        break;
+      case KEYS_MAP.DISABLE:
+        {
+          const value = !this.disableCheckBox.checked;
+          this.disableCheckBox.checked = value;
+          Notifier.toggleDisable(value);
+        }
+        break;
+      default:
+    }
+  }
