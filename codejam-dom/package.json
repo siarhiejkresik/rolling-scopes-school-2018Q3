@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./script/script.js"
+    "lint": "eslint src/"
   },
   "author": "",
   "license": "ISC",
