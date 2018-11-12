@@ -15,5 +15,5 @@ const messages = [
 window.addEventListener('load', () => {
   setTimeout(() => {
     new Notifier('notification-id-XXX').init(messages);
-  }, 5);
+  }, 5000);
 });
