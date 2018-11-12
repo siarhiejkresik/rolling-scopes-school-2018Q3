@@ -84,6 +84,35 @@ export default class Notifier {
     this.eventListeners = {};
   }
 
+  handleNavBarClickEvent(e) {
+    const { target } = e;
+    if (target === this.closeButton) {
+      e.stopPropagation();
+      this.close();
+      return;
+    }
+    if (target === this.disableCheckBox) {
+      e.stopPropagation();
+      const { checked } = e.target;
+      Notifier.toggleDisable(checked);
+      return;
+    }
+    if (target === this.navBarLeft) {
+      e.stopPropagation();
+      this.activeMessageIndex -= 1;
+      return;
+    }
+    if (target === this.navBarRight) {
+      e.stopPropagation();
+      this.activeMessageIndex += 1;
+      return;
+    }
+    if (target.name === NAVBAR_INDICATORS_GROUP_NAME) {
+      e.stopPropagation();
+      this.activeMessageIndex = Number(target.id.split(INDICATOR_ID_PATTERN).pop());
+    }
+  }
+
   handleKeyPressEvent({ code }) {
     switch (code) {
       case KEYS_MAP.PREV:
