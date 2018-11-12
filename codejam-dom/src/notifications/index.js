@@ -67,6 +67,23 @@ export default class Notifier {
       });
     this.navBarIndicators.appendChild(fragment);
   }
+
+  addEventListeners() {
+    this.eventListenersObj.forEach(({ target, event, fn }) => {
+      const bindedFn = fn.bind(this);
+      target.addEventListener(event, bindedFn);
+      this.eventListeners[fn] = bindedFn;
+    });
+  }
+
+  removeEventListeners() {
+    this.eventListenersObj.forEach(({ target, event, fn }) => {
+      const bindedFn = this.eventListeners[fn];
+      target.removeEventListener(event, bindedFn);
+    });
+    this.eventListeners = {};
+  }
+
   handleKeyPressEvent({ code }) {
     switch (code) {
       case KEYS_MAP.PREV:
