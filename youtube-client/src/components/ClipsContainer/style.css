@@ -1,0 +1,8 @@
+#clips {
+  display: flex;
+  align-items: stretch;
+  outline: 1px dotted red;
+  /* transform: translateX(calc(var(--w) * 4 * 0)); */
+  /* transform: translate(10px, 20px); */
+  transition: transform 0.75s cubic-bezier(0, 0.04, 0.08, 0.86);
+}
