@@ -1,0 +1,16 @@
+.card {
+  background: palevioletred;
+  position: relative;
+  float: left;
+  /* outline: 1px dotted saddlebrown; */
+  margin: var(--m);
+  /* border: 2px solid dodgerblue; */
+  flex: 0 0 var(--w);
+  box-shadow: 0 0 20px 0px rgba(255, 255, 255, 0.377);
+  user-select: none;
+  overflow: hidden;
+}
+
+.card:nth-child(n)::after {
+  border-right: 1px dotted lawngreen; 
+}
