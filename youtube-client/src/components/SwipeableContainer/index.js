@@ -13,9 +13,9 @@ export const SWIPE = {
   },
 };
 export default class {
-  constructor(node, targetNode) {
+  constructor(node, onSwipeCallback) {
     this.node = node;
-    this.targetNode = targetNode;
+    this.onSwipeCallback = onSwipeCallback;
     this.phase = SWIPE.phases.wait;
     this.startX = null;
 
@@ -23,15 +23,20 @@ export default class {
   }
 
   addListeners() {
-    this.node.addEventListener('pointerup', this.onPointerUp.bind(this), true);
-    this.node.addEventListener('pointerdown', this.onPointerDown.bind(this), true);
-    this.node.addEventListener('pointermove', this.onPointerMove.bind(this), true);
+    const eventsMap = {
+      pointerup: this.onPointerUp,
+      pointerdown: this.onPointerDown,
+      pointermove: this.onPointerMove,
+    };
+
+    Object
+      .entries(eventsMap)
+      .forEach(([event, handler]) => this.node.addEventListener(event, handler.bind(this)));
   }
 
-  dispatchSwipeEvent(detail) {
-    const detailWithphase = Object.assign({ phase: this.phase }, detail);
-    const swipeEvent = new CustomEvent('swipe', { detail: detailWithphase, bubbles: true });
-    this.node.dispatchEvent(swipeEvent);
+  dispatchSwipeEvent(eventData) {
+    const eventDataWithPhase = Object.assign({ phase: this.phase }, eventData);
+    this.onSwipeCallback(eventDataWithPhase);
   }
 
   onPointerDown(e) {
