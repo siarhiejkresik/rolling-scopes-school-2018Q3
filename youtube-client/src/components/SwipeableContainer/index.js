@@ -1,30 +1,25 @@
-// import './style.css';
-
 const MOVEMENT_FACTOR = 2;
 
-// const isInsideNodeBoundaries = (node, X, Y) => {
-//   const {
-//     x, y, width, height,
-//   } = node.getBoundingClientRect();
-//   console.log(`X:${X} (${x}, ${x + width}) | Y:${Y} (${y}, ${y + height})`);
-//   return !(X < x || X > x + width || Y < y || Y > y + height);
-// };
-
+export const SWIPE = {
+  directions: {
+    left: 'left',
+    right: 'right',
+  },
+  phases: {
+    wait: 'wait',
+    start: 'swipeStart',
+    move: 'swipeMove',
+    end: 'swipeEnd',
+  },
+};
 export default class {
   constructor(node, targetNode) {
     this.node = node;
-    // this.targetNode = targetNode;
-
-    this.isMoving = false;
+    this.targetNode = targetNode;
+    this.phase = SWIPE.phases.wait;
     this.startX = null;
-    this.translate = 0;
 
     this.addListeners();
-  }
-
-  translating(dx) {
-    this.translate += dx;
-    // this.targetNode.style.transform = `translate(${this.translate}px, 0)`;
   }
 
   addListeners() {
@@ -33,40 +28,45 @@ export default class {
     this.node.addEventListener('pointermove', this.onPointerMove.bind(this), true);
   }
 
+  dispatchSwipeEvent(detail) {
+    const detailWithphase = Object.assign({ phase: this.phase }, detail);
+    const swipeEvent = new CustomEvent('swipe', { detail: detailWithphase, bubbles: true });
+    this.node.dispatchEvent(swipeEvent);
+  }
+
   onPointerDown(e) {
-    this.startX = e.x;
-    if (this.isMoving) {
+    if (this.phase !== SWIPE.phases.wait) {
       throw new Error('two pointer down');
     }
-    this.isMoving = true;
-    console.log('from onPointerDown', this.isMoving);
+    this.phase = SWIPE.phases.start;
+    this.startX = e.x;
+    this.dispatchSwipeEvent();
   }
 
   onPointerUp(e) {
-    this.isMoving = false;
-    const x = e.x;
+    this.phase = SWIPE.phases.end;
+
+    const { x } = e;
     let directionX;
     if (x < this.startX) {
-      directionX = 'left';
+      directionX = SWIPE.directions.left;
     } else if (x > this.startX) {
-      directionX = 'right';
-      console.log('moved:', x - this.startX, directionX);
+      directionX = SWIPE.directions.right;
     }
 
-    this.startX = null;
+    this.dispatchSwipeEvent({ directionX });
 
-    const swipeEvent = new CustomEvent('swipe', { detail: directionX });
-    this.node.dispatchEvent(swipeEvent);
-    console.log('from onPointerUp', this.isMoving);
+    this.startX = null;
+    this.phase = SWIPE.phases.wait;
   }
 
   onPointerMove(e) {
-    // TODO check container boundaries
-    if (!this.isMoving) {
+    if (this.phase === SWIPE.phases.wait) {
       return;
     }
+    this.phase = SWIPE.phases.move;
 
     const dx = e.movementX;
-    this.translating(dx);
+    this.dispatchSwipeEvent({ dx });
   }
 }
