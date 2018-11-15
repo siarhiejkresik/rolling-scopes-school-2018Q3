@@ -1,41 +1,38 @@
 import './style.css';
 
 import ClipCard from '../ClipCard';
-import Swipeable from '../SwipeableContainer';
+import Swipeable, { SWIPE } from '../SwipeableContainer';
 
 const NUMBER_OF_VISIBLE_CARDS = {
   MAX: 4,
   MIN: 1,
 };
 
-const NUMBER_OF_CARDS = 9;
+// const NUMBER_OF_CARDS = 9;
 
 export default class {
-  constructor() {
+  constructor(swipe) {
     this.node = document.createElement('div');
     this.node.id = 'clips';
-    this.addCards();
-    // this.swipeableContainer = new Swipeable(this.node);
+    this.swipeableArea = new Swipeable(swipe, this.onSwipe.bind(this));
 
     this.cardWidth = 200;
-    // this.cardHeight;
     this.cardMargin = 20;
     this.cardsPerPage = this.evalNumberOfCardsPerPage();
     this.pageNumber = 0;
 
     this.startX = null;
     this.startY = null;
-    this.translate = 0;
+    this.offsetX = 0;
 
     this.addListeners();
   }
 
-  addCards() {
-    for (let i = 0; i < NUMBER_OF_CARDS; i += 1) {
-      const card = new ClipCard();
-      card.node.innerHTML = i;
-      this.node.appendChild(card.node);
-    }
+  addCards(data) {
+    data.items.forEach((cardData, i) => {
+      const card = ClipCard(cardData, i);
+      this.node.appendChild(card);
+    });
   }
 
   get cardFullWidth() {
@@ -43,12 +40,17 @@ export default class {
   }
 
   get currentPage() {
-    const page = 1 + Math.trunc(-this.translate / this.cardFullWidth / this.cardsPerPage);
+    const page = 1 + Math.trunc(-this.offsetX / this.cardFullWidth / this.cardsPerPage);
     return page;
   }
 
+  get numberOfCards() {
+    // TODO store link to live collection
+    return this.node.querySelectorAll('.card').length;
+  }
+
   get numberOfPages() {
-    return Math.ceil(NUMBER_OF_CARDS / this.cardsPerPage);
+    return Math.ceil(this.numberOfCards / this.cardsPerPage);
   }
 
   get isLastPage() {
@@ -60,44 +62,33 @@ export default class {
     let cards = Math.trunc(innerWidth / this.cardFullWidth);
     cards = cards < NUMBER_OF_VISIBLE_CARDS.MIN ? NUMBER_OF_VISIBLE_CARDS.MIN : cards;
     cards = cards > NUMBER_OF_VISIBLE_CARDS.MAX ? NUMBER_OF_VISIBLE_CARDS.MAX : cards;
-    // console.log(innerWidth, cards);
     document.documentElement.style.setProperty('--cards', cards);
     return cards;
   }
 
   goToCard(index) {
-    const dx = this.cardFullWidth * index;
-    this.translating(-dx);
-    console.log('go to card:', index);
+    this.offsetX = -this.cardFullWidth * index;
+    this.translating();
   }
 
   goToPage(pageNumber) {
     if (pageNumber < 1) {
-      console.log('go to page', pageNumber);
       this.goToPage(1);
       return;
     }
     if (pageNumber > this.numberOfPages) {
       this.goToPage(this.numberOfPages);
-      console.log('go to page', pageNumber);
       return;
     }
     this.goToCard((pageNumber - 1) * this.cardsPerPage);
-    console.log('go to page', pageNumber);
   }
 
-  translating(dx) {
-    this.translate += dx;
-    this.node.style.transform = `translate(${this.translate}px, 0)`;
-    // console.log(this.currentPage);
+  translating() {
+    this.node.style.transform = `translate(${this.offsetX}px, 0)`;
   }
 
   addListeners() {
     window.onresize = this.onWindowResize.bind(this);
-    // this.node.addEventListener('swipe', this.onSwipe.bind(this));
-    // this.node.addEventListener('pointerdown', this.onPointerDown.bind(this));
-    // this.node.addEventListener('pointerup', this.onPointerUp.bind(this));
-    // this.node.addEventListener('pointermove', this.onPointerMove.bind(this));
   }
 
   onWindowResize() {
@@ -105,61 +96,33 @@ export default class {
   }
 
   onSwipe(e) {
-    // return
-    const directionX = e.detail;
-    console.log(directionX);
-    switch (directionX) {
-      case 'left':
-        this.goToPage(this.currentPage + 1);
+    switch (e.phase) {
+      case SWIPE.phases.move:
+        this.onSwipeMove(e);
         break;
-      case 'right':
-        this.goToPage(this.currentPage - 1);
+      case SWIPE.phases.end:
+        this.onSwipeEnd(e);
         break;
       default:
     }
   }
 
-  // onPointerDown(e) {
-  //   this.startX = e.x;
-  //   this.startY = e.y;
-  //   this.isMoving = true;
-  //   console.log('from onPointerDown', this.isMoving);
-  // }
+  onSwipeEnd({ directionX }) {
+    switch (directionX) {
+      case SWIPE.directions.left:
+        this.goToPage(this.currentPage + 1);
+        break;
+      case SWIPE.directions.right:
+        this.goToPage(this.currentPage);
+        break;
+      default:
+    }
+  }
 
-  // onPointerUp() {
-  //   switch (this.isMoving) {
-  //     case 'left':
-  //       this.goToPage(this.currentPage + 1);
-  //       break;
-  //     case 'right':
-  //       this.goToPage(this.currentPage);
-  //       break;
-  //     default:
-  //   }
-  //   this.isMoving = false;
-  //   console.log('from onPointerUp', this.isMoving);
-  // }
-
-  // onPointerMove({ x }) {
-  //   // TODO check container boundaries
-  //   if (!this.isMoving || this.startX === null || this.startY === null) {
-  //     return;
-  //   }
-
-  //   const distX = Math.trunc(x - this.startX) * 2;
-
-  //   if (distX > 0) {
-  //     this.isMoving = 'right';
-  //   } else if (distX < 0) {
-  //     this.isMoving = 'left';
-  //   }
-
-  //   if (distX) {
-  //     this.translate += distX;
-  //     this.translating();
-  //     this.startX = x;
-  //   }
-  // }
+  onSwipeMove({ dx }) {
+    this.offsetX += dx;
+    this.translating();
+  }
 
   render(node) {
     node.appendChild(this.node);
