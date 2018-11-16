@@ -10,7 +10,14 @@ const NUMBER_OF_VISIBLE_CARDS = {
 
 // const NUMBER_OF_CARDS = 9;
 
-const getPropertyValueFromCSS = (element, property) => parseInt(getComputedStyle(element).getPropertyValue(property), 10);
+const getPropertyValueFromCSS = (element, property) => {
+  const value = getComputedStyle(element).getPropertyValue(property);
+  const parsedValue = parseInt(value, 10);
+  if (Number.isNaN(parsedValue)) {
+    throw new Error(`can not parse ${property} from ${element} to integer`);
+  }
+  return parsedValue;
+};
 
 export default class {
   constructor(swipe) {
@@ -22,8 +29,6 @@ export default class {
     this.cardMargin = 0;
     this.cardsPerPage = 0;
     this.onWindowResize();
-
-    this.pageNumber = 0;
 
     this.startX = null;
     this.startY = null;
@@ -39,13 +44,26 @@ export default class {
     });
   }
 
+  /**
+   * Evaluate and return card element width including card margins.
+   */
   get cardFullWidth() {
     return 2 * this.cardMargin + this.cardWidth;
   }
 
+  /**
+   * Evaluate and return current page number. Page numbering starts with 1.
+   */
   get currentPage() {
     const page = 1 + Math.trunc(-this.offsetX / this.cardFullWidth / this.cardsPerPage);
     return page;
+  }
+
+  /**
+   * Return index of the most left visible card.
+   */
+  get leftVisibleCardIndex() {
+    return (this.currentPage - 1) * this.cardsPerPage;
   }
 
   get numberOfCards() {
@@ -59,6 +77,10 @@ export default class {
 
   get isLastPage() {
     return this.currentPage === this.numberOfPages;
+  }
+
+  evalPageNumberByCardIndex(cardIndex) {
+    return 1 + Math.trunc(cardIndex / this.cardsPerPage);
   }
 
   evalNumberOfCardsPerPage() {
@@ -96,9 +118,21 @@ export default class {
   }
 
   onWindowResize() {
+    // store index of the most left visible card
+    const { leftVisibleCardIndex } = this;
+
+    // update dimensions from css
     this.cardWidth = getPropertyValueFromCSS(document.documentElement, '--w');
     this.cardMargin = getPropertyValueFromCSS(document.documentElement, '--m');
+
+    // evaluate new number of cards per page
     this.cardsPerPage = this.evalNumberOfCardsPerPage();
+
+    /* FIX we must return to back visible ’state’
+    after resizing browser window back to previous size */
+    // the most left visible card before resizing must be visible after window resizing
+    const page = this.evalPageNumberByCardIndex(leftVisibleCardIndex);
+    this.goToPage(page);
   }
 
   onSwipe(e) {
