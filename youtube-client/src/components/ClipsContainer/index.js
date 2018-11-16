@@ -25,8 +25,10 @@ export default class {
     this.node.id = 'clips';
     this.swipeableArea = new Swipeable(swipe, this.onSwipe.bind(this));
 
+    // dimensions that are getted from css, must be setted in pixels
     this.cardWidth = 0;
     this.cardMargin = 0;
+
     this.cardsPerPage = 0;
     this.onWindowResize();
 
