@@ -10,15 +10,19 @@ const NUMBER_OF_VISIBLE_CARDS = {
 
 // const NUMBER_OF_CARDS = 9;
 
+const getPropertyValueFromCSS = (element, property) => parseInt(getComputedStyle(element).getPropertyValue(property), 10);
+
 export default class {
   constructor(swipe) {
     this.node = document.createElement('div');
     this.node.id = 'clips';
     this.swipeableArea = new Swipeable(swipe, this.onSwipe.bind(this));
 
-    this.cardWidth = 200;
-    this.cardMargin = 20;
-    this.cardsPerPage = this.evalNumberOfCardsPerPage();
+    this.cardWidth = 0;
+    this.cardMargin = 0;
+    this.cardsPerPage = 0;
+    this.onWindowResize();
+
     this.pageNumber = 0;
 
     this.startX = null;
@@ -92,6 +96,8 @@ export default class {
   }
 
   onWindowResize() {
+    this.cardWidth = getPropertyValueFromCSS(document.documentElement, '--w');
+    this.cardMargin = getPropertyValueFromCSS(document.documentElement, '--m');
     this.cardsPerPage = this.evalNumberOfCardsPerPage();
   }
 
