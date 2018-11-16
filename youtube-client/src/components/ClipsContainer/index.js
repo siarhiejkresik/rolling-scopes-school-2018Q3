@@ -58,8 +58,8 @@ export default class {
   }
 
   evalNumberOfCardsPerPage() {
-    const { innerWidth } = window;
-    let cards = Math.trunc(innerWidth / this.cardFullWidth);
+    const { outerWidth } = window;
+    let cards = Math.trunc(outerWidth / this.cardFullWidth);
     cards = cards < NUMBER_OF_VISIBLE_CARDS.MIN ? NUMBER_OF_VISIBLE_CARDS.MIN : cards;
     cards = cards > NUMBER_OF_VISIBLE_CARDS.MAX ? NUMBER_OF_VISIBLE_CARDS.MAX : cards;
     document.documentElement.style.setProperty('--cards', cards);
