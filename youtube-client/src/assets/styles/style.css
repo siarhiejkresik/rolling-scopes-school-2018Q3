@@ -1,19 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300');
 
-@media only screen and (min-width: 600px) {
+:root {
+  --cards: 1;
+  --w: 150px;
+  --m: 10px;
+}
+
+/* @media only screen {
   :root {
     --cards: 1;
+    --w: 300px;
+    --m: 20px;
+  }
+} */
+
+@media only screen and (min-width: 800px) {
+  :root {
     --w: 200px;
     --m: 10px;
   }
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1200px) {
   :root {
-    --cards: 1;
     --w: 300px;
-    --m: 20px;
+    --m: 30px;
   }
 }
 
