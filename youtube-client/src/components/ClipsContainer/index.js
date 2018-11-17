@@ -1,6 +1,7 @@
 import './style.css';
 
 import ClipCard from '../ClipCard';
+import Pagination from '../Pagination';
 import Swipeable, { SWIPE } from '../SwipeableContainer';
 
 const NUMBER_OF_VISIBLE_CARDS = {
@@ -56,8 +57,8 @@ export default class {
   /**
    * Evaluate and return current page number. Page numbering starts with 1.
    */
-  get currentPage() {
-    const page = 1 + Math.trunc(-this.offsetX / this.cardFullWidth / this.cardsPerPage);
+  get currentPageIndex() {
+    const page = Math.trunc(-this.offsetX / this.cardFullWidth / this.cardsPerPage);
     return page;
   }
 
@@ -65,7 +66,7 @@ export default class {
    * Return index of the most left visible card.
    */
   get leftVisibleCardIndex() {
-    return (this.currentPage - 1) * this.cardsPerPage;
+    return this.currentPageIndex * this.cardsPerPage;
   }
 
   get numberOfCards() {
@@ -77,12 +78,8 @@ export default class {
     return Math.ceil(this.numberOfCards / this.cardsPerPage);
   }
 
-  get isLastPage() {
-    return this.currentPage === this.numberOfPages;
-  }
-
   evalPageNumberByCardIndex(cardIndex) {
-    return 1 + Math.trunc(cardIndex / this.cardsPerPage);
+    return Math.trunc(cardIndex / this.cardsPerPage);
   }
 
   evalNumberOfCardsPerPage() {
@@ -99,20 +96,20 @@ export default class {
     this.translating();
   }
 
-  goToPage(pageNumber) {
-    if (pageNumber < 1) {
-      this.goToPage(1);
+  goToPage(pageIndex) {
+    if (pageIndex < 0) {
+      this.goToPage(0);
       return;
     }
-    if (pageNumber > this.numberOfPages) {
-      this.goToPage(this.numberOfPages);
+    if (pageIndex >= this.numberOfPages) {
+      this.goToPage(this.numberOfPages - 1);
       return;
     }
-    this.goToCard((pageNumber - 1) * this.cardsPerPage);
+    this.goToCard(pageIndex * this.cardsPerPage);
   }
 
   translating() {
-    this.node.style.transform = `translate(${this.offsetX}px, 0)`;
+    this.node.style.transform = `translate3d(${this.offsetX}px, 0, 0)`;
   }
 
   addListeners() {
@@ -152,10 +149,10 @@ export default class {
   onSwipeEnd({ directionX }) {
     switch (directionX) {
       case SWIPE.directions.left:
-        this.goToPage(this.currentPage + 1);
+        this.goToPage(this.currentPageIndex + 1);
         break;
       case SWIPE.directions.right:
-        this.goToPage(this.currentPage);
+        this.goToPage(this.currentPageIndex);
         break;
       default:
     }
