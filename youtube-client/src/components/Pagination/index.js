@@ -73,7 +73,8 @@ export default class {
     if (!numberOfPages) {
       return;
     }
-    if (!this.indicators.length) {
+    const indicatorsNumbers = this.indicators.length;
+    if (!indicatorsNumbers || indicatorsNumbers !== numberOfPages) {
       this.createIndicators(numberOfPages);
     }
     const leftIndex = this.leftIndicatorPageIndex(pageIndex, numberOfPages);
@@ -116,7 +117,7 @@ export default class {
 
   onIndicatorSelect(pageIndex) {
     console.log(pageIndex);
-    this.callback(pageIndex)
+    this.callback(pageIndex);
   }
 
   addListeners() {
