@@ -106,6 +106,7 @@ export default class {
         const node = this.createIndicator();
         fragment.appendChild(node);
       });
+    this.node.innerHTML = '';
     this.node.appendChild(fragment);
   }
 
