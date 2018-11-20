@@ -4,9 +4,8 @@ import SearchBar from './components/SearchBar';
 import ClipsContainer from './components/ClipsContainer';
 import Pagination from './components/Pagination';
 
-import API from './api/index';
-
-// debugger;
+// for testing
+import data from '../test/response.json';
 
 const createApp = () => {
   const app = document.createElement('div');
@@ -25,23 +24,19 @@ const createPagination = () => {
   return pagination;
 };
 
+// create application parts
 const app = createApp();
 const bottom = createBottom();
 const pagination = createPagination();
 const clipsContainer = new ClipsContainer(bottom, pagination);
 const searchBar = new SearchBar(clipsContainer.onSearch.bind(clipsContainer));
-// pagination.goToPage(16, 20);
 
+// mount application parts to the DOM
 document.body.appendChild(app);
 app.appendChild(searchBar.node);
 app.appendChild(bottom);
 bottom.appendChild(clipsContainer.node);
 app.appendChild(pagination.node);
 
-// const s = new Swipeable(bottom, clipsContainer.node);
-
 // for testing
-const api = new API();
-clipsContainer.addCards(api.fetchData());
-
-// debugger;
+clipsContainer.addCards(data);
