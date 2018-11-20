@@ -3,6 +3,7 @@ import './style.css';
 import ClipCard from '../ClipCard';
 import Pagination from '../Pagination';
 import Swipeable, { SWIPE } from '../SwipeableContainer';
+import { search } from '../../temp';
 
 const NUMBER_OF_VISIBLE_CARDS = {
   MAX: 4,
@@ -21,10 +22,12 @@ const getPropertyValueFromCSS = (element, property) => {
 };
 
 export default class {
-  constructor(swipe) {
+  constructor(swipe, pagination) {
     this.node = document.createElement('div');
     this.node.id = 'clips';
     this.swipeableArea = new Swipeable(swipe, this.onSwipe.bind(this));
+    this.pagination = pagination;
+    this.pagination.callback = this.goToPage.bind(this);
 
     // dimensions that are getted from css, must be setted in pixels
     this.cardWidth = 0;
@@ -37,7 +40,30 @@ export default class {
     this.startY = null;
     this.offsetX = 0;
 
+    this.q = '';
+
     this.addListeners();
+  }
+
+  onSearch(q) {
+    if (!q) {
+      this.reset();
+      return;
+    }
+    this.q = q;
+    search(q).then(result => this.onVideosGetted(result));
+  }
+
+  onVideosGetted(e) {
+    console.log(e);
+    this.reset();
+    this.addCards(e);
+  }
+
+  reset() {
+    this.node.innerHTML = '';
+    this.offsetX = 0;
+    this.q = '';
   }
 
   addCards(data) {
@@ -106,6 +132,13 @@ export default class {
       return;
     }
     this.goToCard(pageIndex * this.cardsPerPage);
+    //
+    this.pagination.goToPage(pageIndex, this.numberOfPages);
+    // console.log(this.currentPageIndex, this.numberOfPages);
+    // if (this.currentPageIndex === this.numberOfPages - 1) {
+    //   console.log('get additional pages');
+    //   this.onSearch(this.q);
+    // }
   }
 
   translating() {
