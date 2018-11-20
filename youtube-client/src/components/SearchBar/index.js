@@ -1,7 +1,7 @@
 import './style.css';
 
 export default class {
-  constructor() {
+  constructor(onSearchCallback) {
     this.node = document.createElement('input');
 
     this.node.id = 'search';
@@ -9,8 +9,7 @@ export default class {
     this.node.placeholder = 'Search the youtube...';
     this.node.required = true;
     this.node.autocomplete = 'off';
-    // this.node.incremental = true;
-
+    this.onSearchCallback = onSearchCallback;
     this.node.oninput = this.onInput.bind(this);
   }
 
@@ -19,6 +18,6 @@ export default class {
   }
 
   onInput() {
-    console.log(this.node.value);
+    this.onSearchCallback(this.node.value);
   }
 }
