@@ -1,16 +1,13 @@
 import './style.css';
 
 import ClipCard from '../ClipCard';
-import Pagination from '../Pagination';
 import Swipeable, { SWIPE } from '../SwipeableContainer';
-import { search } from '../../temp';
+import { search } from '../../api/youtube-v3';
 
 const NUMBER_OF_VISIBLE_CARDS = {
   MAX: 4,
   MIN: 1,
 };
-
-// const NUMBER_OF_CARDS = 9;
 
 const getPropertyValueFromCSS = (element, property) => {
   const value = getComputedStyle(element).getPropertyValue(property);
@@ -134,11 +131,6 @@ export default class {
     this.goToCard(pageIndex * this.cardsPerPage);
     //
     this.pagination.goToPage(pageIndex, this.numberOfPages);
-    // console.log(this.currentPageIndex, this.numberOfPages);
-    // if (this.currentPageIndex === this.numberOfPages - 1) {
-    //   console.log('get additional pages');
-    //   this.onSearch(this.q);
-    // }
   }
 
   translating() {
@@ -160,8 +152,6 @@ export default class {
     // evaluate new number of cards per page
     this.cardsPerPage = this.evalNumberOfCardsPerPage();
 
-    /* FIX we must return to back visible ’state’
-    after resizing browser window back to previous size */
     // the most left visible card before resizing must be visible after window resizing
     const page = this.evalPageNumberByCardIndex(leftVisibleCardIndex);
     this.goToPage(page);
