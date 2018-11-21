@@ -2,6 +2,7 @@ import './style.css';
 
 import { leftValue, page } from './utils';
 
+const INDICATOR_NODE_CLASS = 'pagination-page';
 // must be odd
 const MAX_NUMBER_OF_INDICATORS = 5;
 
@@ -15,10 +16,17 @@ export default class {
   }
 
   get indicators() {
-    return this.node.querySelectorAll('.pagination-page');
+    return this.node.querySelectorAll(`.${INDICATOR_NODE_CLASS}`);
   }
 
-  numberOfIndicators(numberOfPages) {
+  /**
+   * Evaluate number of indicators to render.
+   * It can not be more than the number of pages
+   * or the maximum number of indicators.
+   *
+   * @param {} numberOfPages number of pages.
+   */
+  evalNumberOfIndicators(numberOfPages) {
     return Math.min(this.maxNumberOfIndicators, numberOfPages);
   }
 
@@ -33,12 +41,18 @@ export default class {
     }
     const indicatorsNumbers = this.indicators.length;
     if (!indicatorsNumbers || indicatorsNumbers !== numberOfPages) {
-      this.createIndicators(numberOfPages);
+      this.renderIndicators(numberOfPages);
     }
     const leftIndex = this.leftIndicatorPageIndex(pageIndex, numberOfPages);
     this.setupIndicators(leftIndex, pageIndex);
   }
 
+  /**
+   * Set indicators labels and statuses.
+   *
+   * @param {*} leftIndex page index for the most left indicator
+   * @param {*} pageIndex page index of the current page
+   */
   setupIndicators(leftIndex, pageIndex) {
     this.indicators.forEach((node, i) => {
       // set indicator label
@@ -53,8 +67,8 @@ export default class {
     });
   }
 
-  createIndicators(numberOfPages) {
-    const numberOfIndicators = this.numberOfIndicators(numberOfPages);
+  renderIndicators(numberOfPages) {
+    const numberOfIndicators = this.evalNumberOfIndicators(numberOfPages);
     const fragment = document.createDocumentFragment();
     Array(numberOfIndicators)
       .fill()
@@ -69,18 +83,17 @@ export default class {
 
   createIndicator() {
     const node = document.createElement('li');
-    node.classList.add('pagination-page');
+    node.classList.add(INDICATOR_NODE_CLASS);
     return node;
   }
 
   onIndicatorSelect(pageIndex) {
-    console.log(pageIndex);
     this.callback(pageIndex);
   }
 
   addListeners() {
     this.node.addEventListener('pointerup', (e) => {
-      if (!e.target.classList.contains('pagination-page')) {
+      if (!e.target.classList.contains(INDICATOR_NODE_CLASS)) {
         return;
       }
       const pageNumber = e.target.innerHTML;
