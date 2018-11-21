@@ -1,5 +1,7 @@
 import './style.css';
 
+const DELAY = 500;
+
 export default class {
   constructor(onSearchCallback) {
     this.node = document.createElement('input');
@@ -8,9 +10,12 @@ export default class {
     this.node.type = 'search';
     this.node.placeholder = 'Search the youtube...';
     this.node.required = true;
+    this.node.autofocus = true;
     this.node.autocomplete = 'off';
-    this.onSearchCallback = onSearchCallback;
+    this.onInputCallback = onSearchCallback;
     this.node.oninput = this.onInput.bind(this);
+
+    this.timer = null;
   }
 
   render(node) {
@@ -18,6 +23,11 @@ export default class {
   }
 
   onInput() {
-    this.onSearchCallback(this.node.value);
+    clearTimeout(this.timer);
+    this.timer = setTimeout(this.triggerInputEvent.bind(this), DELAY);
+  }
+
+  triggerInputEvent() {
+    this.onInputCallback(this.node.value);
   }
 }
