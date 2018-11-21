@@ -6,6 +6,12 @@ const INDICATOR_NODE_CLASS = 'pagination-page';
 // must be odd
 const MAX_NUMBER_OF_INDICATORS = 5;
 
+const createIndicator = () => {
+  const node = document.createElement('li');
+  node.classList.add(INDICATOR_NODE_CLASS);
+  return node;
+};
+
 export default class {
   constructor(callback) {
     this.maxNumberOfIndicators = MAX_NUMBER_OF_INDICATORS;
@@ -74,17 +80,11 @@ export default class {
       .fill()
       // eslint-disable-next-line no-unused-vars
       .forEach((_) => {
-        const node = this.createIndicator();
+        const node = createIndicator();
         fragment.appendChild(node);
       });
     this.node.innerHTML = '';
     this.node.appendChild(fragment);
-  }
-
-  createIndicator() {
-    const node = document.createElement('li');
-    node.classList.add(INDICATOR_NODE_CLASS);
-    return node;
   }
 
   onIndicatorSelect(pageIndex) {
