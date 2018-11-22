@@ -25,20 +25,22 @@ const requestStatsOfVideos = ids => buildRequestWithApiKey('videos', {
       'items(id,snippet(channelTitle,description,publishedAt,thumbnails/medium,title),statistics/viewCount)',
 });
 
-const getStatsOfVideos = (ids) => {
+const getStatsOfVideos = (data) => {
+  const ids = data.items.map(i => i.id.videoId);
   const url = requestStatsOfVideos(ids);
   // console.log(url);
   return fetch(url)
     .then(response => response.json())
     .then((json) => {
-      console.log(JSON.stringify(json, undefined, 2));
-      return json;
+      const result = { ...data, ...json };
+      // console.log(JSON.stringify(result, undefined, 2));
+      return result;
     })
     .catch(error => console.log('error', error));
 };
 
 const getVideoIds = (q, pageToken = '') => {
-  console.log('get videos ids for:', q)
+  console.log('get videos ids for:', q);
   const url = requestVideoListUrl(q, pageToken);
   return fetch(url)
     .then(response => response.json())
@@ -47,13 +49,14 @@ const getVideoIds = (q, pageToken = '') => {
       // console.log(JSON.stringify(json, undefined, 2));
       return json;
     })
-    .then((videos) => {
-      const videoIds = videos.items.map(i => i.id.videoId);
+    .then((data) => {
       // console.log(videoIds);
-      return videoIds;
+      return data;
     });
 };
 
 const search = q => getVideoIds(q).then(ids => getStatsOfVideos(ids));
 
 export { search };
+
+// search('belarus')
