@@ -3,6 +3,7 @@ import './style.css';
 export default (data) => {
   const node = document.createElement('article');
   node.classList.add('card');
+  // FIX handle undefined properties
   const { id, statistics, snippet } = data;
   const publishedAt = new Date(snippet.publishedAt).toDateString();
   const viewCount = Number(statistics.viewCount).toLocaleString();
