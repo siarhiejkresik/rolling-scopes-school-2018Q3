@@ -24,7 +24,7 @@ export default class {
     this.node.id = 'clips';
     this.swipeableArea = new Swipeable(swipe, this.onSwipe.bind(this));
     this.pagination = pagination;
-    this.pagination.callback = this.goToPage.bind(this);
+    this.pagination.pageSelectObserver.subscribe(this.goToPage.bind(this));
 
     // dimensions that are getted from css, must be setted in pixels
     this.cardWidth = 0;
@@ -52,9 +52,21 @@ export default class {
   }
 
   onVideosGetted(e) {
+    // TODO
     console.log(e);
+    const totalResults = Math.ceil(e.pageInfo.totalResults / this.cardsPerPage);
+    this.pagination.numberOfPages = Math.ceil(totalResults / this.cardsPerPage);
+    console.log(this.pagination.numberOfPages);
+
     this.reset();
-    this.addCards(e);
+    if (totalResults) {
+      this.addCards(e);
+    } else {
+      this.node.innerHTML = 'Nothing...';
+      this.pagination.numberOfPages = 0;
+      console.log(this.pagination.numberOfPages);
+      this.goToPage(0);
+    }
   }
 
   reset() {
@@ -154,6 +166,7 @@ export default class {
 
     // the most left visible card before resizing must be visible after window resizing
     const page = this.evalPageNumberByCardIndex(leftVisibleCardIndex);
+    // this.pagination.numberOfPages = Math.ceil(e.pageInfo.totalResults / this.cardsPerPage);
     this.goToPage(page);
   }
 
