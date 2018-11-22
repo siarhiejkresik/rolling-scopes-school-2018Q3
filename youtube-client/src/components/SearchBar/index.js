@@ -5,7 +5,6 @@ const DELAY = 500;
 export default class {
   constructor(onSearchCallback) {
     this.node = document.createElement('input');
-
     this.node.id = 'search';
     this.node.type = 'search';
     this.node.placeholder = 'Search the youtube...';
