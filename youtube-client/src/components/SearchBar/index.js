@@ -1,9 +1,11 @@
 import './style.css';
 
+import Observer from '../../scripts/Observer';
+
 const DELAY = 500;
 
 export default class {
-  constructor(onSearchCallback) {
+  constructor() {
     this.node = document.createElement('input');
     this.node.id = 'search';
     this.node.type = 'search';
@@ -11,14 +13,10 @@ export default class {
     this.node.required = true;
     this.node.autofocus = true;
     this.node.autocomplete = 'off';
-    this.onInputCallback = onSearchCallback;
     this.node.oninput = this.onInput.bind(this);
-
     this.timer = null;
-  }
 
-  render(node) {
-    node.appendChild(this.node);
+    this.inputEventObserver = new Observer();
   }
 
   onInput() {
@@ -27,6 +25,6 @@ export default class {
   }
 
   triggerInputEvent() {
-    this.onInputCallback(this.node.value);
+    this.inputEventObserver.notify(this.node.value);
   }
 }

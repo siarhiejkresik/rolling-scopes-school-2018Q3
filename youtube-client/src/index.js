@@ -29,7 +29,8 @@ const app = createApp();
 const bottom = createBottom();
 const pagination = createPagination();
 const clipsContainer = new ClipsContainer(bottom, pagination);
-const searchBar = new SearchBar(clipsContainer.onSearch.bind(clipsContainer));
+const searchBar = new SearchBar();
+searchBar.inputEventObserver.subscribe(clipsContainer.onSearch.bind(clipsContainer));
 
 // mount application parts to the DOM
 document.body.appendChild(app);
