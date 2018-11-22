@@ -36,7 +36,7 @@ document.body.appendChild(app);
 app.appendChild(searchBar.node);
 app.appendChild(bottom);
 bottom.appendChild(clipsContainer.node);
-app.appendChild(pagination.node);
+app.appendChild(pagination.view.node);
 
 // for testing
 clipsContainer.addCards(data);
