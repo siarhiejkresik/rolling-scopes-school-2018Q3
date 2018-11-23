@@ -36,8 +36,7 @@ export default class {
     const fragment = document.createDocumentFragment();
     Array(numberOfIndicators)
       .fill()
-      // eslint-disable-next-line no-unused-vars
-      .forEach((_) => {
+      .forEach(() => {
         const node = createIndicator();
         fragment.appendChild(node);
       });
