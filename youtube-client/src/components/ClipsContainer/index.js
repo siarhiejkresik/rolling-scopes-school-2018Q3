@@ -1,8 +1,10 @@
 import './style.css';
 
 import ClipCard from '../ClipCard';
-import Swipeable, { SWIPE } from '../SwipeableContainer';
+import { SWIPE } from '../SwipeableContainer';
 import { search } from '../../api/youtube-v3';
+
+import Observer from '../../scripts/Observer';
 
 const NUMBER_OF_VISIBLE_CARDS = {
   MAX: 4,
@@ -19,18 +21,16 @@ const getPropertyValueFromCSS = (element, property) => {
 };
 
 export default class {
-  constructor(swipe, pagination) {
+  constructor() {
     this.node = document.createElement('div');
     this.node.id = 'clips';
-    this.swipeableArea = new Swipeable(swipe, this.onSwipe.bind(this));
-    this.pagination = pagination;
-    this.pagination.pageSelectObserver.subscribe(this.goToPage.bind(this));
 
     // dimensions that are getted from css, must be setted in pixels
     this.cardWidth = 0;
     this.cardMargin = 0;
 
     this.cardsPerPage = 0;
+    this.pageChangeObserver = new Observer();
     this.onWindowResize();
 
     this.startX = null;
