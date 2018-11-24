@@ -5,14 +5,15 @@
   margin: var(--m);
 
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   color: black;
   border-bottom: 1em solid transparent;
   background: gainsboro;
   box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.377);
+  animation: slide-from-right 1s;
 }
 
 .card-header {
@@ -53,4 +54,14 @@
   margin: 1em;
 
   overflow-wrap: break-word;
+}
+
+@keyframes slide-from-right {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }

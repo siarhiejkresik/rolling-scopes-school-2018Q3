@@ -1,10 +1,11 @@
 import './style.css';
 
-export default (data) => {
+export default ({ cardData, dataId }) => {
   const node = document.createElement('article');
   node.classList.add('card');
-  // FIX handle undefined properties
-  const { id, statistics, snippet } = data;
+  node.dataset.id = dataId;
+  // FIX handle undefined properties in cardData
+  const { id, statistics, snippet } = cardData;
   const publishedAt = new Date(snippet.publishedAt).toDateString();
   const viewCount = Number(statistics.viewCount).toLocaleString();
   node.innerHTML = `
@@ -22,6 +23,5 @@ export default (data) => {
       <p class="card-description">${snippet.description}</p> 
     </section>
 `;
-
   return node;
 };
