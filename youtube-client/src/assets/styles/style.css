@@ -2,21 +2,21 @@
 
 :root {
   --cards: 1;
-  --w: 150px;
-  --m: 10px;
+  --w: 300px;
+  --m: 20px;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 600px) {
   :root {
-    --w: 200px;
-    --m: 10px;
+    --w: 300px;
+    --m: 20px;
   }
 }
 
 @media only screen and (min-width: 1200px) {
   :root {
-    --w: 300px;
-    --m: 30px;
+    --w: 350px;
+    --m: 20px;
   }
 }
 
@@ -42,27 +42,34 @@ body {
   width: 100vw;
   height: 100vh;
 
-  background-image: radial-gradient(rgba(0, 0, 0, 0.644), rgba(0, 0, 0, 0.904));
+  background-image: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9));
 }
 
 .bottom {
   position: relative;
   /* flex-grow: 1; */
   /* flex: 1; */
-
+  
   display: flex;
   overflow: hidden;
   /* justify-content: center; */
   align-items: stretch;
 
-  /* height: 600px; */
+  height: 100%;
   width: calc(var(--cards) * (2 * var(--m) + var(--w)));
   margin: 5vh auto;
   margin-top: unset;
+  /* border-right: 3em solid rgba(128, 128, 128, 0.541); */
   /* padding: 1em 1em; */
-  padding-bottom: 3em;
+  /* padding-bottom: 3em; */
 
   transition: width 0.5s;
 
-  background: rgb(48, 48, 48);
+  /* background: rgb(48, 48, 48); */
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e1/Logo_of_YouTube_%282015-2017%29.svg');
+  /* background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8b/YouTube_dark_icon_%282017%29.svg'); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20%;
+  background-blend-mode: soft-light;
 }
