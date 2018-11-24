@@ -1,10 +1,6 @@
-#clips {
+.clips {
   display: flex;
   align-items: stretch;
-  /* transform: translateX(calc(var(--w) * 4 * 0)); */
-  /* transform: translate(10px, 20px); */
 
   transition: transform 1.25s cubic-bezier(0, 0.6, 0.19, 0.99);
-
-  outline: 1px dotted red;
 }
