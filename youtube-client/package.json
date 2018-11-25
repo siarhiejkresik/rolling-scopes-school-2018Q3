@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production --progress"
   },
-  "author": "",
+  "author": "Siarhiej Kresik",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
