@@ -6,7 +6,6 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',
-      title: 'qwerty',
     }),
     // new MiniCssExtractPlugin({
     //   filename: '[name].css',
