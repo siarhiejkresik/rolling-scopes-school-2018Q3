@@ -5,7 +5,7 @@ import Observer from '../../scripts/Observer';
 export default class {
   constructor() {
     this.node = document.createElement('input');
-    this.node.id = 'search';
+    this.node.classList.add('search');
     this.node.type = 'search';
     this.node.placeholder = 'Search the youtube...';
     this.node.required = true;

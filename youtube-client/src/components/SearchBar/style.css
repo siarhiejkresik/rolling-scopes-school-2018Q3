@@ -1,4 +1,4 @@
-#search {
+.search {
   font-family: inherit;
   font-size: 1.5em;
   font-weight: 300;
@@ -16,7 +16,7 @@
   box-shadow: 0 0 3px 0 rgb(65, 65, 65);
 }
 
-#search:focus {
+.search:focus {
   transition: background 0.25s;
 
   color: black;
