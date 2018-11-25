@@ -5,8 +5,7 @@ import ClipsContainer from './components/ClipsContainer';
 import Pagination from './components/Pagination';
 import SwipeableContainer from './components/SwipeableContainer';
 
-// for testing
-import data from '../test/response.json';
+import YoutubeApi from './api/youtube-v3/YoutubeApi';
 
 const createApp = () => {
   const app = document.createElement('div');
@@ -36,11 +35,16 @@ const searchBar = new SearchBar();
 clipsContainer.model.pageIndexObserver.subscribe(pagination.goToPage.bind(pagination));
 pagination.pageSelectObserver.subscribe(clipsContainer.onGoToPage.bind(clipsContainer));
 
-// connect clips container with search bar
-searchBar.inputEventObserver.subscribe(clipsContainer.onSearch.bind(clipsContainer));
-
 // make bottom container swipeable
 const swipeable = new SwipeableContainer(bottom, clipsContainer.onSwipe.bind(clipsContainer));
+
+const api = new YoutubeApi();
+api.callbackOK = clipsContainer.onResponseOk.bind(clipsContainer);
+api.callbackErr = clipsContainer.onResponseErr.bind(clipsContainer);
+
+// connect clips container and search bar with youtube api
+searchBar.inputEventObserver.subscribe(api.request.bind(api));
+clipsContainer.api = api; // ugly monkey-patching
 
 // mount application parts to the DOM
 document.body.appendChild(app);
@@ -48,6 +52,3 @@ app.appendChild(searchBar.node);
 app.appendChild(bottom);
 bottom.appendChild(clipsContainer.view.node);
 app.appendChild(pagination.view.node);
-
-// for testing
-// clipsContainer.addCards(data);
