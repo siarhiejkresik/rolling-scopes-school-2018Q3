@@ -5,7 +5,7 @@ import ClipsContainer from './components/ClipsContainer';
 import Pagination from './components/Pagination';
 import SwipeableContainer from './components/SwipeableContainer';
 
-import YoutubeApi from './api/youtube-v3/YoutubeApi';
+import YoutubeApi from './api/YoutubeApi';
 
 const createApp = () => {
   const app = document.createElement('div');
@@ -19,15 +19,10 @@ const createBottom = () => {
   return bottom;
 };
 
-const createPagination = () => {
-  const pagination = new Pagination();
-  return pagination;
-};
-
 // create application parts
 const app = createApp();
 const bottom = createBottom();
-const pagination = createPagination();
+const pagination = new Pagination();
 const clipsContainer = new ClipsContainer();
 const searchBar = new SearchBar();
 
@@ -36,6 +31,7 @@ clipsContainer.model.pageIndexObserver.subscribe(pagination.goToPage.bind(pagina
 pagination.pageSelectObserver.subscribe(clipsContainer.onGoToPage.bind(clipsContainer));
 
 // make bottom container swipeable
+// eslint-disable-next-line no-unused-vars
 const swipeable = new SwipeableContainer(bottom, clipsContainer.onSwipe.bind(clipsContainer));
 
 const api = new YoutubeApi();
