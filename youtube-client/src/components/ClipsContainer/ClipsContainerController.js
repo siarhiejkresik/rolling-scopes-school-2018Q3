@@ -96,7 +96,11 @@ export default class {
     }
   }
 
-  onSwipeEnd({ directionX }) {
+  onSwipeEnd({ directionX, canceled }) {
+    if (canceled) {
+      this.model.goPage(this.model.pageIndex);
+      return;
+    }
     switch (directionX) {
       case SWIPE.directions.left:
         this.model.goNextPage();
