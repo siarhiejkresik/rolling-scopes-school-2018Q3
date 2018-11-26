@@ -6,7 +6,6 @@ export default class {
     this.pageIndex = null;
     this.variables = new VariablesEvaluator();
 
-    this.q = '';
     this.nextPageToken = undefined;
     this.totalResults = 0;
 
@@ -22,7 +21,6 @@ export default class {
   }
 
   reset() {
-    this.q = '';
     this.totalResults = 0;
     this.nextPageToken = undefined;
     this.setPageIndex(null);

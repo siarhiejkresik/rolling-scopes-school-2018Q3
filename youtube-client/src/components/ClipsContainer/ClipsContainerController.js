@@ -40,18 +40,16 @@ export default class {
   }
 
   onResponseOk(e) {
-    const { q, nextPageToken } = e;
-    const { totalResults } = e.pageInfo;
+    const { nextPageToken, prevPageToken } = e;
 
     // for new search
-    if (q !== this.model.q) {
+    if (prevPageToken === undefined) {
       this.reset();
     }
 
     this.view.addCards(e);
 
-    this.model.q = q;
-
+    const { totalResults } = e.pageInfo;
     /* the total number of items returned in responses may not by equal
     to the number of items declared in the totalResults key */
     if (nextPageToken) {
