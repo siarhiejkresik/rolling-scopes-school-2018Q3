@@ -5,9 +5,10 @@ export const SWIPE = {
     right: 'right',
   },
   phases: {
-    wait: 'wait',
+    waiting: 'waiting',
     start: 'swipeStart',
     move: 'swipeMove',
     end: 'swipeEnd',
   },
+  distanceTreshold: 100,
 };

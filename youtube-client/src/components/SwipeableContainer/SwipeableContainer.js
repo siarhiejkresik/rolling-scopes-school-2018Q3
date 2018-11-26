@@ -5,7 +5,7 @@ export default class {
   constructor(node, onSwipeCallback) {
     this.node = node;
     this.onSwipeCallback = onSwipeCallback;
-    this.phase = SWIPE.phases.wait;
+    this.phase = SWIPE.phases.waiting;
     this.startX = null;
 
     this.addListeners();
@@ -29,7 +29,7 @@ export default class {
   }
 
   onPointerDown(e) {
-    if (this.phase !== SWIPE.phases.wait) {
+    if (this.phase !== SWIPE.phases.waiting) {
       throw new Error('two pointer down');
     }
     this.phase = SWIPE.phases.start;
@@ -38,24 +38,36 @@ export default class {
   }
 
   onPointerUp(e) {
-    this.phase = SWIPE.phases.end;
+    if (this.phase !== SWIPE.phases.move) {
+      return;
+    }
 
     const { x } = e;
+    const eventData = {};
+
+    // set canceled to true if swipe movement is not long enough
+    const dx = e.x - this.startX;
+    eventData.canceled = Math.abs(dx) < SWIPE.distanceTreshold;
+
+    // set swipe direction
     let directionX;
     if (x < this.startX) {
       directionX = SWIPE.directions.left;
     } else if (x > this.startX) {
       directionX = SWIPE.directions.right;
     }
+    eventData.directionX = directionX;
 
-    this.dispatchSwipeEvent({ directionX });
+    this.phase = SWIPE.phases.end;
+    this.dispatchSwipeEvent(eventData);
 
+    // reset state
     this.startX = null;
-    this.phase = SWIPE.phases.wait;
+    this.phase = SWIPE.phases.waiting;
   }
 
   onPointerMove(e) {
-    if (this.phase === SWIPE.phases.wait) {
+    if (this.phase === SWIPE.phases.waiting) {
       return;
     }
     this.phase = SWIPE.phases.move;
