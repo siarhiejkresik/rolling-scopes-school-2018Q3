@@ -21,7 +21,6 @@ export default class {
     this.calcCardFullWidth();
     this.calcCardsPerPage();
     this.writeCardsPerPage();
-    // console.log(`full width:${this.cardFullWidth}, cards per page: ${this.cardsPerPage}`);
   }
 
   get cardWidth() {
@@ -34,13 +33,6 @@ export default class {
 
   calcCardFullWidth() {
     const cardFullWidth = this.cardWidth + this.cardMargin * 2;
-    // const { innerWidth } = window;
-    // if (cardFullWidth > window.innerWidth) {
-    //   throw new Error(
-    //     `card width with margins (${cardFullWidth}) is more than window widht (${innerWidth})`,
-    //   );
-    // cardFullWidth = innerWidth;
-    // }
     this.cardFullWidth = cardFullWidth;
   }
 
