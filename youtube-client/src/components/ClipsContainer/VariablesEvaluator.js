@@ -1,10 +1,22 @@
 import { CSS_VARIABLES, NUMBER_OF_VISIBLE_CARDS } from './constants';
 
+const w = () => Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+const h = () => Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
 const getPropertyValueFromCSS = (element, property) => {
   const value = getComputedStyle(element).getPropertyValue(property);
-  const parsedValue = parseInt(value, 10);
+  let parsedValue = parseInt(value, 10);
   if (Number.isNaN(parsedValue)) {
     throw new Error(`can not parse ${property} from ${element} to integer`);
+  }
+  if (value.endsWith('vmin')) {
+    parsedValue *= Math.min(w(), h()) / 100;
+  } else if (value.endsWith('vmax')) {
+    parsedValue *= Math.max(w(), h()) / 100;
+  } else if (value.endsWith('vh')) {
+    parsedValue *= h() / 100;
+  } else if (value.endsWith('vw')) {
+    parsedValue *= w() / 100;
   }
   return parsedValue;
 };
