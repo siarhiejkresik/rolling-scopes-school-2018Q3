@@ -10,5 +10,8 @@ export const SWIPE = {
     move: 'swipeMove',
     end: 'swipeEnd',
   },
-  distanceTreshold: 100,
+  distanceTreshold: {
+    px: 100,
+    viewportPercent: 8,
+  },
 };

@@ -1,6 +1,8 @@
 // TODO fire onPointerUp when pointer goes out of container bounds
 import { SWIPE } from './constants';
 
+const w = () => Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
 export default class {
   constructor(node, onSwipeCallback) {
     this.node = node;
@@ -47,7 +49,11 @@ export default class {
 
     // set canceled to true if swipe movement is not long enough
     const dx = e.x - this.startX;
-    eventData.canceled = Math.abs(dx) < SWIPE.distanceTreshold;
+    const treshold = Math.min(
+      SWIPE.distanceTreshold.px,
+      (SWIPE.distanceTreshold.viewportPercent * w()) / 100,
+    );
+    eventData.canceled = Math.abs(dx) < treshold;
 
     // set swipe direction
     let directionX;
