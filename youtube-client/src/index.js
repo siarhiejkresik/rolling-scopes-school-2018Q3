@@ -9,7 +9,7 @@ import YoutubeApi from './api/YoutubeApi';
 
 const createApp = () => {
   const app = document.createElement('div');
-  app.id = 'app';
+  app.classList.add('app');
   return app;
 };
 
