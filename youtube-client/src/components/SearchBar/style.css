@@ -4,7 +4,8 @@
   font-weight: 300;
   line-height: 1em;
 
-  margin: 5vh 5vw;
+  max-width: 90vw;
+  margin: 5vmin;
   padding: 0.25em 1em;
 
   transition: background 0.5s;

@@ -19,7 +19,7 @@
 .card-header {
   overflow: hidden;
 
-  height: 180px;
+  height: calc(var(--w) / 1.8);
 
   background: rgba(0, 0, 0, 0.705);
   background-repeat: no-repeat;
@@ -38,6 +38,7 @@
   margin: 0;
   margin-top: 1em;
   padding: 0.25em 0.75em;
+  border-radius: 1px;
 
   transition: transform 0.5s;
 
