@@ -38,6 +38,7 @@ body {
 }
 
 .bottom {
+  touch-action: none;
   position: relative;
   display: flex;
   overflow: hidden;
