@@ -3,6 +3,7 @@
 
   width: var(--w);
   margin: var(--m);
+  border-radius: 5px;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -64,5 +65,11 @@
 
   to {
     transform: translate3d(0, 0, 0);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .card {
+    border-radius: 0;
   }
 }

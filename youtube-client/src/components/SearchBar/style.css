@@ -6,6 +6,7 @@
 
   max-width: 90vw;
   margin: 5vmin;
+  margin-bottom: 0;
   padding: 0.25em 1em;
 
   transition: background 0.5s;
@@ -23,4 +24,10 @@
   color: black;
   outline: unset;
   background: white;
+}
+
+@media only screen and (min-width: 600px) {
+  .search {
+    margin-bottom: 5vmin;
+  }
 }
