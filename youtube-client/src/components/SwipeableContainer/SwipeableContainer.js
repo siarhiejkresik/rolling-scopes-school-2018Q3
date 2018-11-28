@@ -18,6 +18,7 @@ export default class {
       pointerup: this.onPointerUp,
       pointerdown: this.onPointerDown,
       pointermove: this.onPointerMove,
+      pointerleave: this.onPointerLeave,
     };
 
     Object
@@ -80,5 +81,9 @@ export default class {
 
     const dx = e.movementX;
     this.dispatchSwipeEvent({ dx });
+  }
+
+  onPointerLeave(e) {
+    this.onPointerUp(e);
   }
 }
