@@ -17,10 +17,10 @@ Demo: [link](https://siarheikresik.github.io/youtube-client/).
 
 ## Known bugs and caveats:
 
-- ~~double pointer down on swipeable area~~
+- double pointer down on swipeable area
 - ~~swipe on links triggers link pressing~~
 - ~~swipe move should not go out of container bounds~~
-- swipe events should not catched when there are no cards
+- swipe events should not be catched when there are no cards
 - multiple quick clicks select text on the page and corrupt swiping
 - sometimes page index value equals -1
 - clipped text in the card description body
