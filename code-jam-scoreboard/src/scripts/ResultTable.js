@@ -5,7 +5,7 @@ import {
 
 import { MAX_CHART_LINES } from './constants.js';
 
-const createCell = (type, text = '', klass) => {
+export const createCell = (type, text = '', klass) => {
   const cell = document.createElement(type);
   cell.textContent = text;
   if (klass) {
