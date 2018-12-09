@@ -96,7 +96,7 @@ export default class {
     Sortable.init();
 
     this.checkboxes = new Checkboxes(this.node);
-    this.node.addEventListener('click', this.onCheckboxCheck.bind(this));
+    this.table.addEventListener('click', this.onCheckboxCheck.bind(this));
 
     return this;
   }
