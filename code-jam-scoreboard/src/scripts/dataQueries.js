@@ -29,3 +29,20 @@ export function* getUsersData({ users, session }) {
     };
   }
 }
+
+export const providerIdIntersection = (data) => {
+  const arrs = Object.values(data)
+    .map(o => o.users)
+    .map(userInfo => userInfo.map(o => o.providerId));
+  return _.intersection(...arrs);
+};
+
+export const getUserUidByProviderId = (users, providerId) => {
+  const uid = users
+    .filter(userInfo => userInfo.providerId === providerId)
+    .map(userInfo => userInfo.uid);
+  if (uid.lenght > 1) {
+    throw new Error(`duplicated providerId ${providerId}`);
+  }
+  return uid[0];
+};
