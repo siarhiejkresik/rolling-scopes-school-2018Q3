@@ -22,17 +22,19 @@ const createCheckboxCell = (tag) => {
   return cell;
 };
 
-const addRowCells = (row, userData, i) => {
+const addRowCells = (row, userData, headers, i) => {
   const tag = 'TD';
   // number
   row.appendChild(createCell(tag, i, 'tnumber'));
   // name
   row.appendChild(createCell(tag, userData.name, 'tname'));
   // round times
-  userData.rounds.forEach((round) => {
+  const { rounds } = userData;
+  headers.forEach((header, index) => {
+    const round = rounds[index] || 'xxx';
     const cell = createCell(tag, userRoundTime(round));
     // eslint-disable-next-line no-undef
-    cell.title = _.has(round, 'code') ? round.code : '';
+    cell.title = _.has(header, 'code') ? header.code : '';
     row.appendChild(cell);
   });
   // sum time
@@ -58,12 +60,12 @@ const addTableHead = (table, headers) => {
   headRow.appendChild(createCell(tag, 'Chart'));
 };
 
-const addTableBody = (table, bodyData) => {
+const addTableBody = (table, bodyData, headers) => {
   const body = table.createTBody();
   let i = 1;
   for (const userData of bodyData) {
     const bodyRow = body.insertRow();
-    addRowCells(bodyRow, userData, i);
+    addRowCells(bodyRow, userData, headers, i);
     i += 1;
   }
 };
@@ -74,7 +76,7 @@ const createTable = (tableData) => {
   const headers = puzzlesNames(tableData.session);
   const bodyData = getUsersData(tableData);
   addTableHead(table, headers);
-  addTableBody(table, bodyData);
+  addTableBody(table, bodyData, headers);
 
   return table;
 };
@@ -91,7 +93,7 @@ export default class {
     this.node.textContent = '';
 
     this.table = createTable(tableData);
-    this.node.appendChild(createTable(tableData));
+    this.node.appendChild(this.table);
     // eslint-disable-next-line no-undef
     Sortable.init();
 
@@ -107,18 +109,23 @@ export default class {
     // prepare data for chart
     const datasets = [];
     let checked = 0;
-    [...this.node.querySelectorAll('tbody tr')].forEach((row) => {
-      if (row.querySelector('input').checked) {
+    const bodyRows = [...this.node.querySelectorAll('tbody tr')];
+    bodyRows.forEach((row) => {
+      // FIX we need an input only from the Chart column
+      const checkbox = row.querySelector('input');
+      if (checkbox.checked) {
         checked += 1;
+        const cells = [...row.children];
         datasets.push({
           label: row.children[1].textContent,
-          data: [...row.children].slice(2, 12).map(td => Number(td.textContent)),
+          data: cells.slice(2, cells.length - 2).map(td => Number(td.textContent)),
         });
       }
     });
 
     // send a message to chart
-    const labels = [...this.node.querySelectorAll('th')].slice(2, 12).map(th => th.textContent);
+    const headCells = [...this.node.querySelectorAll('th')];
+    const labels = headCells.slice(2, headCells.length - 2).map(th => th.textContent);
     this.callback({
       labels,
       datasets,
