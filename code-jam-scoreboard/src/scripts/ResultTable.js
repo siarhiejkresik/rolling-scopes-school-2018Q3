@@ -102,6 +102,8 @@ export default class {
   }
 
   onCheckboxCheck() {
+    // TODO fix hardcoded slice(2, ... -2)
+
     // prepare data for chart
     const datasets = [];
     let checked = 0;
@@ -122,7 +124,7 @@ export default class {
       datasets,
     });
 
-    // check if checkboxes need to be locked
+    // check if checkboxes must to be locked
     if (checked === MAX_CHART_LINES) {
       this.checkboxes.disable();
     } else if (checked === MAX_CHART_LINES - 1) {

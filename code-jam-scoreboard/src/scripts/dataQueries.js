@@ -2,6 +2,7 @@ import { MAX_TIME } from './constants.js';
 
 export const puzzlesNames = session => session.puzzles.map(puzzle => puzzle.name);
 
+// eslint-disable-next-line no-undef
 export const isCorrectCode = round => _.has(round, 'correct') && round.correct === 'Correct';
 
 export const userRounds = (session, uid) => session.rounds.map(round => round.solutions[uid]);
@@ -18,8 +19,8 @@ export const userRoundTime = (round) => {
 
 export const userSumTime = rounds => rounds.reduce((acc, round) => acc + userRoundTime(round), 0);
 
-// TODO participants
 export function* getUsersData({ users, session }) {
+  // eslint-disable-next-line no-undef
   for (const user of _.sortBy(users, ['displayName'])) {
     const rounds = userRounds(session, user.uid);
     yield {
@@ -34,6 +35,7 @@ export const providerIdIntersection = (data) => {
   const arrs = Object.values(data)
     .map(o => o.users)
     .map(userInfo => userInfo.map(o => o.providerId));
+  // eslint-disable-next-line no-undef
   return _.intersection(...arrs);
 };
 
@@ -69,6 +71,7 @@ export const getCompTableData = (data, sessionName) => {
       const rounds = userRounds(session, uid);
       const userName = getUserNameByUserUid(users, uid);
       const sumTime = userSumTime(rounds);
+      // eslint-disable-next-line no-undef
       _.set(result, [userName, date], sumTime);
     });
   });
