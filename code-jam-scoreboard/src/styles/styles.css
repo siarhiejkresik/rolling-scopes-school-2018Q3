@@ -48,7 +48,9 @@ th {
   cursor: pointer;
 }
 
-td.tnumber {
+td.tnumber,
+td.tresult,
+td.tdelta {
   width: unset;
   font-weight: 500;
 }
@@ -58,14 +60,22 @@ td.tname {
 }
 
 td.tchart,
-td.tnumber {
+td.tnumber,
+td.tresult {
   text-align: center;
 }
 
-td.tname,
-td.ttime {
+td.tname {
   font-weight: 500;
   border-right: 1px solid var(--color);
+}
+
+td.tname,
+td.ttime,
+td.tchart,
+td.tresult,
+td.tdelta {
+  font-weight: 500;
   border-left: 1px solid var(--color);
 }
 
@@ -73,10 +83,10 @@ th:hover {
   background-color: var(--bcolor);
 }
 
-th[data-sorted-direction="descending"] {
+th[data-sorted-direction='descending'] {
   background: linear-gradient(var(--color), transparent);
 }
 
-th[data-sorted-direction="ascending"] {
+th[data-sorted-direction='ascending'] {
   background: linear-gradient(transparent, var(--color));
 }
