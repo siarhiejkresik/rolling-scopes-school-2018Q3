@@ -24,4 +24,11 @@ export default class {
     this.chart.config.data.datasets = datasets;
     this.chart.update();
   }
+
+  clear() {
+    if (!this.chart) {
+      return;
+    }
+    this.updateDatasets({ labels: [], datasets: [] });
+  }
 }
