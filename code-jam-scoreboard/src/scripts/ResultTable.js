@@ -3,7 +3,7 @@ import {
   userRoundTime, userSumTime, puzzlesNames, getUsersData,
 } from './dataQueries.js';
 
-const MAX_CHART_LINES = 3;
+import { MAX_CHART_LINES } from './constants.js';
 
 const createCell = (type, text = '', klass) => {
   const cell = document.createElement(type);

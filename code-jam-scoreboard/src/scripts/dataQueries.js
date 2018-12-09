@@ -1,4 +1,4 @@
-const MAX_TIME = 150;
+import { MAX_TIME } from './constants.js';
 
 export const puzzlesNames = session => session.puzzles.map(puzzle => puzzle.name);
 
