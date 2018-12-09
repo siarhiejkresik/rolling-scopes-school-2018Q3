@@ -26,6 +26,11 @@ form {
   text-align: center;
 }
 
+form {
+  display: flex;
+  justify-content: center;
+}
+
 thead {
   background: var(--color);
 }
