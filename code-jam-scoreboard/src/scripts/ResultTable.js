@@ -34,7 +34,7 @@ const addRowCells = (row, userData, headers, i) => {
     const round = rounds[index] || 'xxx';
     const cell = createCell(tag, userRoundTime(round));
     // eslint-disable-next-line no-undef
-    cell.title = _.has(header, 'code') ? header.code : '';
+    cell.title = _.has(round, 'code') ? round.code : '';
     row.appendChild(cell);
   });
   // sum time
