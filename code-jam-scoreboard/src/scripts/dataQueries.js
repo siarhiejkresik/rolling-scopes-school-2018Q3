@@ -60,14 +60,12 @@ export const getCompTableData = (data, sessionName) => {
   const dupProviderIds = providerIdIntersection(data);
   const dates = Object.keys(data);
 
-  // eslint-disable-next-line array-callback-return
-  dates.map((date) => {
+  dates.forEach((date) => {
     const { users } = data[date];
     const session = data[date].session[sessionName];
     const uids = dupProviderIds.map(uid => getUserUidByProviderId(users, uid));
 
-    // eslint-disable-next-line array-callback-return
-    uids.map((uid) => {
+    uids.forEach((uid) => {
       const rounds = userRounds(session, uid);
       const userName = getUserNameByUserUid(users, uid);
       const sumTime = userSumTime(rounds);
