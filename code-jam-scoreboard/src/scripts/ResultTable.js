@@ -57,7 +57,7 @@ const addTableHead = (table, headers) => {
   // sum time
   headRow.appendChild(createCell(tag, 'Time', 'ttime'));
   // checkbox
-  headRow.appendChild(createCell(tag, 'Chart'));
+  headRow.appendChild(createCell(tag, 'Comparison'));
 };
 
 const addTableBody = (table, bodyData, headers) => {
