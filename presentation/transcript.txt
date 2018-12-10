@@ -1,0 +1,83 @@
+
+Hello. I’d like to talk to you today about browser extensions.
+
+So what are browser extension?
+
+From the user point of view extensions are small programs which can be used to modify the existing functionality and to add new features to sites and a browser itself.
+
+From the developer point of view an extension is a zip file, which can contain html, css, javascript files, images and anything else you need. 
+This days programming an extension is just like programming web pages.
+
+Now let’s dive deeper into how extensions are build.
+
+Every single extension must have a JSON-formatted manifest file.
+
+This is where we define a meta information about an extension and describe a structure of an extension.
+
+The manifest file has mandatory keys such as name of an extension, version of an extension, and optional keys. Here you can see the most important ones.
+
+The second important part of extensions is background scripts.
+
+Background scripts run in the context of a special page called background page.
+They contain main logic of an extension.
+Background scripts can use any of the APIs as long as an extension has the necessary permissions.
+And background scripts can't directly access the content of web pages.
+
+You can include a background script using the `background` key in the manifest file.
+
+Along with background scripts an extension may have content scripts.
+
+Content scripts run in the context of a particular web page. 
+Use them if you want to access or modify the page’s DOM.
+Content scripts live in an isolated world, they don’t have direct access to page or background scripts.
+And content scripts can access only a small subset of the APIs.
+
+How can we load a content script into a web page?
+If you need to run a content script on specific occasions you can do it programmatically from background scripts using APIs.
+
+When you want to run a content script automatically on specified pages register it in the manifest file under the content_scripts key.
+
+Your extension can include various user interface components: a button, an option page,  context menu items and other browser specific UI elements.
+
+To add an UI element you have to declare it in the manifest file. For example here we define a button in the browser toolbar with an icon, title and popup page.
+
+Unlike a normal web page, your UI elements can use all the same privileged APIs as your background script. 
+
+Most extensions APIs of the major browsers are similar, but as usual not identical.
+For examle in Firefox and Microsoft Edge you can access the APIs using the browser namespace, in Chrome and Opera using the chrome namespace.
+Many of the APIs are asynchronous and use callbacks but Firefox supports promises as well.
+Not all browsers support all the APIs, for more details you can visit the mozilla site.
+
+To use most APIs they must be registered in the permissions field of the manifest.
+
+There are: 
+host permissions — URLs for which the extension get extra privileges,
+APIs permissions — which APIs your extension can use,
+activeTab permission — the extension get extra privileges for the active tab only
+
+Background, content and pages scripts run in isolated environments. If you want communicate between them use message passing.
+
+There are two basic patterns for communicating between the content scripts and background scripts: If you only need to send a single message to another part of your extension, you should use the simplified runtime.sendMessage and tabs.sendMessage APIs. Or you can open a longer-lived channel using runtime.connect or tabs.connect.
+
+Contents scripts can communicate with the page scripts through the shared DOM using window.postMessage and window.addEventListener APIs.
+
+There are APIs that allow extension communicate with other extensions, web pages or even exchange messages with native applications.
+
+Now it is time to recap.
+
+If you want to develope an extension,
+firstly, write the manifest file and provide it with all needed information;
+write background files that will have flil access to the APIs;
+write content scripts if you want to access and modify the page's DOM;
+add UI elements;
+communicate between parts of your extension  and with the outside world by message passing.
+
+Once you have developed an extension you can publish it.
+Every browser has its own way to do this.
+Just read online documentation.
+
+Here are some useful links for those who want to create an extension.
+
+And here are my favorite extensions.
+
+Thanks.
