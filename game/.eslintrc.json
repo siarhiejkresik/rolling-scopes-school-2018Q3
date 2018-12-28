@@ -1,0 +1,6 @@
+{
+  "extends": ["eslint:recommended", "plugin:vue/recommended"],
+  "rules": {
+    "vue/component-name-in-template-casing": ["kebab-case"]
+  }
+}
