@@ -3,3 +3,6 @@ node_modules
 *.bundle.js
 *.log
 .vscode
+dist
+game/scripts
+data
