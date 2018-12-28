@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production --progress --hide-modules",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "lint": "eslint 'src/**/*.{js,vue}'",
+    "lint-fix": "eslint 'src/**/*.{js,vue}' --fix"
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
