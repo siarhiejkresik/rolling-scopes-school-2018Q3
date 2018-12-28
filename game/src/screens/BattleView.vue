@@ -65,7 +65,7 @@
     </b-button>
     <b-button
       v-b-modal.spell-chooser
-      variant="outline"
+      variant="success"
       size="lg"
       :disabled="spell.animation !== undefined"
       class="spell"
@@ -341,7 +341,7 @@ button.spell {
 }
 
 button.spell:focus {
-  box-shadow: 0px 0 30px 0.1rem var(--primary);
+  box-shadow: 0px 0 30px 0.1rem var(--secondary);
 }
 
 button.exit {
