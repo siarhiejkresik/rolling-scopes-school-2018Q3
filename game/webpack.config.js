@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -25,7 +25,6 @@ module.exports = {
             'b-carousel-slide': 'img-src',
             'b-embed': 'src'
           }
-          // other vue-loader options go here
         }
       },
       {
@@ -35,10 +34,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        use: ['vue-style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpg|gif|svg|ogg)$/,
@@ -49,13 +45,15 @@ module.exports = {
       },
       {
         test: /\.woff2$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'fonts/'
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
           }
-        }]
+        ]
       },
       {
         test: /\.txt$/,
@@ -67,6 +65,7 @@ module.exports = {
       }
     ]
   },
+  plugins: [new VueLoaderPlugin()],
   resolve: {
     alias: {
       vue$: 'vue/dist/vue.esm.js'
@@ -80,7 +79,6 @@ module.exports = {
   performance: {
     hints: false
   },
-  plugins: [new ExtractTextPlugin('main.css')],
   devtool: '#eval-source-map'
 };
 

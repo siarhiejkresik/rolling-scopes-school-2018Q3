@@ -1,13 +1,4 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": ["chrome >= 66"]
-        }
-      }
-    ]
-  ],
-  "plugins": ["transform-object-rest-spread"]
+  "presets": ["@babel/preset-env"],
+  "plugins": ["@babel/plugin-transform-runtime"]
 }
