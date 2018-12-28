@@ -112,7 +112,7 @@ body {
   align-items: center;
   background: repeating-linear-gradient(45deg, #dedede 2px, #dadada 3px, #dadada 4px, #dedede 7px);
   font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
 }
 
 .fade-enter-active {
