@@ -1,24 +1,36 @@
 <template>
   <section>
     <div class="d-flex flex-column align-items-center">
-      <h2 class="display-4">Дасягненні</h2>
+      <h2 class="display-4">
+        Дасягненні
+      </h2>
       <h4
+        v-if="lastRecord !== undefined"
         class="mt-4 text-weight-bold"
-        v-if="lastRecord !== undefined">Вы занялі <strong>{{ lastRecord + 1 }}</strong> месца!
+      >
+        Вы занялі <strong>{{ lastRecord + 1 }}</strong> месца!
       </h4>
       <b-table
-          class="records mt-5 mb-5 text-center"
-          striped small
-          :items="items"
-          :fields="fields">
-        <template slot="index" slot-scope="data">
-          {{data.index + 1}}
+        class="records mt-5 mb-5 text-center"
+        striped
+        small
+        :items="items"
+        :fields="fields"
+      >
+        <template
+          slot="index"
+          slot-scope="data"
+        >
+          {{ data.index + 1 }}
         </template>
       </b-table>
       <b-button
         class="w-50"
         size="lg"
-        @click="exit">Выйсці</b-button>
+        @click="exit"
+      >
+        Выйсці
+      </b-button>
     </div>
   </section>
 </template>

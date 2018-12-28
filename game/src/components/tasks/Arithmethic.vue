@@ -1,19 +1,21 @@
 <template>
-    <div class="pagination-centered">
-      <h2 class="text-center">Колькі будзе...</h2>
-      <div class="operation mt-5 mb-5 text-center">
-        {{ numbers.a }} {{ operation }} {{ numbers.b }} = {{ answerNumber }}
-      </div>
-      <b-form @submit="sendAnswerReady">
-        <b-form-input
-          v-model="answer"
-          type="text"
-          size="lg"
-          placeholder="прыклад адказу: 43"
-          class="mt-3">
-        </b-form-input>
-      </b-form>
-    </div>  
+  <div class="pagination-centered">
+    <h2 class="text-center">
+      Колькі будзе...
+    </h2>
+    <div class="operation mt-5 mb-5 text-center">
+      {{ numbers.a }} {{ operation }} {{ numbers.b }} = {{ answerNumber }}
+    </div>
+    <b-form @submit="sendAnswerReady">
+      <b-form-input
+        v-model="answer"
+        type="text"
+        size="lg"
+        placeholder="прыклад адказу: 43"
+        class="mt-3"
+      />
+    </b-form>
+  </div>  
 </template>
 
 <script>

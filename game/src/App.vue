@@ -1,30 +1,33 @@
 <template>
   <main id="app">
-  <transition name="fade" mode="out-in">
-    <menu-view
-      v-if="view === VIEWS.MENU"
-      @startGame='onStartGame'
-      @showScores='onShowScores'>
-    </menu-view>
-    <loading-view
-      v-else-if="view === VIEWS.LOADING"
-      message="ПАЧАКАЙЦЕ"
-      @loaded='onLoaded'>
-    </loading-view>
-    <login-view
-      v-else-if="view === VIEWS.LOGIN"
-      @logIn='onLogIn'>
-    </login-view>
-    <battle-view
-      v-else-if="view === VIEWS.BATTLE"
-      @exitGame='onExitGame'
-      @showScores='onShowScores'>
-    </battle-view>
-    <scores-view
-      v-else-if="view === VIEWS.SCORES"
-      @exitGame='onExitGame'>
-    </scores-view> 
-  </transition>    
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <menu-view
+        v-if="view === VIEWS.MENU"
+        @startGame="onStartGame"
+        @showScores="onShowScores"
+      />
+      <loading-view
+        v-else-if="view === VIEWS.LOADING"
+        message="ПАЧАКАЙЦЕ"
+        @loaded="onLoaded"
+      />
+      <login-view
+        v-else-if="view === VIEWS.LOGIN"
+        @logIn="onLogIn"
+      />
+      <battle-view
+        v-else-if="view === VIEWS.BATTLE"
+        @exitGame="onExitGame"
+        @showScores="onShowScores"
+      />
+      <scores-view
+        v-else-if="view === VIEWS.SCORES"
+        @exitGame="onExitGame"
+      /> 
+    </transition>    
   </main>
 </template>
 
@@ -40,7 +43,7 @@ const VIEWS = {
 };
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     ...screens
   },
@@ -56,6 +59,20 @@ export default {
     isLoggedIn() {
       return this.$store.state.player.name !== undefined;
     }
+  },
+  watch: {
+    isLoaded: function() {
+      if (this.isLoaded && this.view === this.views.LOADING) {
+        this.onStartGame();
+      }
+    }
+  },
+  created: function() {
+    this.VIEWS = VIEWS;
+    this.view = VIEWS.MENU;
+  },
+  mounted: function() {
+    this.$store.dispatch('assets/load');
   },
   methods: {
     onStartGame() {
@@ -79,20 +96,6 @@ export default {
       this.$store.commit('player/setName', playerName);
       this.onStartGame();
     }
-  },
-  watch: {
-    isLoaded: function() {
-      if (this.isLoaded && this.view === this.views.LOADING) {
-        this.onStartGame();
-      }
-    }
-  },
-  created: function() {
-    this.VIEWS = VIEWS;
-    this.view = VIEWS.MENU;
-  },
-  mounted: function() {
-    this.$store.dispatch('assets/load');
   }
 };
 </script>

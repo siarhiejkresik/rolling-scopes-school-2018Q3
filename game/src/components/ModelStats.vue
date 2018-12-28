@@ -1,14 +1,19 @@
 <template>
   <div class="container">
-    <div class="name">ІМЯ: {{ name }}</div>
-    <div class="health">ЖЫЦЦЁ: {{ health }}</div>
+    <div class="name">
+      ІМЯ: {{ name }}
+    </div>
+    <div class="health">
+      ЖЫЦЦЁ: {{ health }}
+    </div>
     <b-progress
       height="10px"
       :variant="healthBarColorVariant"
       :value="health"
       :max="healthMax"
       :class="{ 'flip-vertical': isRight }"
-      class="health-bar w-75"></b-progress>
+      class="health-bar w-75"
+    />
   </div>
 </template>
 

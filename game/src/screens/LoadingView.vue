@@ -8,8 +8,11 @@ You can show a loading message by setting 'message' property.
     <div class="content flex-centered flex-column">
       <div
         v-if="message"
-        class="display-4">{{ message }}</div>
-      <div class="spinner m-4"></div>
+        class="display-4"
+      >
+        {{ message }}
+      </div>
+      <div class="spinner m-4" />
     </div>
   </div>
 </template>

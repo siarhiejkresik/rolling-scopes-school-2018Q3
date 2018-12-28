@@ -1,22 +1,25 @@
 <template>
   <b-modal
-      ok-title="Адказаць" cancel-title="Здацца" cancel-variant="danger"
-      :no-close-on-backdrop=true
-      :no-close-on-esc=true
-      :hide-header-close=true
-      :centered=true
-      :title="status.title" 
-      :header-bg-variant="status.headerBg"
-      :header-text-variant="status.headerText"
-      :busy="status.busy"
-      @ok="handleModalOk"
-      @cancel="handleModalCancel"
-      ref="modal">
+    ref="modal"
+    ok-title="Адказаць"
+    cancel-title="Здацца"
+    cancel-variant="danger"
+    :no-close-on-backdrop="true"
+    :no-close-on-esc="true"
+    :hide-header-close="true"
+    :centered="true" 
+    :title="status.title"
+    :header-bg-variant="status.headerBg"
+    :header-text-variant="status.headerText"
+    :busy="status.busy"
+    @ok="handleModalOk"
+    @cancel="handleModalCancel"
+  >
     <component
       :is="task"
       @answerChanged="onAnswerChanged"
-      @answerReady="onAnswerReady">
-    </component>
+      @answerReady="onAnswerReady"
+    />
   </b-modal>
 </template>
 
@@ -58,6 +61,13 @@ export default {
       isCorrectAnswer: undefined,
       status: STATUSES.NEUTRAL
     };
+  },
+  watch: {
+    task: function() {
+      if (this.task) {
+        this.showModal();
+      }
+    }
   },
   methods: {
     onAnswerChanged(value) {
@@ -101,13 +111,6 @@ export default {
     },
     hideModal() {
       this.$refs.modal.hide();
-    }
-  },
-  watch: {
-    task: function() {
-      if (this.task) {
-        this.showModal();
-      }
     }
   }
 };

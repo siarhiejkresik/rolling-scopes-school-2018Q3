@@ -1,5 +1,4 @@
-<template>
-</template>
+<template />
 
 <script>
 import { randomObjectElement } from '../scripts/utils.js';
@@ -19,6 +18,14 @@ export default {
     modelResources() {
       return this.$store.state.assets.resources.model;
     }
+  },
+  watch: {
+    renderTrigger: function() {
+      this.draw();
+    }
+  },
+  mounted: function() {
+    this.draw();
   },
   methods: {
     draw() {
@@ -97,14 +104,6 @@ export default {
       );
       this.ctx.restore();
     }
-  },
-  watch: {
-    renderTrigger: function() {
-      this.draw();
-    }
-  },
-  mounted: function() {
-    this.draw();
   }
 };
 </script>

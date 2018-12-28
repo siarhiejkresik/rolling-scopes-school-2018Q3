@@ -1,14 +1,16 @@
 <template>
   <div>
-    <b-radio-group id="spells"
+    <b-radio-group
+      id="spells"
+      v-model="selected"
       buttons
       stacked
-      v-model="selected"
       button-variant="outline-secondary"
       size="lg"
       :options="options"
       name="radioBtnStacked" 
-      class="btn-block"/>
+      class="btn-block"
+    />
   </div> 
 </template>
 

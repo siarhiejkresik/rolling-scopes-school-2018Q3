@@ -1,20 +1,23 @@
 <template>
   <div>
     <draggable
-        v-model="letters"
-        @start="resetLetter">
-        <div
-          :class="{ 'border-primary': letterIndex === index && isLetterFocused,
-                    'bg-warning': letterIndex === index && isLetterSelected }"
-          class="letter
+      v-model="letters"
+      @start="resetLetter"
+    >
+      <div
+        v-for="(element, index) in letters"
+        :key="index"
+        :class="{ 'border-primary': letterIndex === index && isLetterFocused,
+                  'bg-warning': letterIndex === index && isLetterSelected }"
+        class="letter
            pb-1 border rounded shadow-sm 
            justify-content-center align-items-center
            text-lowercase font-weight-light"
-          v-for="(element, index) in letters"
-          :key="index">{{ element }}
-        </div>
+      >
+        {{ element }}
+      </div>
     </draggable>
-   </div>  
+  </div>  
 </template>
 
 <script>
@@ -60,6 +63,23 @@ export default {
     isLetterSelected() {
       return this.letterState === STATE.SELECTED;
     }
+  },
+  watch: {
+    letters() {
+      this.changed();
+    },
+    word() {
+      this.letters = toArray(this.word);
+    },
+    reset() {
+      this.resetLetter();
+    }
+  },
+  mounted() {
+    window.addEventListener('keydown', this.keyHandler);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.keyHandler);
   },
   methods: {
     onMoveLeft() {
@@ -151,23 +171,6 @@ export default {
           break;
         }
       }
-    }
-  },
-  mounted() {
-    window.addEventListener('keydown', this.keyHandler);
-  },
-  beforeDestroy() {
-    window.removeEventListener('keydown', this.keyHandler);
-  },
-  watch: {
-    letters() {
-      this.changed();
-    },
-    word() {
-      this.letters = toArray(this.word);
-    },
-    reset() {
-      this.resetLetter();
     }
   }
 };

@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvas"></canvas>
+  <canvas ref="canvas" />
 </template>
 
 <script>
@@ -10,14 +10,14 @@ export default {
       return this.$refs.canvas.getContext('2d');
     }
   },
-  methods: {
-    playAnimation() {
-      this.animation(this.ctx, this.verticalAxis);
-    }
-  },
   watch: {
     runAnimationTrigger: function() {
       this.playAnimation();
+    }
+  },
+  methods: {
+    playAnimation() {
+      this.animation(this.ctx, this.verticalAxis);
     }
   }
 };

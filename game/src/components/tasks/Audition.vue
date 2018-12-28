@@ -1,20 +1,25 @@
 <template>
-    <div>
-      <h2 class="text-center">Напішы пераклад пачутага...</h2>
-      <b-button
+  <div>
+    <h2 class="text-center">
+      Напішы пераклад пачутага...
+    </h2>
+    <b-button
+      size="lg"
+      class="play mx-auto mt-5 mb-5"
+      @click="sayWord"
+    >
+      {{ isFirstPlay ? 'Праслухаць' :'Паўтарыць' }}
+    </b-button>
+    <b-form @submit="sendAnswerReady">
+      <b-form-input
+        v-model="answer"
+        type="text"
         size="lg"
-        @click="sayWord"
-        class="play mx-auto mt-5 mb-5">{{ isFirstPlay ? 'Праслухаць' :'Паўтарыць' }}</b-button>
-      <b-form @submit="sendAnswerReady">
-        <b-form-input
-          v-model="answer"
-          type="text"
-          size="lg"
-          placeholder="прыклад адказу: мама"
-          class="mt-3">
-        </b-form-input>
-      </b-form>
-    </div>  
+        placeholder="прыклад адказу: мама"
+        class="mt-3"
+      />
+    </b-form>
+  </div>  
 </template>
 
 <script>

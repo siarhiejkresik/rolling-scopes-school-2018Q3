@@ -4,18 +4,22 @@
       <model-stats
         :name="player.name"
         :health="player.health"
-        :healthMax="player.healthMax"
-        :isRight=false></model-stats>
+        :health-max="player.healthMax"
+        :is-right="false"
+      />
       <div class="wins text-center">
         <div>Перамог</div>
-        <div class="badge badge-info pt-2">{{ numOfWins }}</div>
+        <div class="badge badge-info pt-2">
+          {{ numOfWins }}
+        </div>
       </div>
       <model-stats
         :name="enemy.name"
         :health="enemy.health"
-        :healthMax="enemy.healthMax"
-        :isRight=true
-        class="text-right"></model-stats>
+        :health-max="enemy.healthMax"
+        :is-right="true"
+        class="text-right"
+      />
     </div>
 
     <canvas
@@ -23,49 +27,66 @@
       ref="canvas"
       :width="canvas.width"
       :height="canvas.height"
-      class="rounded-bottom">
-        <model
-          :vertical-axis="canvas.width * player.verticalAxis"
-          :bottom-line="canvas.height - player.bottomLine"
-          :model="player.model"
-          :scale="player.scale"
-          :renderTrigger="renderTrigger"
-          class="player"></model>
-        <model
-          :vertical-axis="canvas.width * enemy.verticalAxis"
-          :bottom-line="canvas.height - enemy.bottomLine"
-          :model="enemy.model"
-          :scale="enemy.scale"
-          :renderTrigger="renderTrigger"
-          class="enemy"></model>
+      class="rounded-bottom"
+    >
+      <model
+        :vertical-axis="canvas.width * player.verticalAxis"
+        :bottom-line="canvas.height - player.bottomLine"
+        :model="player.model"
+        :scale="player.scale"
+        :render-trigger="renderTrigger"
+        class="player"
+      />
+      <model
+        :vertical-axis="canvas.width * enemy.verticalAxis"
+        :bottom-line="canvas.height - enemy.bottomLine"
+        :model="enemy.model"
+        :scale="enemy.scale"
+        :render-trigger="renderTrigger"
+        class="enemy"
+      />
     </canvas>
 
     <spell-canvas
-      :width="canvas.width" :height="canvas.height"
+      :width="canvas.width"
+      :height="canvas.height"
       :animation="spell.animation"
-      :verticalAxis="spell.verticalAxis"
-      :runAnimationTrigger="spell.runAnimationTrigger"
-      class="rounded-bottom"></spell-canvas>
+      :vertical-axis="spell.verticalAxis"
+      :run-animation-trigger="spell.runAnimationTrigger"
+      class="rounded-bottom"
+    />
 
-    <b-button class="exit text-light" variant="link" @click="gameEnd">Выйсці</b-button>
+    <b-button
+      class="exit text-light"
+      variant="link"
+      @click="gameEnd"
+    >
+      Выйсці
+    </b-button>
     <b-button
       v-b-modal.spell-chooser
-      variant="outline" size="lg"
+      variant="outline"
+      size="lg"
       :disabled="spell.animation !== undefined"
-      class="spell">Заклінанні</b-button>
+      class="spell"
+    >
+      Заклінанні
+    </b-button>
     <b-modal
-      title="Выберы заклінанне" 
-      ok-title="Выбраць" cancel-title="Назад"
-      :centered=true
+      id="spell-chooser" 
+      title="Выберы заклінанне"
+      ok-title="Выбраць"
+      cancel-title="Назад"
+      :centered="true"
       @spellSet="onSpellChange"
       @ok="onSpellSelected"
-      id="spell-chooser">
-      <spell-chooser :spells="spells"></spell-chooser>
+    >
+      <spell-chooser :spells="spells" />
     </b-modal>
     <tasks
       v-model="task"
-      @taskResult="onTaskResult">
-    </tasks>
+      @taskResult="onTaskResult"
+    />
   </div>
 </template>
 
@@ -171,6 +192,12 @@ export default {
       return ctx;
     }
   },
+  created: function() {
+    this.spells = SPELLS;
+  },
+  mounted: function() {
+    this.player.name = this.$store.state.player.name;
+  },
   methods: {
     onSpellChange(spellName) {
       this.spell.current = spellName;
@@ -261,12 +288,6 @@ export default {
     triggerSpellAnimation() {
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
     }
-  },
-  created: function() {
-    this.spells = SPELLS;
-  },
-  mounted: function() {
-    this.player.name = this.$store.state.player.name;
   }
 };
 </script>

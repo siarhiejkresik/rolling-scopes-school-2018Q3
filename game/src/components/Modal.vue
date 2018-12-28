@@ -10,34 +10,47 @@ hascancel: don't show the cancel button
 <template>
   <transition name="modal-fade">
     <div
-        v-show=show
-        @click="close"
-        class="modal-mask">
-      <div @click.stop class="modal-body d-flex flex-column bg-light p-0 rounded shadow-lg">
-
+      v-show="show"
+      class="modal-mask"
+      @click="close"
+    >
+      <div
+        class="modal-body d-flex flex-column bg-light p-0 rounded shadow-lg"
+        @click.stop
+      >
         <header class="d-flex flex-row justify-content-between align-items-center bg-info p-3 h-3 text-light rounded-top">
           <slot name="header">
             <h4>{{ title }}</h4>
           </slot>
-          <button class="close" @click="close">×</button>
+          <button
+            class="close"
+            @click="close"
+          >
+            ×
+          </button>
         </header>
         
         <main class="p-3">
-          <slot></slot>
+          <slot />
         </main>
         
         <footer class="d-flex flex-row justify-content-end p-3 border-top">
           <slot name="footer">
             <b-button
+              class="ml-1 m2-2"
               @click="ok"
-              class="ml-1 m2-2">Ok</b-button>
+            >
+              Ok
+            </b-button>
             <b-button
               v-if="hascancel"
+              class="ml-2 m2-2"
               @click="cancel"
-              class="ml-2 m2-2">Cancel</b-button>
+            >
+              Cancel
+            </b-button>
           </slot>
         </footer>
-
       </div>
     </div>
   </transition>

@@ -1,12 +1,14 @@
 <template>
   <div>
-    <h2 class="text-center">Цягні літары каб выйшла загаданае слова...</h2>
+    <h2 class="text-center">
+      Цягні літары каб выйшла загаданае слова...
+    </h2>
     <draggable
-      class="mt-5 mb-4 text-center"
       v-model="answer"
-      @submit="sendAnswerReady">
-    </draggable>
-   </div>  
+      class="mt-5 mb-4 text-center"
+      @submit="sendAnswerReady"
+    />
+  </div>  
 </template>
 
 <script>
