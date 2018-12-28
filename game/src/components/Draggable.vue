@@ -3,7 +3,6 @@
     <draggable
         v-model="letters"
         @start="resetLetter">
-      <transition-group> 
         <div
           :class="{ 'border-primary': letterIndex === index && isLetterFocused,
                     'bg-warning': letterIndex === index && isLetterSelected }"
@@ -14,7 +13,6 @@
           v-for="(element, index) in letters"
           :key="index">{{ element }}
         </div>
-      </transition-group>
     </draggable>
    </div>  
 </template>
