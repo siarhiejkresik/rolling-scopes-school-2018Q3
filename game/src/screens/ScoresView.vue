@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="d-flex flex-column align-items-center">
-      <h2 class="display-4">
+      <h2 class="display-4 animated fadeInDown faster">
         Дасягненні
       </h2>
       <h4
@@ -11,7 +11,7 @@
         Вы занялі <strong>{{ lastRecord + 1 }}</strong> месца!
       </h4>
       <b-table
-        class="records mt-5 mb-5 text-center"
+        class="records mt-5 mb-5 text-center animated fadeIn faster"
         striped
         small
         :items="items"
@@ -25,7 +25,7 @@
         </template>
       </b-table>
       <b-button
-        class="w-50"
+        class="w-50 animated fadeInUp"
         size="lg"
         @click="exit"
       >

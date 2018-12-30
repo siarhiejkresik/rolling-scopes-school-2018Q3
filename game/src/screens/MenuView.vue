@@ -1,22 +1,23 @@
 <template>
   <section class="main">
     <section class="top">
-      <h1 class="display-1">
+      <h1 class="display-1 animated fadeInDown fast">
         Гульня ў словы
       </h1>
-      <div class="subtitle">
+      <div class="subtitle animated faster fadeInDown">
         Праверым, ці добра ты ведаеш беларускія словы?
       </div>
       <div class="menu m-5 w-50">
         <b-button
           size="lg"
-          class="pulse" 
+          class="pulse animated fadeInUp faster"
           @click="$emit('startGame')"
         >
           Пачаць
         </b-button>
         <b-button
           size="lg"
+          class="pulse animated fadeInUp"
           @click="$emit('showScores')"
         >
           Дасягненні

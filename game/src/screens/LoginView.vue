@@ -2,7 +2,7 @@
   <div>
     <label
       for="playerNameInput"
-      class="display-4 d-block text-center"
+      class="display-4 d-block text-center animated fadeInDown faster"
     >
       Увядзіце сваё імя
     </label>
@@ -25,7 +25,7 @@
           type="submit"
           size="lg"
           variant="primary"
-          class="d-block mx-auto mt-4"
+          class="d-block mx-auto mt-4 animated fadeInUp fast"
         >
           Гуляць
         </b-button>
@@ -44,8 +44,8 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      this.$store.commit('player/setName', this.playerName);
-      this.$emit('logIn');
+      this.$store.commit("player/setName", this.playerName);
+      this.$emit("logIn");
     }
   }
 };
