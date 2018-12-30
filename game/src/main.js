@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import store from './store';
 
+import './assets/styles/index.css'
+
 Vue.use(BootstrapVue);
 
 new Vue({

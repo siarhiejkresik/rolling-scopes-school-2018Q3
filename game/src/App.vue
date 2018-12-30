@@ -100,7 +100,6 @@ export default {
 </script>
 
 <style>
-@import url('./assets/styles/latofonts.css');
 body,
 html {
   margin: 0;
