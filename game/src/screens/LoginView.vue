@@ -1,31 +1,37 @@
 <template>
-  <b-form
-    class="login-form"
-    @submit="onSubmit"
-  >
-    <b-form-group
-      class="display-4"
-      label="Увядзіце сваё імя"
-      label-for="playerNameInput"
+  <div>
+    <label
+      for="playerNameInput"
+      class="display-4 d-block text-center"
     >
-      <b-form-input
-        id="playerNameInput"
-        v-model="playerName"
-        type="text"
-        size="lg"
-        placeholder=""
-        required
-      />
-      <b-button
-        type="submit"
-        size="lg"
-        variant="primary"
-        class="d-block mx-auto mt-4"
+      Увядзіце сваё імя
+    </label>
+    <b-form
+      class="login-form"
+      @submit="onSubmit"
+    >
+      <b-form-group
+        class="display-4"
       >
-        Гуляць
-      </b-button>
-    </b-form-group>
-  </b-form>
+        <b-form-input
+          id="playerNameInput"
+          v-model="playerName"
+          type="text"
+          size="lg"
+          placeholder
+          required
+        />
+        <b-button
+          type="submit"
+          size="lg"
+          variant="primary"
+          class="d-block mx-auto mt-4"
+        >
+          Гуляць
+        </b-button>
+      </b-form-group>
+    </b-form>
+  </div>
 </template>
 
 <script>
