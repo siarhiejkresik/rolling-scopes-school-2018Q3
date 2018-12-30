@@ -1,5 +1,5 @@
 import config from '../../scripts/preload/assets/index.js';
-import load from '../../scripts/preload/preloader';
+import preloader from '../../scripts/preload/preloader';
 
 const state = {
   isLoaded: false,
@@ -7,18 +7,20 @@ const state = {
 };
 
 const mutations = {
-  load(state) {
-    // TODO: fix `Error: [vuex] Do not mutate vuex store state outside mutation handlers.`
-    load(config).then(resources => {
-      state.resources = resources;
-      state.isLoaded = true;
-    });
+  setLoadedStatus(state, status) {
+    state.isLoaded = status;
+  },
+  setResources(state, resources) {
+    state.resources = resources;
   }
 };
 
 const actions = {
   load(context) {
-    context.commit('load');
+    preloader(config).then(resources => {
+      context.commit('setResources', resources);
+      context.commit('setLoadedStatus', true);
+    });
   }
 };
 
