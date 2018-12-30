@@ -62,7 +62,7 @@ export default {
   },
   watch: {
     isLoaded: function() {
-      if (this.isLoaded && this.view === this.views.LOADING) {
+      if (this.isLoaded && this.view === this.VIEWS.LOADING) {
         this.onStartGame();
       }
     }
