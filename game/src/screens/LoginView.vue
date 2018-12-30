@@ -38,7 +38,8 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      this.$emit('logIn', this.playerName);
+      this.$store.commit('player/setName', this.playerName);
+      this.$emit('logIn');
     }
   }
 };

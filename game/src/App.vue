@@ -92,8 +92,7 @@ export default {
     onShowScores() {
       this.view = this.VIEWS.SCORES;
     },
-    onLogIn(playerName) {
-      this.$store.commit('player/setName', playerName);
+    onLogIn() {
       this.onStartGame();
     }
   }
