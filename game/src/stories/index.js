@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/vue';
 import LoadingView from '../screens/LoadingView.vue';
 import Modal from '../components/Modal.vue';
 import ModalWrapper from './ModalWrapper.vue';
+import DamageWrapper from './DamageWrapper.vue';
 
 import { LOREM } from './constants.js';
 
@@ -41,3 +42,11 @@ storiesOf('ModalWrapper', module).add('modal functionality', () => ({
   components: { ModalWrapper },
   template: '<modal-wrapper></modal-wrapper>'
 }));
+
+//  Damage.vue
+
+storiesOf('Damage', module)
+.add('damage functionality', () => ({
+  components: { DamageWrapper },
+  template: '<damage-wrapper></damage-wrapper>'
+  }))

@@ -55,6 +55,13 @@
       :run-animation-trigger="spell.runAnimationTrigger"
       class="rounded-bottom"
     />
+    
+    <damage
+      v-if="spell.showDamage"
+      :damage="spell.power"
+      :vertical-axis="spell.verticalAxis * canvas.width"
+      :horizontal-axis="0.5 * canvas.height"
+    />
 
     <b-button
       class="exit text-light"
@@ -148,6 +155,7 @@ export default {
     Tasks,
     Model,
     ModelStats,
+    Damage,
     ...tasks
   },
   data() {
@@ -176,7 +184,8 @@ export default {
         power: SPELL_POWER,
         animation: undefined,
         runAnimationTrigger: false,
-        verticalAxis: undefined
+        verticalAxis: undefined,
+        showDamage: false
       },
       task: undefined,
       renderTrigger: false,
@@ -233,18 +242,20 @@ export default {
     onTaskSuccess() {
       this.spell.verticalAxis = this.enemy.verticalAxis;
       this.triggerSpellAnimation();
+      this.spell.showDamage = true;
       setTimeout(() => {
         this.spell.animation = undefined;
-        this.enemy.health = decreaseNotOver(this.enemy.health, this.spell.power, 0);
+        this.spell.showDamage = false;
         this.isEnemyDead();
       }, SPELL_DURATION);
     },
     onTaskFail() {
       this.spell.verticalAxis = this.player.verticalAxis;
       this.triggerSpellAnimation();
+      this.spell.showDamage = true;
       setTimeout(() => {
         this.spell.animation = undefined;
-        this.player.health = decreaseNotOver(this.player.health, this.spell.power, 0);
+        this.spell.showDamage = false;
         this.isPlayerDead();
       }, SPELL_DURATION);
     },
