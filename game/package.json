@@ -2,7 +2,7 @@
   "name": "game",
   "description": "A Vue.js project",
   "version": "1.0.0",
-  "author": "SiarheiKresik <siarhei.kresik@gmail.com>",
+  "author": "SiarhiejKresik <siarhei.kresik@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --mode development --open --hot",
