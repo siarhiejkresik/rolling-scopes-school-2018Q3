@@ -53,6 +53,7 @@ export default {
 .container {
   color: white;
   font-size: 20px;
+  text-shadow: 0 1px 1px rgba(0,0,0,.12);
 }
 
 .health-bar {
