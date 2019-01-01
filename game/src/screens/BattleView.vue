@@ -70,6 +70,7 @@
     >
       Выйсці
     </b-button>
+
     <b-button
       v-b-modal.spell-chooser
       variant="success"
@@ -79,8 +80,9 @@
     >
       Заклінанні
     </b-button>
+
     <b-modal
-      id="spell-chooser" 
+      id="spell-chooser"
       title="Выберы заклінанне"
       ok-title="Выбраць"
       cancel-title="Назад"
@@ -90,6 +92,7 @@
     >
       <spell-chooser :spells="spells" />
     </b-modal>
+
     <tasks
       v-model="task"
       @taskResult="onTaskResult"
@@ -98,36 +101,37 @@
 </template>
 
 <script>
-import getRandomName from '../scripts/MonsterName.js';
-import { createRandomModel } from '../scripts/MonsterModel.js';
+import getRandomName from "../scripts/MonsterName.js";
+import { createRandomModel } from "../scripts/MonsterModel.js";
 
-import ModelStats from '../components/ModelStats.vue';
-import Model from '../components/Model.vue';
-import SpellCanvas from '../components/SpellCanvas.vue';
-import SpellChooser from '../components/SpellChooser.vue';
-import Tasks from '../components/Tasks.vue';
+import ModelStats from "../components/ModelStats.vue";
+import Model from "../components/Model.vue";
+import SpellCanvas from "../components/SpellCanvas.vue";
+import SpellChooser from "../components/SpellChooser.vue";
+import Tasks from "../components/Tasks.vue";
+import Damage from "../components/Damage.vue";
 
-import tasks from '../components/tasks/index.js';
-import animations from '../scripts/animations/index.js';
+import tasks from "../components/tasks/index.js";
+import animations from "../scripts/animations/index.js";
 
-import { decreaseNotOver, increaseNotOver } from '../scripts/utils.js';
+import { decreaseNotOver, increaseNotOver } from "../scripts/utils.js";
 
 // TODO: we need an another way to show spell images
 const SPELLS = [
   {
-    name: 'Вада'
+    name: "Вада"
     // symbol: '🌊'
   },
   {
-    name: 'Маланка'
+    name: "Маланка"
     // symbol: '⚡'
   },
   {
-    name: 'Агонь'
+    name: "Агонь"
     // symbol: '🔥'
   },
   {
-    name: 'Прырода'
+    name: "Прырода"
     // symbol: '🍀'
   }
 ];
@@ -197,7 +201,7 @@ export default {
   },
   computed: {
     ctx() {
-      let ctx = this.$refs.canvas.getContext('2d');
+      let ctx = this.$refs.canvas.getContext("2d");
       return ctx;
     }
   },
@@ -245,6 +249,11 @@ export default {
       this.spell.showDamage = true;
       setTimeout(() => {
         this.spell.animation = undefined;
+        this.enemy.health = decreaseNotOver(
+          this.enemy.health,
+          this.spell.power,
+          0
+        );
         this.spell.showDamage = false;
         this.isEnemyDead();
       }, SPELL_DURATION);
@@ -255,6 +264,11 @@ export default {
       this.spell.showDamage = true;
       setTimeout(() => {
         this.spell.animation = undefined;
+        this.player.health = decreaseNotOver(
+          this.player.health,
+          this.spell.power,
+          0
+        );
         this.spell.showDamage = false;
         this.isPlayerDead();
       }, SPELL_DURATION);
@@ -287,11 +301,11 @@ export default {
       this.triggerRendering();
     },
     gameEnd() {
-      this.$store.commit('records/checkForNewRecord', {
+      this.$store.commit("records/checkForNewRecord", {
         playerName: this.player.name,
         numOfWins: this.numOfWins
       });
-      this.$emit('showScores');
+      this.$emit("showScores");
     },
     triggerRendering() {
       this.renderTrigger = !this.renderTrigger;
@@ -341,7 +355,7 @@ canvas {
 }
 
 #canvas {
-  background: url('../assets/images/Background.png') repeat-x bottom;
+  background: url("../assets/images/Background.png") repeat-x bottom;
 }
 
 button.spell {
