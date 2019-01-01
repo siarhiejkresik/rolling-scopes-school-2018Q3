@@ -334,6 +334,7 @@ export default {
   justify-content: center;
   align-items: center;
   background: rgb(23, 162, 184, 0.4);
+  user-select: none;
 }
 
 .wins {
