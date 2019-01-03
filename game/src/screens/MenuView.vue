@@ -1,12 +1,12 @@
 <template>
   <section class="main">
     <section class="top">
-      <h1 class="display-1 animated fadeInDown fast">
-        Гульня ў словы
+      <h1 class="title display-1 mb-1 text-center animated fadeInDown">
+        <span>Падарожжа</span>
+        <span class="title-small display-4 animated fadeIn">
+          <br>ў краіну слоў
+        </span> 
       </h1>
-      <div class="subtitle animated faster fadeInDown">
-        Праверым, ці добра ты ведаеш беларускія словы?
-      </div>
       <div class="menu m-5 w-50">
         <b-button
           size="lg"
@@ -36,7 +36,12 @@
   display: grid;
   grid-row-gap: 1em;
 }
+
+.title {
+  line-height: 0.8;
+}
+
 .subtitle {
-  font-size: 24px;
+  font-size: 1.25rem;
 }
 </style>
