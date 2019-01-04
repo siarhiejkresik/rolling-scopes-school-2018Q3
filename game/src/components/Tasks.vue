@@ -12,6 +12,7 @@
     :header-bg-variant="status.headerBg"
     :header-text-variant="status.headerText"
     :busy="status.busy"
+    autocomplete="off"
     @ok="handleModalOk"
     @cancel="handleModalCancel"
   >
