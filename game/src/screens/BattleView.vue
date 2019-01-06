@@ -285,6 +285,7 @@ export default {
       }
     },
     newRound() {
+      this.$store.dispatch('storage/setPlayerScore', this.numOfWins);
       this.enemy.healthMax += this.numOfWins * ENEMY_HEALTH_INCREMENT;
       this.enemy.health = this.enemy.healthMax;
       this.enemy.scale = increaseNotOver(
@@ -301,11 +302,8 @@ export default {
       this.triggerRendering();
     },
     gameEnd() {
-      this.$store.commit("records/checkForNewRecord", {
-        playerName: this.player.name,
-        numOfWins: this.numOfWins
-      });
-      this.$emit("showScores");
+      this.$store.commit('player/setLastScore', this.numOfWins);
+      this.$emit('showScores');
     },
     triggerRendering() {
       this.renderTrigger = !this.renderTrigger;

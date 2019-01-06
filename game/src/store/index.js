@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 
 import assets from './modules/Assets';
 import player from './modules/Player';
-import records from './modules/Records';
 import storage from './modules/Storage';
 
 Vue.use(Vuex);
@@ -14,7 +13,6 @@ export default new Vuex.Store({
   modules: {
     assets,
     player,
-    records,
     storage,
   },
   strict: debug,

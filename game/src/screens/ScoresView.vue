@@ -5,16 +5,19 @@
         Дасягненні
       </h2>
       <h4
-        v-if="lastRecord !== undefined"
-        class="mt-4 text-weight-bold"
+        v-if="placeInTop !== null"
+        class="mt-3 text-weight-bold animated bounceIn delay-1s"
       >
-        Вы занялі <strong>{{ lastRecord + 1 }}</strong> месца!
+        Вы занялі
+        <strong class="inline-block animated pulse delay-1s">
+          {{ placeInTop + 1 }}
+        </strong> месца!
       </h4>
       <b-table
         class="records mt-5 mb-5 text-center animated fadeIn faster"
         striped
         small
-        :items="items"
+        :items="records"
         :fields="fields"
       >
         <template
@@ -41,22 +44,36 @@ export default {
     return {
       fields: [
         { key: 'index', label: 'Месца' },
-        { key: 'playerName', label: 'Імя гульца' },
-        { key: 'numOfWins', label: 'Перамог' }
-      ]
+        { key: 'name', label: 'Імя гульца' },
+        { key: 'score', label: 'Перамог' },
+      ],
+      records: [],
     };
   },
   computed: {
-    items() {
-      return this.$store.state.records.table;
+    placeInTop() {
+      const playerName = this.$store.state.player.name;
+      const { lastScore } = this.$store.state.player;
+      let place = 0;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const { name, score } of this.records) {
+        if (name === playerName && score === lastScore) {
+          return place;
+        }
+        place += 1;
+      }
+      return null;
     },
-    lastRecord() {
-      return this.$store.state.records.lastRecord;
+  },
+  async mounted() {
+    try {
+      this.records = await this.$store.dispatch('storage/getScores');
+    } catch (err) {
+      this.records = [];
     }
   },
   methods: {
     exit() {
-      this.$store.commit('records/forgetLastRecord')
       this.$emit('exitGame');
     },
   },
@@ -68,4 +85,3 @@ export default {
   min-width: 400px;
 }
 </style>
-
