@@ -29,12 +29,12 @@
 const SHOW_TIME = 5000;
 
 export default {
-  data: function() {
+  data() {
     return {
       isShow: false,
       message: 69,
       width: 600,
-      height: 600
+      height: 600,
     };
   },
   computed: {
@@ -43,14 +43,16 @@ export default {
     },
     left() {
       return this.width / 2;
-    }
+    },
   },
   methods: {
     show() {
       this.isShow = true;
-      setTimeout(() => (this.isShow = false), SHOW_TIME);
-    }
-  }
+      setTimeout(() => {
+        this.isShow = false;
+      }, SHOW_TIME);
+    },
+  },
 };
 </script>
 
@@ -67,4 +69,3 @@ export default {
   background: red;
 }
 </style>
-

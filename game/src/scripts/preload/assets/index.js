@@ -1,9 +1,9 @@
-import model from './model.js';
-import sounds from './sounds.js';
-import images from './images.js';
+import model from './model';
+import sounds from './sounds';
+import images from './images';
 
 export default {
   model,
   sounds,
-  images
+  images,
 };

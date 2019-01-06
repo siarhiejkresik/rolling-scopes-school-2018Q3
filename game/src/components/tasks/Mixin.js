@@ -2,7 +2,7 @@ export default {
   computed: {
     isCorrectAnswer() {
       throw new Error('computed property is not implemented!');
-    }
+    },
   },
   methods: {
     generateNewTask() {
@@ -16,15 +16,15 @@ export default {
         evt.preventDefault();
       }
       this.$emit('answerReady');
-    }
+    },
   },
   watch: {
-    isCorrectAnswer: function() {
+    isCorrectAnswer() {
       this.sendIsCorrectAnswer();
-    }
+    },
   },
   created() {
     this.generateNewTask();
     this.sendIsCorrectAnswer();
-  }
+  },
 };

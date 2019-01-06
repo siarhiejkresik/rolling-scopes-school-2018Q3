@@ -19,7 +19,7 @@ You can show a loading message by setting 'message' property.
 
 <script>
 export default {
-  props: ['message']
+  props: ['message'],
 };
 </script>
 

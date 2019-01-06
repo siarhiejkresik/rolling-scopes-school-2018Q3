@@ -15,26 +15,26 @@
         class="mt-3"
       />
     </b-form>
-  </div>  
+  </div>
 </template>
 
 <script>
-import Mixin from './Mixin.js';
-import { randomInt, randomObjectElement } from '../../scripts/utils.js';
+import Mixin from './Mixin';
+import { randomInt, randomObjectElement } from '../../scripts/utils';
 
 const OPTIONS = {
   maxNumber: 999,
   maxDivMulNumbers: {
     a: 49,
-    b: 20
-  }
+    b: 20,
+  },
 };
 
 const OPERATIONS = {
   add: '+',
   sub: '-',
   mul: '×',
-  div: '÷'
+  div: '÷',
 };
 
 export default {
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       operation: undefined,
-      answer: null
+      answer: null,
     };
   },
   computed: {
@@ -74,7 +74,7 @@ export default {
     },
     isCorrectAnswer() {
       return this.numbers !== undefined && Number(this.answer) === this.numbers.result;
-    }
+    },
   },
   methods: {
     generateNewTask() {
@@ -99,15 +99,15 @@ export default {
       const a = Math.min(x, y);
       const sum = Math.max(x, y);
       const b = sum - a;
-      return { a: a, b: b, result: sum };
+      return { a, b, result: sum };
     },
     generateDivMulNumbers() {
       const a = randomInt(OPTIONS.maxDivMulNumbers.a) + 1;
       const b = randomInt(OPTIONS.maxDivMulNumbers.b) + 1;
       const mul = a * b;
-      return { a: a, b: b, result: mul };
-    }
-  }
+      return { a, b, result: mul };
+    },
+  },
 };
 </script>
 

@@ -1,10 +1,10 @@
 import Background from '../../../assets/images/Background.png';
 
-import loaders from '../loaders/index.js';
+import loaders from '../loaders/index';
 
 export default {
   files: {
-    Background
+    Background,
   },
-  loader: loaders.image
+  loader: loaders.image,
 };

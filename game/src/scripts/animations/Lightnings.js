@@ -1,19 +1,21 @@
 // https://codepen.io/mcdorli/post/creating-lightnings-with-javascript-and-html5-canvas
 // https://codepen.io/mcdorli/pen/AXgmPJ?editors=0010#0
 
+import soundSource from '../../assets/sounds/Lightnings.ogg';
+
 let start;
 let duration;
 let ctx;
 let cW;
 let cH;
-let area = {};
+const area = {};
 let center;
 let groundHeight;
 let maxDifference;
 
-let minSegmentHeight = 5;
-let color = 'hsl(180, 80%, 80%)';
-let roughness = 2;
+const minSegmentHeight = 5;
+const color = 'hsl(180, 80%, 80%)';
+const roughness = 2;
 
 function initCanvas(verticalAxis) {
   cW = ctx.canvas.width;
@@ -44,7 +46,7 @@ function render() {
   ctx.clearRect(0, 0, cW, cH);
   ctx.globalCompositeOperation = 'lighter';
   ctx.shadowBlur = 15;
-  let lightning = createLightning();
+  const lightning = createLightning();
   ctx.beginPath();
   for (let i = 0; i < lightning.length; i++) {
     ctx.lineTo(lightning[i].x, lightning[i].y);
@@ -58,16 +60,16 @@ function createLightning() {
   lightning.push({ x: area.center, y: center.y });
   lightning.push({
     x: area.left + Math.random() * (area.width - 100) + 50,
-    y: groundHeight + (Math.random() - 0.9) * 50
+    y: groundHeight + (Math.random() - 0.9) * 50,
   });
   let currDiff = maxDifference;
   while (segmentHeight > minSegmentHeight) {
-    let newSegments = [];
+    const newSegments = [];
     for (let i = 0; i < lightning.length - 1; i++) {
-      let start = lightning[i];
-      let end = lightning[i + 1];
-      let midX = (start.x + end.x) / 2;
-      let newX = midX + (Math.random() * 2 - 1) * currDiff;
+      const start = lightning[i];
+      const end = lightning[i + 1];
+      const midX = (start.x + end.x) / 2;
+      const newX = midX + (Math.random() * 2 - 1) * currDiff;
       newSegments.push(start, { x: newX, y: (start.y + end.y) / 2 });
     }
 
@@ -94,8 +96,6 @@ function loop() {
     ctx.restore();
   }
 }
-
-import soundSource from '../../assets/sounds/Lightnings.ogg';
 const playSound = (src, duration) => {
   const audio = document.getElementById('audio');
   audio.src = src;

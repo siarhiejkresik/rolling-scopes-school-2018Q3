@@ -55,7 +55,7 @@
       :run-animation-trigger="spell.runAnimationTrigger"
       class="rounded-bottom"
     />
-    
+
     <damage
       v-if="spell.showDamage"
       :damage="spell.power"
@@ -101,39 +101,39 @@
 </template>
 
 <script>
-import getRandomName from "../scripts/MonsterName.js";
-import { createRandomModel } from "../scripts/MonsterModel.js";
+import getRandomName from '../scripts/MonsterName';
+import { createRandomModel } from '../scripts/MonsterModel';
 
-import ModelStats from "../components/ModelStats.vue";
-import Model from "../components/Model.vue";
-import SpellCanvas from "../components/SpellCanvas.vue";
-import SpellChooser from "../components/SpellChooser.vue";
-import Tasks from "../components/Tasks.vue";
-import Damage from "../components/Damage.vue";
+import ModelStats from '../components/ModelStats.vue';
+import Model from '../components/Model.vue';
+import SpellCanvas from '../components/SpellCanvas.vue';
+import SpellChooser from '../components/SpellChooser.vue';
+import Tasks from '../components/Tasks.vue';
+import Damage from '../components/Damage.vue';
 
-import tasks from "../components/tasks/index.js";
-import animations from "../scripts/animations/index.js";
+import tasks from '../components/tasks/index';
+import animations from '../scripts/animations/index';
 
-import { decreaseNotOver, increaseNotOver } from "../scripts/utils.js";
+import { decreaseNotOver, increaseNotOver } from '../scripts/utils';
 
 // TODO: we need an another way to show spell images
 const SPELLS = [
   {
-    name: "Вада"
+    name: 'Вада',
     // symbol: '🌊'
   },
   {
-    name: "Маланка"
+    name: 'Маланка',
     // symbol: '⚡'
   },
   {
-    name: "Агонь"
+    name: 'Агонь',
     // symbol: '🔥'
   },
   {
-    name: "Прырода"
+    name: 'Прырода',
     // symbol: '🍀'
-  }
+  },
 ];
 
 const HEALTH = 100;
@@ -149,7 +149,7 @@ const ENEMY_VERTICAL_AXIS = 4 / 5;
 
 const BOTTOM_LINE = 10;
 
-const SPELL_POWER = 40;
+const SPELL_POWER = 400;
 const SPELL_DURATION = 5000;
 
 export default {
@@ -160,7 +160,7 @@ export default {
     Model,
     ModelStats,
     Damage,
-    ...tasks
+    ...tasks,
   },
   data() {
     return {
@@ -171,7 +171,7 @@ export default {
         model: createRandomModel(),
         scale: ENEMY_SCALE,
         verticalAxis: ENEMY_VERTICAL_AXIS,
-        bottomLine: BOTTOM_LINE
+        bottomLine: BOTTOM_LINE,
       },
       player: {
         name: undefined,
@@ -180,7 +180,7 @@ export default {
         model: createRandomModel(),
         scale: PLAYER_SCALE,
         verticalAxis: PLAYER_VERTICAL_AXIS,
-        bottomLine: BOTTOM_LINE
+        bottomLine: BOTTOM_LINE,
       },
       numOfWins: 0,
       spell: {
@@ -189,26 +189,26 @@ export default {
         animation: undefined,
         runAnimationTrigger: false,
         verticalAxis: undefined,
-        showDamage: false
+        showDamage: false,
       },
       task: undefined,
       renderTrigger: false,
       canvas: {
         height: 700,
-        width: 1200
-      }
+        width: 1200,
+      },
     };
   },
   computed: {
     ctx() {
-      let ctx = this.$refs.canvas.getContext("2d");
+      const ctx = this.$refs.canvas.getContext('2d');
       return ctx;
-    }
+    },
   },
-  created: function() {
+  created() {
     this.spells = SPELLS;
   },
-  mounted: function() {
+  mounted() {
     this.player.name = this.$store.state.player.name;
   },
   methods: {
@@ -252,7 +252,7 @@ export default {
         this.enemy.health = decreaseNotOver(
           this.enemy.health,
           this.spell.power,
-          0
+          0,
         );
         this.spell.showDamage = false;
         this.isEnemyDead();
@@ -267,7 +267,7 @@ export default {
         this.player.health = decreaseNotOver(
           this.player.health,
           this.spell.power,
-          0
+          0,
         );
         this.spell.showDamage = false;
         this.isPlayerDead();
@@ -290,7 +290,7 @@ export default {
       this.enemy.scale = increaseNotOver(
         this.enemy.scale,
         ENEMY_SCALE_INCREMENT,
-        ENEMY_SCALE_CEILING
+        ENEMY_SCALE_CEILING,
       );
       this.enemy.name = getRandomName();
       this.enemy.model = createRandomModel();
@@ -312,8 +312,8 @@ export default {
     },
     triggerSpellAnimation() {
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
-    }
-  }
+    },
+  },
 };
 </script>
 

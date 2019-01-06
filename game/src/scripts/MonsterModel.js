@@ -1,5 +1,5 @@
 import parts from '../assets/data/model/parts.json';
-import { randomObjectElement } from '../scripts/utils.js';
+import { randomObjectElement } from './utils';
 
 // TODO: rename module
 
@@ -12,6 +12,6 @@ export function createRandomModel() {
     hair: randomObjectElement(parts.hair.man),
     pantsLeg: randomObjectElement(parts.pants.leg),
     pants: randomObjectElement(parts.pants.pants),
-    face: randomObjectElement(parts.face.face)
+    face: randomObjectElement(parts.face.face),
   };
 }

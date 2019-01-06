@@ -1,5 +1,5 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: 'dist/',
-    filename: 'build.js'
+    filename: 'build.js',
   },
   module: {
     rules: [
@@ -23,25 +23,25 @@ module.exports = {
             'b-card': 'img-src',
             'b-card-img': 'img-src',
             'b-carousel-slide': 'img-src',
-            'b-embed': 'src'
-          }
-        }
+            'b-embed': 'src',
+          },
+        },
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader']
+        use: ['vue-style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|gif|svg|ogg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
-        }
+          name: '[name].[ext]?[hash]',
+        },
       },
       {
         test: /\.woff2$/,
@@ -50,36 +50,36 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'fonts/'
-            }
-          }
-        ]
+              outputPath: 'fonts/',
+            },
+          },
+        ],
       },
       {
         test: /\.txt$/,
-        use: 'raw-loader'
+        use: 'raw-loader',
       },
       {
         test: /\.(py|xml)$/,
-        loader: 'ignore-loader'
-      }
-    ]
+        loader: 'ignore-loader',
+      },
+    ],
   },
   plugins: [new VueLoaderPlugin()],
   resolve: {
     alias: {
-      vue$: 'vue/dist/vue.esm.js'
-    }
+      vue$: 'vue/dist/vue.esm.js',
+    },
   },
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
   },
   performance: {
-    hints: false
+    hints: false,
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
 };
 
 if (process.env.NODE_ENV === 'production') {
@@ -88,17 +88,17 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
-      }
+        NODE_ENV: '"production"',
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {
-        warnings: false
-      }
+        warnings: false,
+      },
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
+      minimize: true,
+    }),
   ]);
 }

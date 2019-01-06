@@ -8,10 +8,10 @@
       button-variant="outline-secondary"
       size="lg"
       :options="options"
-      name="radioBtnStacked" 
+      name="radioBtnStacked"
       class="btn-block"
     />
-  </div> 
+  </div>
 </template>
 
 <script>
@@ -20,21 +20,18 @@ export default {
   data() {
     return {
       selected: undefined,
-      centered: false
+      centered: false,
     };
   },
   computed: {
     options() {
-      return this.spells.map(spell => {
-        return { value: spell.name, text: `${spell.name}` };
-      });
-    }
+      return this.spells.map(spell => ({ value: spell.name, text: `${spell.name}` }));
+    },
   },
   watch: {
-    selected: function(value) {
+    selected(value) {
       this.$parent.$emit('spellSet', value);
-    }
-  }
+    },
+  },
 };
 </script>
-

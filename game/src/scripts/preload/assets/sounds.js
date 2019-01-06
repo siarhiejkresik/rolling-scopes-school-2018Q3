@@ -2,13 +2,13 @@ import Fire from '../../../assets/sounds/Fire.ogg';
 import Lightnings from '../../../assets/sounds/Lightnings.ogg';
 import Raindrops from '../../../assets/sounds/Raindrops.ogg';
 
-import loaders from '../loaders/index.js';
+import loaders from '../loaders/index';
 
 export default {
   files: {
     Fire,
     Lightnings,
-    Raindrops
+    Raindrops,
   },
-  loader: loaders.sound
+  loader: loaders.sound,
 };

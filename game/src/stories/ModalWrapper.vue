@@ -8,8 +8,8 @@
       @cancel="onCancel"
     >
       {{ lorem }}
-    </modal> 
-    
+    </modal>
+
     <div class="d-flex flex-column m-auto align-items-center">
       <b-button
         class="m-3"
@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import { LOREM } from './constants.js';
+import { LOREM } from './constants';
 
 export default {
-  data: function() {
+  data() {
     return {
       show: false,
       event: '',
-      lorem: LOREM
+      lorem: LOREM,
     };
   },
   methods: {
@@ -48,7 +48,7 @@ export default {
     },
     onCancel() {
       this.event = 'cancel pressed';
-    }
-  }
+    },
+  },
 };
 </script>

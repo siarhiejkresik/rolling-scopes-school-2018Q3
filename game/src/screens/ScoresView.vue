@@ -58,8 +58,8 @@ export default {
     exit() {
       this.$store.commit('records/forgetLastRecord')
       this.$emit('exitGame');
-    }
-  }
+    },
+  },
 };
 </script>
 

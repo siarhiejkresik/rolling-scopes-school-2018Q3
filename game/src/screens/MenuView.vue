@@ -5,7 +5,7 @@
         <span>Падарожжа</span>
         <span class="title-small display-4 animated fadeIn">
           <br>ў краіну слоў
-        </span> 
+        </span>
       </h1>
       <div class="menu m-5 w-50">
         <b-button

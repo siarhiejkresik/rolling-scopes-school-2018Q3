@@ -17,13 +17,13 @@ export default {
   props: {
     damage: Number,
     verticalAxis: Number,
-    horizontalAxis: Number
+    horizontalAxis: Number,
   },
-  data: function() {
+  data() {
     return {
-      size: 70 // font-size
+      size: 70, // font-size
     };
-  }
+  },
 };
 </script>
 

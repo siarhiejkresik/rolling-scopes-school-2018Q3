@@ -5,7 +5,7 @@ import sheet_shirts from '../../../assets/data/model/sheet_shirts.png';
 import sheet_shoes from '../../../assets/data/model/sheet_shoes.png';
 import sheet_skin from '../../../assets/data/model/sheet_skin.png';
 
-import loaders from '../loaders/index.js';
+import loaders from '../loaders/index';
 
 export default {
   files: {
@@ -14,7 +14,7 @@ export default {
     'sheet_pants.png': sheet_pants,
     'sheet_shirts.png': sheet_shirts,
     'sheet_shoes.png': sheet_shoes,
-    'sheet_skin.png': sheet_skin
+    'sheet_skin.png': sheet_skin,
   },
-  loader: loaders.image
+  loader: loaders.image,
 };

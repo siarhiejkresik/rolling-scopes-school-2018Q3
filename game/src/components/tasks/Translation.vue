@@ -16,12 +16,12 @@
         class="mt-3"
       />
     </b-form>
-  </div>  
+  </div>
 </template>
 
 <script>
-import Mixin from './Mixin.js';
-import { randomArrayElement } from '../../scripts/utils.js';
+import Mixin from './Mixin';
+import { randomArrayElement } from '../../scripts/utils';
 
 import translations from '../../assets/data/translations.json';
 
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       answer: null,
-      word: undefined
+      word: undefined,
     };
   },
   computed: {
@@ -39,12 +39,12 @@ export default {
     },
     isCorrectAnswer() {
       return this.word !== undefined && this.correctAnswers.includes(this.answer);
-    }
+    },
   },
   methods: {
     generateNewTask() {
       this.word = randomArrayElement(Object.keys(translations));
-    }
-  }
+    },
+  },
 };
 </script>

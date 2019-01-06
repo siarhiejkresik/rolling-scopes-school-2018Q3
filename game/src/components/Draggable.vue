@@ -9,7 +9,9 @@
         :key="index"
         :class="{ 'border-primary': letterIndex === index && isLetterFocused,
                   'bg-warning': letterIndex === index && isLetterSelected }"
-        class="letter pb-1 border rounded shadow-sm justify-content-center align-items-center text-lowercase font-weight-light"
+        class="letter pb-1 border rounded shadow-sm
+        justify-content-center align-items-center
+        text-lowercase font-weight-light"
       >
         {{ element }}
       </div>
@@ -18,39 +20,39 @@
 </template>
 
 <script>
-import draggable from "vuedraggable";
+import draggable from 'vuedraggable';
 
 const STATE = {
   UNDEFINED: 0,
   FOCUSED: 1,
   SELECTED: 2,
-  SUBMIT: 3
+  SUBMIT: 3,
 };
 
 const KEYS = {
-  SELECT: "Space",
-  TO_RIGHT: "ArrowRight",
-  TO_LEFT: "ArrowLeft",
-  SUBMIT: "Enter"
+  SELECT: 'Space',
+  TO_RIGHT: 'ArrowRight',
+  TO_LEFT: 'ArrowLeft',
+  SUBMIT: 'Enter',
 };
 
-const toArray = string => string.split("");
-const toString = arr => arr.join("");
+const toArray = string => string.split('');
+const toString = arr => arr.join('');
 
 export default {
   components: {
-    draggable
+    draggable,
   },
   model: {
-    prop: "word",
-    event: "changed"
+    prop: 'word',
+    event: 'changed',
   },
-  props: ["word", "reset"],
+  props: ['word', 'reset'],
   data() {
     return {
       letters: toArray(this.word),
       letterIndex: undefined,
-      letterState: STATE.UNDEFINED
+      letterState: STATE.UNDEFINED,
     };
   },
   computed: {
@@ -59,7 +61,7 @@ export default {
     },
     isLetterSelected() {
       return this.letterState === STATE.SELECTED;
-    }
+    },
   },
   watch: {
     letters() {
@@ -70,13 +72,13 @@ export default {
     },
     reset() {
       this.resetLetter();
-    }
+    },
   },
   mounted() {
-    window.addEventListener("keydown", this.keyHandler);
+    window.addEventListener('keydown', this.keyHandler);
   },
   beforeDestroy() {
-    window.removeEventListener("keydown", this.keyHandler);
+    window.removeEventListener('keydown', this.keyHandler);
   },
   methods: {
     onMoveLeft() {
@@ -96,10 +98,10 @@ export default {
       }
     },
     increaseLetterIndex() {
-      this.letterIndex === undefined ||
-      this.letterIndex === this.letters.length - 1
-        ? (this.letterIndex = 0)
-        : (this.letterIndex += 1);
+      this.letterIndex === undefined
+      || this.letterIndex === this.letters.length - 1
+        ? this.letterIndex = 0
+        : this.letterIndex += 1;
     },
     decreaseLetterIndex() {
       this.letterIndex === undefined || this.letterIndex === 0
@@ -131,7 +133,7 @@ export default {
           break;
         }
         default: {
-          throw Error("unknown letter state");
+          throw Error('unknown letter state');
         }
       }
     },
@@ -145,7 +147,7 @@ export default {
       }
     },
     changed() {
-      this.$emit("changed", toString(this.letters));
+      this.$emit('changed', toString(this.letters));
     },
     keyHandler(e) {
       switch (e.code) {
@@ -165,12 +167,12 @@ export default {
         }
         case KEYS.SUBMIT: {
           this.resetLetter();
-          this.$emit("submit");
+          this.$emit('submit');
           break;
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

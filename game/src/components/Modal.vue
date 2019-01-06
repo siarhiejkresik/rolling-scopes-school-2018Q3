@@ -29,11 +29,11 @@ hascancel: don't show the cancel button
             ×
           </button>
         </header>
-        
+
         <main class="p-3">
           <slot />
         </main>
-        
+
         <footer class="d-flex flex-row justify-content-end p-3 border-top">
           <slot name="footer">
             <b-button
@@ -60,7 +60,7 @@ hascancel: don't show the cancel button
 export default {
   model: {
     prop: 'show',
-    event: 'close'
+    event: 'close',
   },
   props: ['show', 'title', 'hascancel'],
   methods: {
@@ -74,8 +74,8 @@ export default {
     cancel() {
       this.close();
       this.$emit('cancel');
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -120,4 +120,3 @@ export default {
   transition: opacity 0.5s ease;
 }
 </style>
-

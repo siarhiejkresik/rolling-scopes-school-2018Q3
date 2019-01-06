@@ -21,16 +21,16 @@
 const HEALTH = {
   NORMAL: {
     part: 0.4,
-    style: 'info'
+    style: 'info',
   },
   LOW: {
     part: 0.25,
-    style: 'warning'
+    style: 'warning',
   },
   CRITICAL: {
     part: 0,
-    style: 'danger'
-  }
+    style: 'danger',
+  },
 };
 
 export default {
@@ -40,12 +40,12 @@ export default {
       const part = this.health / this.healthMax;
       if (part > HEALTH.NORMAL.part) {
         return HEALTH.NORMAL.style;
-      } else if (part > HEALTH.LOW.part) {
+      } if (part > HEALTH.LOW.part) {
         return HEALTH.LOW.style;
       }
       return HEALTH.CRITICAL.style;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -64,5 +64,3 @@ export default {
   transform: scaleX(-1);
 }
 </style>
-
-

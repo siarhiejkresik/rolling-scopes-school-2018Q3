@@ -8,31 +8,31 @@
       class="mt-5 mb-4 text-center"
       @submit="sendAnswerReady"
     />
-  </div>  
+  </div>
 </template>
 
 <script>
-import Mixin from './Mixin.js';
+import Mixin from './Mixin';
 import draggable from '../Draggable.vue';
-import { randomArrayElement } from '../../scripts/utils.js';
+import { randomArrayElement } from '../../scripts/utils';
 
 import words from '../../assets/data/words.json';
 
 export default {
   components: {
-    draggable
+    draggable,
   },
   mixins: [Mixin],
   data() {
     return {
       word: undefined,
-      answer: undefined
+      answer: undefined,
     };
   },
   computed: {
     isCorrectAnswer() {
       return this.word !== undefined && this.answer === this.word;
-    }
+    },
   },
   methods: {
     generateNewTask() {
@@ -43,9 +43,10 @@ export default {
         .join('');
 
       if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
         console.log('word:', this.word);
       }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -1,9 +1,11 @@
-import config from '../../scripts/preload/assets/index.js';
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
+import config from '../../scripts/preload/assets/index';
 import preloader from '../../scripts/preload/preloader';
 
 const state = {
   isLoaded: false,
-  resources: undefined
+  resources: undefined,
 };
 
 const mutations = {
@@ -12,21 +14,21 @@ const mutations = {
   },
   setResources(state, resources) {
     state.resources = resources;
-  }
+  },
 };
 
 const actions = {
   load(context) {
-    preloader(config).then(resources => {
+    preloader(config).then((resources) => {
       context.commit('setResources', resources);
       context.commit('setLoadedStatus', true);
     });
-  }
+  },
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
 };

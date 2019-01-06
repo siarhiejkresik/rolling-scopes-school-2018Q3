@@ -7,7 +7,7 @@
     :no-close-on-backdrop="true"
     :no-close-on-esc="true"
     :hide-header-close="true"
-    :centered="true" 
+    :centered="true"
     :title="status.title"
     :header-bg-variant="status.headerBg"
     :header-text-variant="status.headerText"
@@ -35,40 +35,40 @@ const STATUSES = {
     headerBg: 'success',
     headerText: 'light',
     title: 'Правільна!',
-    busy: true
+    busy: true,
   },
   FAIL: {
     headerBg: 'danger',
     headerText: 'light',
     title: 'Няправільна!',
-    busy: true
+    busy: true,
   },
   NEUTRAL: {
     headerBg: 'info',
     headerText: 'light',
     title: 'Заданне',
-    busy: false
-  }
+    busy: false,
+  },
 };
 
 export default {
   model: {
     prop: 'task',
-    event: 'taskToUndefined'
+    event: 'taskToUndefined',
   },
   props: ['task'],
-  data: function() {
+  data() {
     return {
       isCorrectAnswer: undefined,
-      status: STATUSES.NEUTRAL
+      status: STATUSES.NEUTRAL,
     };
   },
   watch: {
-    task: function() {
+    task() {
       if (this.task) {
         this.showModal();
       }
-    }
+    },
   },
   methods: {
     onAnswerChanged(value) {
@@ -112,8 +112,7 @@ export default {
     },
     hideModal() {
       this.$refs.modal.hide();
-    }
-  }
+    },
+  },
 };
 </script>
-

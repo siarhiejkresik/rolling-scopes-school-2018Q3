@@ -26,30 +26,30 @@
       <scores-view
         v-else-if="view === VIEWS.SCORES"
         @exitGame="onExitGame"
-      /> 
-    </transition>    
+      />
+    </transition>
   </main>
 </template>
 
 <script>
-import screens from './screens/index.js';
+import screens from './screens/index';
 
 const VIEWS = {
   MENU: 0,
   LOADING: 1,
   LOGIN: 2,
   BATTLE: 3,
-  SCORES: 4
+  SCORES: 4,
 };
 
 export default {
   name: 'App',
   components: {
-    ...screens
+    ...screens,
   },
   data() {
     return {
-      view: undefined
+      view: undefined,
     };
   },
   computed: {
@@ -58,20 +58,20 @@ export default {
     },
     isLoggedIn() {
       return this.$store.state.player.name !== undefined;
-    }
+    },
   },
   watch: {
-    isLoaded: function() {
+    isLoaded() {
       if (this.isLoaded && this.view === this.VIEWS.LOADING) {
         this.onStartGame();
       }
-    }
+    },
   },
-  created: function() {
+  created() {
     this.VIEWS = VIEWS;
     this.view = VIEWS.MENU;
   },
-  mounted: function() {
+  mounted() {
     this.$store.dispatch('assets/load');
   },
   methods: {

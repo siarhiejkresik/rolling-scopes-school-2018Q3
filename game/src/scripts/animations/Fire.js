@@ -1,17 +1,19 @@
 // https://www.davepagurek.com/blog/fire-particles-for-html5-canvas/
 
+import soundSource from '../../assets/sounds/Fire.ogg';
+
 let start;
 let duration;
 let ctx;
 let cW;
 let cH;
-let groundHeight = 40;
-let area = {};
+const groundHeight = 40;
+const area = {};
 
 let particles;
-let max = 60;
-let speed = 3;
-let size = 20;
+const max = 60;
+const speed = 3;
+const size = 20;
 
 function initCanvas(verticalAxis) {
   cW = ctx.canvas.width;
@@ -42,52 +44,51 @@ class Particle {
 }
 
 function render() {
-  //Adds ten new particles every frame
+  // Adds ten new particles every frame
   for (let i = 0; i < 10; i++) {
-    //Adds a particle at the mouse position, with random horizontal and vertical speeds
-    let p = new Particle(
+    // Adds a particle at the mouse position, with random horizontal and vertical speeds
+    const p = new Particle(
       area.center,
       cH - groundHeight,
       (Math.random() * 2 * speed - speed) / 2,
-      0 - Math.random() * 2 * speed
+      0 - Math.random() * 2 * speed,
     );
     particles.push(p);
   }
 
-  //Clear the ctx so we can draw the new frame
+  // Clear the ctx so we can draw the new frame
   ctx.clearRect(0, 0, cW, cH);
 
-  //Cycle through all the particles to draw them
+  // Cycle through all the particles to draw them
   for (let i = 0; i < particles.length; i++) {
-    //Set the file colour to an RGBA value where it starts off red-orange, but progressively gets more grey and transparent the longer the particle has been alive for
-    ctx.fillStyle =
-      'rgba(' +
-      (260 - particles[i].life * 2) +
-      ',' +
-      (particles[i].life * 2 + 50) +
-      ',' +
-      particles[i].life * 2 +
-      ',' +
-      (max - particles[i].life) / max * 0.4 +
-      ')';
+    // Set the file colour to an RGBA value where it starts off red-orange, but progressively gets more grey and transparent the longer the particle has been alive for
+    ctx.fillStyle = `rgba(${
+      260 - particles[i].life * 2
+    },${
+      particles[i].life * 2 + 50
+    },${
+      particles[i].life * 2
+    },${
+      (max - particles[i].life) / max * 0.4
+    })`;
 
     ctx.beginPath();
-    //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
+    // Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
     ctx.arc(
       particles[i].x,
       particles[i].y,
       (max - particles[i].life) / max * (size / 2) + size / 2,
       0,
-      2 * Math.PI
+      2 * Math.PI,
     );
     ctx.fill();
 
-    //Move the particle based on its horizontal and vertical speeds
+    // Move the particle based on its horizontal and vertical speeds
     particles[i].x += particles[i].xs;
     particles[i].y += particles[i].ys;
 
     particles[i].life++;
-    //If the particle has lived longer than we are allowing, remove it from the array.
+    // If the particle has lived longer than we are allowing, remove it from the array.
     if (particles[i].life >= max) {
       particles.splice(i, 1);
       i--;
@@ -109,8 +110,6 @@ function loop() {
     ctx.restore();
   }
 }
-
-import soundSource from '../../assets/sounds/Fire.ogg';
 const playSound = (src, duration) => {
   const audio = document.getElementById('audio');
   audio.src = src;

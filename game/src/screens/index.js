@@ -9,5 +9,5 @@ export default {
   LoadingView,
   LoginView,
   MenuView,
-  ScoresView
+  ScoresView,
 };
