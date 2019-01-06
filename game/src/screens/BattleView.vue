@@ -342,6 +342,7 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   font-size: 1.5em;
+  text-shadow: 0 1px 1px rgba(0,0,0,.12);
 }
 
 .badge {
