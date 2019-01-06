@@ -92,10 +92,14 @@ export default {
     onShowScores() {
       this.view = this.VIEWS.SCORES;
     },
-    onLogIn() {
-      this.onStartGame();
-    }
-  }
+    onLogIn(success) {
+      if (success) {
+        this.onStartGame();
+      } else {
+        this.view = this.VIEWS.MENU;
+      }
+    },
+  },
 };
 </script>
 
