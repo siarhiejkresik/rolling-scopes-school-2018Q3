@@ -12,6 +12,8 @@
         type="text"
         size="lg"
         placeholder="прыклад адказу: 43"
+        autocomplete="off"
+        spellcheck="false"
         class="mt-3"
       />
     </b-form>

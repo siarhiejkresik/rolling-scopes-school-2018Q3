@@ -13,6 +13,8 @@
         type="text"
         size="lg"
         placeholder="прыклад адказу: мама"
+        autocomplete="off"
+        spellcheck="false"
         class="mt-3"
       />
     </b-form>
