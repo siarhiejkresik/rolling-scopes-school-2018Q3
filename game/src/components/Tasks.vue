@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { pause } from '../scripts/utils.js';
+import { pause } from '../scripts/utils';
 
 const SHOW_ANSWER_DURATION = 2000;
 const HIDE_MODAL_DURATION = 1000;

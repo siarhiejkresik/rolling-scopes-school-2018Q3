@@ -246,10 +246,16 @@ export default {
           this.task = tasks.Audition;
           this.spell.animation = animations.Lightnings;
           break;
+        default:
+          throw new Error('no such spell');
       }
     },
     onTaskResult(taskResult) {
-      taskResult ? this.onTaskSuccess() : this.onTaskFail();
+      if (taskResult) {
+        this.onTaskSuccess();
+      } else {
+        this.onTaskFail();
+      }
     },
     onTaskSuccess() {
       this.spell.verticalAxis = this.enemy.verticalAxis;

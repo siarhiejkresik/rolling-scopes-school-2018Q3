@@ -1,8 +1,7 @@
 import parts from '../assets/data/model/parts.json';
 import { randomObjectElement } from './utils';
 
-// TODO: rename module
-
+// eslint-disable-next-line import/prefer-default-export
 export function createRandomModel() {
   return {
     skin: randomObjectElement(parts.skin),

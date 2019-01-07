@@ -18,7 +18,10 @@ hascancel: don't show the cancel button
         class="modal-body d-flex flex-column bg-light p-0 rounded shadow-lg"
         @click.stop
       >
-        <header class="d-flex flex-row justify-content-between align-items-center bg-info p-3 h-3 text-light rounded-top">
+        <header
+          class="d-flex flex-row justify-content-between align-items-center
+          bg-info p-3 h-3 text-light rounded-top"
+        >
           <slot name="header">
             <h4>{{ title }}</h4>
           </slot>

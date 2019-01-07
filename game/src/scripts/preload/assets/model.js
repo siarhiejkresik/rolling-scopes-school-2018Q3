@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import sheet_face from '../../../assets/data/model/sheet_face.png';
 import sheet_hair from '../../../assets/data/model/sheet_hair.png';
 import sheet_pants from '../../../assets/data/model/sheet_pants.png';

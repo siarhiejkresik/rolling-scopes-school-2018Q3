@@ -1,5 +1,5 @@
-import Fire from './Fire.js';
-import Lightnings from './Lightnings.js';
-import Raindrop from './Raindrop.js';
+import Fire from './Fire';
+import Lightnings from './Lightnings';
+import Raindrop from './Raindrop';
 
 export default { Fire, Lightnings, Raindrop };

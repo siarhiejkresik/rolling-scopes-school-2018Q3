@@ -98,15 +98,19 @@ export default {
       }
     },
     increaseLetterIndex() {
-      this.letterIndex === undefined
-      || this.letterIndex === this.letters.length - 1
-        ? this.letterIndex = 0
-        : this.letterIndex += 1;
+      if (this.letterIndex === undefined
+      || this.letterIndex === this.letters.length - 1) {
+        this.letterIndex = 0;
+      } else {
+        this.letterIndex += 1;
+      }
     },
     decreaseLetterIndex() {
-      this.letterIndex === undefined || this.letterIndex === 0
-        ? (this.letterIndex = this.letters.length - 1)
-        : (this.letterIndex -= 1);
+      if (this.letterIndex === undefined || this.letterIndex === 0) {
+        this.letterIndex = this.letters.length - 1;
+      } else {
+        this.letterIndex -= 1;
+      }
     },
     swapLetters(leftIndex, rightIndex) {
       if (leftIndex < 0) {
@@ -170,6 +174,7 @@ export default {
           this.$emit('submit');
           break;
         }
+        default:
       }
     },
   },

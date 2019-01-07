@@ -1,5 +1,4 @@
 <script>
-
 export default {
   props: {
     verticalAxis: Number,
@@ -37,7 +36,7 @@ export default {
     draw() {
       this.clear();
 
-      // set begin date
+      // store begin time
       if (this.date === null) {
         this.date = Date.now();
       }
@@ -47,9 +46,9 @@ export default {
         this.date = date;
         // change offset
         if (this.breathDir) {
-          this.breathOffset++;
+          this.breathOffset += 1;
         } else {
-          this.breathOffset--;
+          this.breathOffset -= 1;
         }
         // change direction
         if (this.breathOffset === 0 || this.breathOffset === this.breathMax) {
@@ -66,7 +65,9 @@ export default {
       };
       const pantsOffsets = { x: 0, y: skinLegOffsets.y - this.model.pants.height + 20 };
       const pantsLegOffsets = { x: 52, y: pantsOffsets.y + 20 };
-      const shirtOffsets = { x: 0, y: pantsOffsets.y - this.model.shirt.height + 10 + this.breathOffset };
+      const shirtOffsets = {
+        x: 0, y: pantsOffsets.y - this.model.shirt.height + 10 + this.breathOffset,
+      };
       const shirtsArmOffsets = {
         x: { long: 125, shorter: 80, short: 105 },
         y: shirtOffsets.y,
@@ -78,11 +79,17 @@ export default {
       const headOffsets = { x: 0, y: neckOffsets.y - this.model.skin.head.height + 10 };
       const hairOffsets = {
         x: this.model.hair.width > 160 ? 8 : 0, // TODO: hardcoded
-        y: headOffsets.y + Math.trunc(this.model.skin.head.height / 2) - this.model.hair.height + 15,
+        y: (headOffsets.y
+            + Math.trunc(this.model.skin.head.height / 2)
+            - this.model.hair.height + 15
+        ),
       };
       const faceOffsets = {
         x: 0,
-        y: headOffsets.y + Math.trunc(this.model.skin.head.height / 2) - Math.trunc(this.model.face.height / 2) + 10,
+        y: (headOffsets.y
+           + Math.trunc(this.model.skin.head.height / 2)
+           - Math.trunc(this.model.face.height / 2) + 10
+        ),
       };
 
       // draw parts
@@ -134,6 +141,9 @@ export default {
       );
       this.ctx.restore();
     },
+  },
+  render(h) {
+    return h();
   },
 };
 </script>
