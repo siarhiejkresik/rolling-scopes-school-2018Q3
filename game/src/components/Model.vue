@@ -1,7 +1,4 @@
-<template />
-
 <script>
-import { randomObjectElement } from '../scripts/utils.js';
 
 export default {
   props: {
@@ -9,7 +6,6 @@ export default {
     bottomLine: Number,
     model: Object,
     scale: Number,
-    renderTrigger: Boolean,
   },
   data() {
     return {
@@ -29,11 +25,6 @@ export default {
     },
     modelResources() {
       return this.$store.state.assets.resources.model;
-    },
-  },
-  watch: {
-    renderTrigger() {
-      this.draw();
     },
   },
   mounted() {

@@ -34,7 +34,6 @@
         :bottom-line="canvas.height - player.bottomLine"
         :model="player.model"
         :scale="player.scale"
-        :render-trigger="renderTrigger"
         class="player"
       />
       <model
@@ -42,7 +41,6 @@
         :bottom-line="canvas.height - enemy.bottomLine"
         :model="enemy.model"
         :scale="enemy.scale"
-        :render-trigger="renderTrigger"
         class="enemy"
       />
     </canvas>
@@ -323,7 +321,6 @@ export default {
       this.player.health = this.player.healthMax;
 
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.triggerRendering();
 
       await pause(BEFORE_ANIMATION_DELAY * 2);
       await this.showNumberOfRoundMessage();
@@ -335,9 +332,6 @@ export default {
       await this.showMessage(messages.endGame);
 
       this.$emit('showScores');
-    },
-    triggerRendering() {
-      this.renderTrigger = !this.renderTrigger;
     },
     triggerSpellAnimation() {
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
