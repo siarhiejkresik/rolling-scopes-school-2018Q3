@@ -10,8 +10,8 @@ const randomArrayElement = (array) => {
 
 const randomObjectElement = obj => obj[randomArrayElement(Object.keys(obj))];
 
-const decreaseNotOver = (variable, value, bound) => (variable - value < bound ? bound : variable - value);
-const increaseNotOver = (variable, value, bound) => (variable + value > bound ? bound : variable + value);
+const decreaseNotOver = (variable, value, lowerBound) => Math.max(variable - value, lowerBound);
+const increaseNotOver = (variable, value, upperBound) => Math.min(variable + value, upperBound);
 
 const pause = time => new Promise((resolve) => {
   setTimeout(resolve, time);
