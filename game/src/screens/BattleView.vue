@@ -63,6 +63,11 @@
       :horizontal-axis="0.5 * canvas.height"
     />
 
+    <game-message
+      v-if="gameMessage.message"
+      :options="gameMessage"
+    />
+
     <b-button
       class="exit text-light"
       variant="link"
@@ -110,11 +115,13 @@ import SpellCanvas from '../components/SpellCanvas.vue';
 import SpellChooser from '../components/SpellChooser.vue';
 import Tasks from '../components/Tasks.vue';
 import Damage from '../components/Damage.vue';
+import GameMessage from '../components/GameMessage.vue';
 
 import tasks from '../components/tasks';
 import animations from '../scripts/animations';
+import * as messages from './GameMessages';
 
-import { decreaseNotOver, increaseNotOver } from '../scripts/utils';
+import { decreaseNotOver, increaseNotOver, pause } from '../scripts/utils';
 
 const SPELLS = [
   {
@@ -148,8 +155,11 @@ const ENEMY_VERTICAL_AXIS = 4 / 5;
 
 const BOTTOM_LINE = 10;
 
-const SPELL_POWER = 400;
+const SPELL_POWER = 40;
 const SPELL_DURATION = 5000;
+
+const GAME_MESSAGE_DURATION = 2500;
+const BEFORE_ANIMATION_DELAY = 500;
 
 export default {
   components: {
@@ -159,6 +169,7 @@ export default {
     Model,
     ModelStats,
     Damage,
+    GameMessage,
     ...tasks,
   },
   data() {
@@ -196,6 +207,7 @@ export default {
         height: 700,
         width: 1200,
       },
+      gameMessage: {},
     };
   },
   computed: {
@@ -209,6 +221,7 @@ export default {
   },
   mounted() {
     this.player.name = this.$store.state.player.name;
+    this.startGame();
   },
   methods: {
     onSpellChange(spellName) {
@@ -270,19 +283,33 @@ export default {
         this.isPlayerDead();
       }, SPELL_DURATION);
     },
-    isPlayerDead() {
-      if (this.player.health === 0) {
-        this.gameEnd();
+    async isPlayerDead() {
+      if (this.player.health > 0) {
+        return;
       }
+      await pause(BEFORE_ANIMATION_DELAY * 4);
+      this.gameEnd();
     },
-    isEnemyDead() {
-      if (this.enemy.health === 0) {
-        this.numOfWins += 1;
-        this.newRound();
+    async isEnemyDead() {
+      if (this.enemy.health > 0) {
+        return;
       }
+      await pause(BEFORE_ANIMATION_DELAY);
+      await this.showMessage(messages.winRound);
+      this.numOfWins += 1;
+      this.newRound();
     },
-    newRound() {
+    async startGame() {
+      await pause(BEFORE_ANIMATION_DELAY * 2);
+      await this.showMessage(messages.startGame);
+      await this.showNumberOfRoundMessage();
+      await this.showEnemyMessage();
+    },
+    async newRound() {
+      await pause(BEFORE_ANIMATION_DELAY);
+
       this.$store.dispatch('storage/setPlayerScore', this.numOfWins);
+
       this.enemy.healthMax += this.numOfWins * ENEMY_HEALTH_INCREMENT;
       this.enemy.health = this.enemy.healthMax;
       this.enemy.scale = increaseNotOver(
@@ -297,9 +324,16 @@ export default {
 
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.triggerRendering();
+
+      await pause(BEFORE_ANIMATION_DELAY * 2);
+      await this.showNumberOfRoundMessage();
+      await this.showEnemyMessage();
     },
-    gameEnd() {
+    async gameEnd() {
       this.$store.commit('player/setLastScore', this.numOfWins);
+
+      await this.showMessage(messages.endGame);
+
       this.$emit('showScores');
     },
     triggerRendering() {
@@ -307,6 +341,18 @@ export default {
     },
     triggerSpellAnimation() {
       this.spell.runAnimationTrigger = !this.spell.runAnimationTrigger;
+    },
+    async showMessage(options) {
+      const time = options.time || GAME_MESSAGE_DURATION;
+      this.gameMessage = Object.assign({}, options);
+      await pause(time);
+      this.gameMessage = {};
+    },
+    async showNumberOfRoundMessage() {
+      await this.showMessage(messages.roundNumber(this.numOfWins + 1));
+    },
+    async showEnemyMessage() {
+      await this.showMessage(messages.enemyName(this.enemy.name));
     },
   },
 };
@@ -338,7 +384,7 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   font-size: 1.5em;
-  text-shadow: 0 1px 1px rgba(0,0,0,.12);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
 }
 
 .badge {
