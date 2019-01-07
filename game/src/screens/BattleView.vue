@@ -111,12 +111,11 @@ import SpellChooser from '../components/SpellChooser.vue';
 import Tasks from '../components/Tasks.vue';
 import Damage from '../components/Damage.vue';
 
-import tasks from '../components/tasks/index';
-import animations from '../scripts/animations/index';
+import tasks from '../components/tasks';
+import animations from '../scripts/animations';
 
 import { decreaseNotOver, increaseNotOver } from '../scripts/utils';
 
-// TODO: we need an another way to show spell images
 const SPELLS = [
   {
     name: 'Вада',
@@ -219,8 +218,6 @@ export default {
       if (!this.spell.current) {
         return;
       }
-      // TODO: rework this ugly method
-      // choose task
       switch (this.spell.current) {
         case SPELLS[0].name:
           this.task = tasks.Translation;
@@ -325,7 +322,6 @@ export default {
 .stats {
   position: relative;
   width: 100%;
-  /* height: 100px; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 5px;

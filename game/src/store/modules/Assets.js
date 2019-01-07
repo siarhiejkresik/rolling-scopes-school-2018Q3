@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
-import config from '../../scripts/preload/assets/index';
+import config from '../../scripts/preload/assets';
 import preloader from '../../scripts/preload/preloader';
 
 const state = {

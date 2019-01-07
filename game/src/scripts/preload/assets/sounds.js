@@ -2,7 +2,7 @@ import Fire from '../../../assets/sounds/Fire.ogg';
 import Lightnings from '../../../assets/sounds/Lightnings.ogg';
 import Raindrops from '../../../assets/sounds/Raindrops.ogg';
 
-import loaders from '../loaders/index';
+import loaders from '../loaders';
 
 export default {
   files: {

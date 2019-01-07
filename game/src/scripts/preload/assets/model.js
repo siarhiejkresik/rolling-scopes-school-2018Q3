@@ -5,7 +5,7 @@ import sheet_shirts from '../../../assets/data/model/sheet_shirts.png';
 import sheet_shoes from '../../../assets/data/model/sheet_shoes.png';
 import sheet_skin from '../../../assets/data/model/sheet_skin.png';
 
-import loaders from '../loaders/index';
+import loaders from '../loaders';
 
 export default {
   files: {

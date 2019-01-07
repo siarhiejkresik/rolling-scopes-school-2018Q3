@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import screens from './screens/index';
+import screens from './screens';
 
 const VIEWS = {
   MENU: 0,
