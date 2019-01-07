@@ -11,7 +11,8 @@
       :variant="healthBarColorVariant"
       :value="health"
       :max="healthMax"
-      :class="{ 'flip-vertical': isRight }"
+      :class="{ 'flip-vertical': isRight,
+                'critical-pulse': isCriticalHelth}"
       class="health-bar w-75"
     />
   </div>
@@ -45,6 +46,10 @@ export default {
       }
       return HEALTH.CRITICAL.style;
     },
+    isCriticalHelth() {
+      const part = this.health / this.healthMax;
+      return part > 0 && part <= HEALTH.LOW.part;
+    },
   },
 };
 </script>
@@ -62,5 +67,18 @@ export default {
 
 .flip-vertical {
   transform: scaleX(-1);
+}
+
+.critical-pulse {
+  animation: critical-pulse infinite 1.5s ease-in-out;
+}
+
+@keyframes critical-pulse {
+  0% {
+    box-shadow: 0 0 15px 0px var(--danger);
+  }
+  100% {
+    box-shadow: 0 0 0px 0px var(--danger);
+  }
 }
 </style>
