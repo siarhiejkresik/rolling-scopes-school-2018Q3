@@ -1,11 +1,10 @@
 <template>
   <transition name="damage-animation">
     <div
-      class="damage"
+      class="damage display-3"
       :style="{
         left: verticalAxis-size/2+'px',
-        top: horizontalAxis+'px',
-        fontSize: size+'px'}"
+        top: horizontalAxis+'px'}"
     >
       {{ damage }}
     </div>
@@ -21,7 +20,7 @@ export default {
   },
   data() {
     return {
-      size: 70, // font-size
+      size: 60,
     };
   },
 };
@@ -29,10 +28,12 @@ export default {
 
 <style scoped>
 .damage {
+  --shadow-color: white;
   position: absolute;
   font-weight: 300;
-  color: var(--red);
-  text-shadow: 0 0 10px var(--gray);
+  color: #e60073;
+    text-shadow: 0 0 30px var(--shadow-color),
+    0 0 40px var(--shadow-color);
   opacity: 0;
   user-select: none;
 }
@@ -55,7 +56,7 @@ export default {
     opacity: 1;
   }
   100% {
-    transform: scale(1) translate(0, -200px);
+    transform: scale(1) translate(0, -100px);
     opacity: 0;
   }
 }
