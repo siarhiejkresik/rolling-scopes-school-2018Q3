@@ -10,7 +10,8 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "lint": "eslint 'src/**/*.{js,vue}'",
     "lint-fix": "eslint 'src/**/*.{js,vue}' --fix",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "start-dev": "export MONGOLAB_URI=mongodb://localhost:27017/game2018q3 && node server/index.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
