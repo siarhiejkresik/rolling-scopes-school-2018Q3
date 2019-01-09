@@ -4,7 +4,10 @@ A small and primitive clone of the Prodigy game https://www.prodigygame.com/.
 
 The final task of stage #2 (Rolling scope school, [link](https://github.com/rolling-scopes-school/tasks/blob/2018-Q3/tasks/game.md)).
 
-Demo: [link](https://siarheikresik.github.io/game-2018Q3-landing/).
+Demo: [link](https://siarheikresik.github.io/game-2018Q3-landing/). 
+
+The game server is hosted on [heroku](https://siarhiej-kresik-game-2018q3.herokuapp.com/).  
+The game database is hosted on [mlab](https://mlab.com/databases/game2018q3).
 
 ## Getting source files
 
