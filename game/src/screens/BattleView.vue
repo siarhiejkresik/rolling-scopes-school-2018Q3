@@ -76,7 +76,7 @@
     </b-button>
 
     <b-button
-      v-b-modal.spell-chooser
+      v-b-modal.spell-chooser-modal
       variant="success"
       size="lg"
       :disabled="spell.animation !== undefined || isLocked"
@@ -86,7 +86,7 @@
     </b-button>
 
     <b-modal
-      id="spell-chooser"
+      id="spell-chooser-modal"
       title="Выберы заклінанне"
       ok-title="Выбраць"
       cancel-title="Назад"
