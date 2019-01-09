@@ -407,8 +407,18 @@ button.spell {
   transform: translate(-50%, 0);
 }
 
+button.spell:not(:disabled) {
+  box-shadow:
+  0px 0 10px 0.1rem var(--secondary),
+  0px 0 100px 0.1rem var(--secondary),
+  0px 0 160px 0.1rem var(--secondary);
+}
+
 button.spell:focus {
-  box-shadow: 0px 0 30px 0.1rem var(--secondary);
+  box-shadow:
+  0px 0 10px 0.2rem rgba(255, 255, 255, 0.5),
+  0px 0 100px 0.1rem var(--secondary),
+  0px 0 160px 0.1rem var(--secondary);
 }
 
 button.exit {
