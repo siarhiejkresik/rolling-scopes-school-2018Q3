@@ -67,15 +67,6 @@
     />
 
     <b-button
-      class="exit text-light"
-      variant="link"
-      :disabled="isLocked"
-      @click="gameEnd"
-    >
-      Выйсці
-    </b-button>
-
-    <b-button
       v-b-modal.spell-chooser-modal
       variant="success"
       size="lg"
@@ -101,6 +92,15 @@
       v-model="task"
       @taskResult="onTaskResult"
     />
+
+    <b-button
+      class="exit text-light"
+      variant="link"
+      :disabled="isLocked"
+      @click="gameEnd"
+    >
+      Выйсці
+    </b-button>
   </div>
 </template>
 
