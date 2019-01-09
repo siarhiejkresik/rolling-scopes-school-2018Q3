@@ -15,6 +15,7 @@
         autocomplete="off"
         spellcheck="false"
         class="mt-3"
+        autofocus
       />
     </b-form>
   </div>
