@@ -69,6 +69,7 @@
     <b-button
       class="exit text-light"
       variant="link"
+      :disabled="isLocked"
       @click="gameEnd"
     >
       Выйсці
@@ -78,7 +79,7 @@
       v-b-modal.spell-chooser
       variant="success"
       size="lg"
-      :disabled="spell.animation !== undefined"
+      :disabled="spell.animation !== undefined || isLocked"
       class="spell"
     >
       Заклінанні
@@ -206,6 +207,7 @@ export default {
         width: 1200,
       },
       gameMessage: {},
+      isLocked: true,
     };
   },
   computed: {
@@ -219,7 +221,13 @@ export default {
   },
   mounted() {
     this.player.name = this.$store.state.player.name;
+
+    window.addEventListener('keydown', this.keyDown, true);
+
     this.startGame();
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.keyDown, true);
   },
   methods: {
     onSpellChange(spellName) {
@@ -251,6 +259,7 @@ export default {
       }
     },
     onTaskResult(taskResult) {
+      this.lock();
       if (taskResult) {
         this.onTaskSuccess();
       } else {
@@ -289,6 +298,7 @@ export default {
     },
     async isPlayerDead() {
       if (this.player.health > 0) {
+        this.unlock();
         return;
       }
       await pause(BEFORE_ANIMATION_DELAY * 4);
@@ -296,6 +306,7 @@ export default {
     },
     async isEnemyDead() {
       if (this.enemy.health > 0) {
+        this.unlock();
         return;
       }
       await pause(BEFORE_ANIMATION_DELAY);
@@ -308,8 +319,11 @@ export default {
       await this.showMessage(messages.startGame);
       await this.showNumberOfRoundMessage();
       await this.showEnemyMessage();
+      await pause(BEFORE_ANIMATION_DELAY * 2);
+      this.unlock();
     },
     async newRound() {
+      this.lock();
       await pause(BEFORE_ANIMATION_DELAY);
 
       this.$store.dispatch('storage/setPlayerScore', this.numOfWins);
@@ -331,8 +345,10 @@ export default {
       await pause(BEFORE_ANIMATION_DELAY * 2);
       await this.showNumberOfRoundMessage();
       await this.showEnemyMessage();
+      this.unlock();
     },
     async gameEnd() {
+      this.lock();
       this.$store.commit('player/setLastScore', this.numOfWins);
 
       await this.showMessage(messages.endGame);
@@ -353,6 +369,18 @@ export default {
     },
     async showEnemyMessage() {
       await this.showMessage(messages.enemyName(this.enemy.name));
+    },
+    lock() {
+      this.isLocked = true;
+    },
+    unlock() {
+      this.isLocked = false;
+    },
+    keyDown(e) {
+      if (this.isLocked) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
     },
   },
 };
