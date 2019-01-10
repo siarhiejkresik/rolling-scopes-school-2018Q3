@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       date: null,
+      requestID: null,
       breathDir: true,
       breathDur: 1000,
       breathMax: 8,
@@ -28,6 +29,9 @@ export default {
   },
   mounted() {
     this.draw();
+  },
+  beforeDestroy() {
+    cancelAnimationFrame(this.requestID);
   },
   methods: {
     clear() {
@@ -119,7 +123,7 @@ export default {
       this.drawElement(this.model.pantsLeg, pantsLegOffsets, true);
       this.drawElement(this.model.pants, pantsOffsets);
 
-      requestAnimationFrame(this.draw);
+      this.requestID = requestAnimationFrame(this.draw);
     },
     drawElement(element, offsets, mirror = false) {
       const img = this.modelResources[element.file];
