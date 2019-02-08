@@ -3,8 +3,8 @@ import Select from 'react-select';
 
 import Table from './Table';
 
-import { getUserNameFromGithubLink } from '../utils';
-import { data, options } from '../data';
+import { getUserNameFromGithubLink } from './utils';
+import { data, options } from '../create-data';
 
 class Dashboard extends React.Component {
   constructor() {
