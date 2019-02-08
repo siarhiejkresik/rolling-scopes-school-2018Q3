@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+
+body {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 14px;
+}
+
+td {
+  text-align: center;
+}
