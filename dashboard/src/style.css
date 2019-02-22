@@ -5,6 +5,8 @@ body {
   font-size: 15px;
 }
 
-td {
-  text-align: center;
+.container {
+  margin: 2em auto;
+  min-width: 30%;
+  max-width: 80%;
 }
