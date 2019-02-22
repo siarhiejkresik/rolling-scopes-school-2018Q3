@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 
 import Table from './Table';
+import NoDataPlaceholder from './NoDataPlaceHolder';
 
 import { getUserNameFromGithubLink } from './utils';
 import { data, options } from '../create-data';
@@ -49,7 +50,11 @@ class Dashboard extends React.Component {
     return (
       <div>
         <Select options={options} onChange={this.handleInput} autofocus />
-        {scores ? <Table tasks={tasks} students={students} scores={scores} /> : <div>No data</div>}
+        {scores ? (
+          <Table tasks={tasks} students={students} scores={scores} />
+        ) : (
+          <NoDataPlaceholder />
+        )}
       </div>
     );
   }
