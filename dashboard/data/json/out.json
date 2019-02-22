@@ -52,6 +52,10 @@
       {
         "task": "Course work",
         "Status": "ToDo"
+      },
+      {
+        "task": "Presentation",
+        "Status": "Checked"
       }
     ]
   },
