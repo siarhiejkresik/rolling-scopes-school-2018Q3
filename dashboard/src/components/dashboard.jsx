@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
     const scores = this.data.scores[mentorGithub];
 
     return (
-      <div>
+      <div className="dashboard-container">
         <Select options={options} onChange={this.handleInput} autofocus />
         {scores ? (
           <Table tasks={tasks} students={students} scores={scores} />
