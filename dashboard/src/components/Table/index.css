@@ -23,21 +23,21 @@
 }
 
 .dashboard-table .checked {
-  background: FIREBRICK;
+  background: #a61c00;
 }
 
 .dashboard-table .marked {
-  background: LIGHTGREEN;
+  background: #d9ead3;
 }
 
 .dashboard-table .checking {
-  background: NAVAJOWHITE;
+  background: #ea9998;
 }
 
 .dashboard-table .in_progress {
-  background: lightsalmon;
+  background: #fff2cc;
 }
 
 .dashboard-table .todo {
-  background: lightgray;
+  background: #cccccc;
 }
