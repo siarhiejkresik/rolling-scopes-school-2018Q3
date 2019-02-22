@@ -4,15 +4,23 @@ import Select from 'react-select';
 import Table from './Table';
 import NoDataPlaceholder from './NoDataPlaceHolder';
 
-import { getUserNameFromGithubLink } from './utils';
+import { getUserNameFromGithubLink as getNameFromGithubLink } from './utils';
 import { data, options } from '../create-data';
+
+const LOCAL_STORAGE_KEY = 'mentor_dashboard';
+
+const localStorageHandler = {
+  save: githubName => localStorage.setItem(LOCAL_STORAGE_KEY, githubName),
+  load: () => localStorage.getItem(LOCAL_STORAGE_KEY),
+};
 
 class Dashboard extends React.Component {
   constructor() {
     super();
     console.log(data);
     this.data = data;
-    this.state = { mentorGithub: null };
+    const mentorGithub = localStorageHandler.load() || null;
+    this.state = { mentorGithub };
     this.handleInput = this.handleInput.bind(this);
   }
 
@@ -23,7 +31,7 @@ class Dashboard extends React.Component {
     }
     const { mentors } = this.data;
     let { students } = mentors.filter(
-      mentor_ => getUserNameFromGithubLink(mentor_.GitHub) === mentorGithub
+      mentor_ => getNameFromGithubLink(mentor_.GitHub) === mentorGithub
     )[0];
     students = students.map(student => student.toLocaleLowerCase());
     return students;
@@ -32,12 +40,13 @@ class Dashboard extends React.Component {
   handleInput(e) {
     let mentorGithub = e.github || null;
     if (mentorGithub) {
-      mentorGithub = getUserNameFromGithubLink(mentorGithub);
+      mentorGithub = getNameFromGithubLink(mentorGithub);
     }
     this.setState(prevState => ({
       ...prevState,
       mentorGithub,
     }));
+    localStorageHandler.save(mentorGithub);
   }
 
   render() {
