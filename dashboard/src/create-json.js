@@ -6,7 +6,8 @@ const XLSX = require('xlsx');
 const _ = require('lodash');
 const utils = require('./components/utils');
 
-const DATA_FOLDER = '../data';
+const XLSX_DIR = '../data/xlsx';
+const JSON_DIR = '../data/json';
 
 // xmsl data schemes
 
@@ -57,7 +58,7 @@ const DATA_SCHEMES = {
 };
 
 function readXLSXFile(fileName) {
-  return XLSX.readFile(path.join(__dirname, DATA_FOLDER, fileName));
+  return XLSX.readFile(path.join(__dirname, XLSX_DIR, fileName));
 }
 
 function workBookSheetToJSON(workBook, sheetName) {
@@ -75,8 +76,9 @@ function getRawData(schemas = DATA_SCHEMES) {
   });
 }
 
-function saveToJSON(obj, fileName) {
-  fs.writeFileSync(fileName, JSON.stringify(obj, null, 2));
+function saveToJSON(obj, relativePath, fileName) {
+  const file = path.join(relativePath, fileName);
+  fs.writeFileSync(file, JSON.stringify(obj, null, 2));
 }
 
 function normalizeRawPairs(pairs) {
@@ -110,10 +112,6 @@ function mergePairsToMentors(mentors, pairs) {
   }
 }
 
-function normalizeGithubLink(url) {
-  return url.trim().toLowerCase();
-}
-
 function normalizeScores(scoresArr) {
   const keys = scores.sheets['Form Responses 1'];
   const result = {};
@@ -130,20 +128,16 @@ function normalizeScores(scoresArr) {
   return result;
 }
 
-// function filterByMentor(obj, fullName) {
-//   return _.filter(obj, (mentor)=>mentor.)
-// }
-
 const data = getRawData();
 data.peoples.pairs = normalizeRawPairs(data.peoples.pairs);
 
 mergePairsToMentors(data.peoples['second_name-to_github_account'], data.peoples.pairs);
 
 console.log('save out.json');
-saveToJSON(data, 'out.json');
+saveToJSON(data, JSON_DIR, 'out.json');
 
 console.log('save scores-norm.json');
-saveToJSON(normalizeScores(data.scores['Form Responses 1']), 'scores-norm.json');
+saveToJSON(normalizeScores(data.scores['Form Responses 1']), JSON_DIR, 'scores-norm.json');
 
 console.log('exit');
 process.exit();

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-import rawData from './out.json';
-import scores from './scores-norm.json';
+import rawData from '../data/json/out.json';
+import scores from '../data/json/scores-norm.json';
 
 // mentors array
 const mentors = rawData.peoples['second_name-to_github_account'];
