@@ -1,6 +1,6 @@
 import React from 'react';
-import TableHead from './TableHead';
-import TableBody from './TableBody';
+import Head from './Head';
+import Body from './Body';
 
 export default ({ scores, students, tasks }) => (
   <table>
