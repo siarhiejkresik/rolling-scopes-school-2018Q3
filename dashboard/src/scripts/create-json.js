@@ -71,9 +71,7 @@ function normalizeScores(scoresArr) {
 }
 
 function normalizeTasks(tasksArr) {
-  return tasksArr.map(task_ => {
-    return { ...task_, task: task_.task.trim() };
-  });
+  return tasksArr.map(task_ => ({ ...task_, task: task_.task.trim() }));
 }
 
 function main() {
