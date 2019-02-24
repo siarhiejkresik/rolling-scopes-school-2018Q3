@@ -1,18 +1,17 @@
 import _ from 'lodash';
 
-import rawData from '../../data/json/out.json';
-import scores from '../../data/json/scores-norm.json';
+import { getNameFromGithubLink } from './utils';
 
-// mentors array
-const mentors = rawData.peoples['second_name-to_github_account'];
-
-// tasks
-const tasks = rawData.tasks.Sheet1;
-tasks.forEach(taskObj => {
-  taskObj.task = taskObj.task.trim();
-});
-
-const data = { tasks, mentors, scores };
+function selectStudentsByMentor(mentors, mentorGithub) {
+  if (!mentorGithub) {
+    return [];
+  }
+  let { students } = mentors.filter(
+    mentor_ => getNameFromGithubLink(mentor_.GitHub) === mentorGithub
+  )[0];
+  students = students.map(student => student.toLocaleLowerCase());
+  return students;
+}
 
 function selectMentors(mentors) {
   return _.sortBy(
@@ -29,4 +28,4 @@ function selectMentors(mentors) {
   );
 }
 
-export { data, selectMentors };
+export { selectStudentsByMentor, selectMentors };

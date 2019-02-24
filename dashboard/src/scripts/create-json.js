@@ -4,9 +4,9 @@ const fs = require('fs');
 
 const XLSX = require('xlsx');
 const _ = require('lodash');
-const utils = require('../components/utils');
+const { getNameFromGithubLink } = require('./utils');
 
-const { XLSX_DIR, JSON_DIR, DATA_SCHEMES } = require('./constants');
+const { XLSX_DIR, JSON_DIR, JSON_FILE_NAME, SHEET_NAMES, DATA_SCHEMES } = require('./constants');
 
 function XLSXFileToWorkBook(fileName) {
   return XLSX.readFile(path.join(__dirname, XLSX_DIR, fileName));
@@ -44,11 +44,6 @@ function normalizeRawPairs(pairs) {
   return result;
 }
 
-/**
- * For each mentor add a field with an array of his students
- * @param {} mentors
- * @param {*} pairs
- */
 function mergePairsToMentors(mentors, pairs) {
   mentors.forEach(mentor => {
     const fullName = `${mentor.Name} ${mentor.Surname}`;
@@ -59,16 +54,16 @@ function mergePairsToMentors(mentors, pairs) {
     }
   });
   if (Object.keys(pairs).length > 0) {
-    console.log('students without mentor', pairs);
+    console.log('students without mentor:', pairs);
   }
 }
 
 function normalizeScores(scoresArr) {
-  const keys = DATA_SCHEMES.scores.sheets['Form Responses 1'];
+  const keys = DATA_SCHEMES.scores.sheets[SHEET_NAMES.scores];
   const result = {};
   scoresArr.forEach(obj => {
-    const mentorGithub = utils.getUserNameFromGithubLink(obj[keys.mentorGithub]);
-    const studentGithub = utils.getUserNameFromGithubLink(obj[keys.studentGithub]);
+    const mentorGithub = getNameFromGithubLink(obj[keys.mentorGithub]);
+    const studentGithub = getNameFromGithubLink(obj[keys.studentGithub]);
     const taskName = obj[keys.taskName].trim();
     _.set(result, [mentorGithub, taskName, studentGithub], obj);
   }, {});
@@ -77,16 +72,15 @@ function normalizeScores(scoresArr) {
 
 function main() {
   const data = AllXLSXsToJSON();
+
   data.peoples.pairs = normalizeRawPairs(data.peoples.pairs);
+  mergePairsToMentors(data.peoples[SHEET_NAMES.mentorData], data.peoples.pairs);
+  const mentors = data.peoples[SHEET_NAMES.mentorData];
+  const scores = normalizeScores(data.scores[SHEET_NAMES.scores]);
+  const tasks = data.tasks.Sheet1;
 
-  mergePairsToMentors(data.peoples['second_name-to_github_account'], data.peoples.pairs);
-
-  console.log('save out.json');
-  saveToJSON(data, JSON_DIR, 'out.json');
-
-  console.log('save scores-norm.json');
-  saveToJSON(normalizeScores(data.scores['Form Responses 1']), JSON_DIR, 'scores-norm.json');
-
+  console.log(`save ${JSON_FILE_NAME}`);
+  saveToJSON({ tasks, mentors, scores }, JSON_DIR, JSON_FILE_NAME);
   console.log('done');
 }
 

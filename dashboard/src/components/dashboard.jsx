@@ -4,8 +4,8 @@ import Select from 'react-select';
 import Table from './Table';
 import NoDataPlaceholder from './NoDataPlaceHolder';
 
-import { getUserNameFromGithubLink as getNameFromGithubLink } from './utils';
-import { selectMentors } from '../scripts/create-data';
+import { getNameFromGithubLink } from '../scripts/utils';
+import { selectMentors, selectStudentsByMentor } from '../scripts/data-selectors';
 
 const LOCAL_STORAGE_KEY = 'mentor_dashboard';
 
@@ -27,19 +27,6 @@ class Dashboard extends React.Component {
     this.handleInput = this.handleInput.bind(this);
   }
 
-  getStudentsByMentor(mentorGithub) {
-    // const { mentorGithub } = this.state;
-    if (!mentorGithub) {
-      return [];
-    }
-    const { mentors } = this.data;
-    let { students } = mentors.filter(
-      mentor_ => getNameFromGithubLink(mentor_.GitHub) === mentorGithub
-    )[0];
-    students = students.map(student => student.toLocaleLowerCase());
-    return students;
-  }
-
   handleInput(e) {
     let mentorGithub = e.github || null;
     if (mentorGithub) {
@@ -56,7 +43,7 @@ class Dashboard extends React.Component {
     const { mentorGithub } = this.state;
 
     const { tasks } = this.data;
-    const students = this.getStudentsByMentor(mentorGithub);
+    const students = selectStudentsByMentor(this.data.mentors, mentorGithub);
     const scores = this.data.scores[mentorGithub];
     return (
       <div className="dashboard-container">
