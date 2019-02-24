@@ -8,7 +8,7 @@ const utils = require('../components/utils');
 
 const { XLSX_DIR, JSON_DIR, DATA_SCHEMES } = require('./constants');
 
-function readXLSXFile(fileName) {
+function XLSXFileToWorkBook(fileName) {
   return XLSX.readFile(path.join(__dirname, XLSX_DIR, fileName));
 }
 
@@ -16,14 +16,14 @@ function workBookSheetToJSON(workBook, sheetName) {
   return XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
 }
 
-function getSheets(workBook, sheetNames) {
+function AllWorkBookSheetsToJSON(workBook, sheetNames) {
   return _.mapValues(sheetNames, (obj, sheetName) => workBookSheetToJSON(workBook, sheetName));
 }
 
-function getRawData(schemas = DATA_SCHEMES) {
+function AllXLSXsToJSON(schemas = DATA_SCHEMES) {
   return _.mapValues(schemas, schema => {
-    const workBook = readXLSXFile(schema.file);
-    return getSheets(workBook, schema.sheets);
+    const workBook = XLSXFileToWorkBook(schema.file);
+    return AllWorkBookSheetsToJSON(workBook, schema.sheets);
   });
 }
 
@@ -75,7 +75,7 @@ function normalizeScores(scoresArr) {
   return result;
 }
 
-const data = getRawData();
+const data = AllXLSXsToJSON();
 data.peoples.pairs = normalizeRawPairs(data.peoples.pairs);
 
 mergePairsToMentors(data.peoples['second_name-to_github_account'], data.peoples.pairs);
