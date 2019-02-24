@@ -5,7 +5,7 @@ import Table from './Table';
 import NoDataPlaceholder from './NoDataPlaceHolder';
 
 import { getUserNameFromGithubLink as getNameFromGithubLink } from './utils';
-import { data, options } from '../create-data';
+import { selectMentors } from '../create-data';
 
 const LOCAL_STORAGE_KEY = 'mentor_dashboard';
 
@@ -15,12 +15,15 @@ const localStorageHandler = {
 };
 
 class Dashboard extends React.Component {
-  constructor() {
+  constructor({ data }) {
     super();
     console.log(data);
     this.data = data;
+    this.options = selectMentors(data.mentors);
+
     const mentorGithub = localStorageHandler.load() || null;
     this.state = { mentorGithub };
+
     this.handleInput = this.handleInput.bind(this);
   }
 
@@ -55,10 +58,9 @@ class Dashboard extends React.Component {
     const { tasks } = this.data;
     const students = this.getStudentsByMentor(mentorGithub);
     const scores = this.data.scores[mentorGithub];
-
     return (
       <div className="dashboard-container">
-        <Select options={options} onChange={this.handleInput} autofocus />
+        <Select options={this.options} onChange={this.handleInput} autofocus />
         {scores ? (
           <Table tasks={tasks} students={students} scores={scores} />
         ) : (

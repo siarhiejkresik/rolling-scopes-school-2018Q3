@@ -29,6 +29,4 @@ function selectMentors(mentors) {
   );
 }
 
-const options = selectMentors(mentors);
-
-export { data, options };
+export { data, selectMentors };
