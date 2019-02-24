@@ -75,16 +75,19 @@ function normalizeScores(scoresArr) {
   return result;
 }
 
-const data = AllXLSXsToJSON();
-data.peoples.pairs = normalizeRawPairs(data.peoples.pairs);
+function main() {
+  const data = AllXLSXsToJSON();
+  data.peoples.pairs = normalizeRawPairs(data.peoples.pairs);
 
-mergePairsToMentors(data.peoples['second_name-to_github_account'], data.peoples.pairs);
+  mergePairsToMentors(data.peoples['second_name-to_github_account'], data.peoples.pairs);
 
-console.log('save out.json');
-saveToJSON(data, JSON_DIR, 'out.json');
+  console.log('save out.json');
+  saveToJSON(data, JSON_DIR, 'out.json');
 
-console.log('save scores-norm.json');
-saveToJSON(normalizeScores(data.scores['Form Responses 1']), JSON_DIR, 'scores-norm.json');
+  console.log('save scores-norm.json');
+  saveToJSON(normalizeScores(data.scores['Form Responses 1']), JSON_DIR, 'scores-norm.json');
 
-console.log('exit');
-process.exit();
+  console.log('done');
+}
+
+main();
