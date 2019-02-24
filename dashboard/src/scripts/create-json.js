@@ -70,6 +70,12 @@ function normalizeScores(scoresArr) {
   return result;
 }
 
+function normalizeTasks(tasksArr) {
+  return tasksArr.map(task_ => {
+    return { ...task_, task: task_.task.trim() };
+  });
+}
+
 function main() {
   const data = AllXLSXsToJSON();
 
@@ -77,7 +83,7 @@ function main() {
   mergePairsToMentors(data.peoples[SHEET_NAMES.mentorData], data.peoples.pairs);
   const mentors = data.peoples[SHEET_NAMES.mentorData];
   const scores = normalizeScores(data.scores[SHEET_NAMES.scores]);
-  const tasks = data.tasks.Sheet1;
+  const tasks = normalizeTasks(data.tasks.Sheet1);
 
   console.log(`save ${JSON_FILE_NAME}`);
   saveToJSON({ tasks, mentors, scores }, JSON_DIR, JSON_FILE_NAME);
