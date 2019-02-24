@@ -19,9 +19,7 @@ function selectMentors(mentors) {
       const github = mentor.GitHub;
       const fullName = `${mentor.Name} ${mentor.Surname}`;
       const label = `${fullName}`;
-      const value = [mentor.Name, mentor.Surname, github].map(el =>
-        String.prototype.toLocaleLowerCase.call(el)
-      );
+      const value = [mentor.Name, mentor.Surname, github].map(el => el.toLocaleLowerCase());
       return { label, value, github };
     }),
     mentor => mentor.label
