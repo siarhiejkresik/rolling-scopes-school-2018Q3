@@ -1,3 +1,5 @@
+const LOCAL_STORAGE_KEY = 'mentor_dashboard';
+
 const XLSX_DIR = '../../data/xlsx';
 const JSON_DIR = './data/json';
 const JSON_FILE_NAME = 'data.json';
@@ -55,4 +57,11 @@ const DATA_SCHEMES = {
   scores,
 };
 
-module.exports = { XLSX_DIR, JSON_DIR, JSON_FILE_NAME, SHEET_NAMES, DATA_SCHEMES };
+module.exports = {
+  LOCAL_STORAGE_KEY,
+  XLSX_DIR,
+  JSON_DIR,
+  JSON_FILE_NAME,
+  SHEET_NAMES,
+  DATA_SCHEMES,
+};

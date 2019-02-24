@@ -7,12 +7,7 @@ import NoDataPlaceholder from './NoDataPlaceHolder';
 import { getNameFromGithubLink } from '../scripts/utils';
 import { selectMentors, selectStudentsByMentor } from '../scripts/data-selectors';
 
-const LOCAL_STORAGE_KEY = 'mentor_dashboard';
-
-const localStorageHandler = {
-  save: githubName => localStorage.setItem(LOCAL_STORAGE_KEY, githubName),
-  load: () => localStorage.getItem(LOCAL_STORAGE_KEY),
-};
+import localStorageHandler from '../scripts/local-storage';
 
 class Dashboard extends React.Component {
   constructor({ data }) {
