@@ -9,7 +9,8 @@
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --open",
     "lint": "eslint '**/*.{js,jsx}'",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "json:create": "node ./src/scripts/create-json.js"
   },
   "jest": {
     "moduleNameMapper": {
