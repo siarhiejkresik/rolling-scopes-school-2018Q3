@@ -5,7 +5,7 @@ import Table from './Table';
 import NoDataPlaceholder from './NoDataPlaceHolder';
 
 import { getUserNameFromGithubLink as getNameFromGithubLink } from './utils';
-import { selectMentors } from '../create-data';
+import { selectMentors } from '../scripts/create-data';
 
 const LOCAL_STORAGE_KEY = 'mentor_dashboard';
 

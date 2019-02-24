@@ -4,58 +4,9 @@ const fs = require('fs');
 
 const XLSX = require('xlsx');
 const _ = require('lodash');
-const utils = require('./components/utils');
+const utils = require('../components/utils');
 
-const XLSX_DIR = '../data/xlsx';
-const JSON_DIR = '../data/json';
-
-// xmsl data schemes
-
-const tasks = {
-  file: 'Tasks.xlsx',
-  sheets: {
-    Sheet1: {
-      name: 'task',
-      link: 'link',
-      status: 'Status',
-    },
-  },
-};
-
-const peoples = {
-  file: 'Mentor-students pairs.xlsx',
-  sheets: {
-    pairs: {
-      mentorFullName: 'interviewer',
-      studentGithub: 'student github',
-    },
-    'second_name-to_github_account': {
-      name: 'Name',
-      surname: 'Surname',
-      city: 'City',
-      count: 'Count',
-      github: 'Github',
-    },
-  },
-};
-
-const scores = {
-  file: 'Mentor score.xlsx',
-  sheets: {
-    'Form Responses 1': {
-      mentorGithub: 'Ссылка на GitHub ментора в формате: https://github.com/nickname',
-      studentGithub: 'Ссылка на GitHub студента в формате: https://github.com/nickname',
-      taskName: 'Таск',
-      taskScore: 'Оценка',
-    },
-  },
-};
-
-const DATA_SCHEMES = {
-  tasks,
-  peoples,
-  scores,
-};
+const { XLSX_DIR, JSON_DIR, DATA_SCHEMES } = require('./constants');
 
 function readXLSXFile(fileName) {
   return XLSX.readFile(path.join(__dirname, XLSX_DIR, fileName));
@@ -77,7 +28,7 @@ function getRawData(schemas = DATA_SCHEMES) {
 }
 
 function saveToJSON(obj, relativePath, fileName) {
-  const file = path.join(relativePath, fileName);
+  const file = path.resolve(path.join(relativePath, fileName));
   fs.writeFileSync(file, JSON.stringify(obj, null, 2));
 }
 
@@ -87,7 +38,7 @@ function normalizeRawPairs(pairs) {
   // for each mentor collect students to an array
   _.forEach(result, (arr, mentor) => {
     result[mentor] = _.sortBy(
-      arr.map(obj => String(obj[peoples.sheets.pairs.studentGithub] || '').trim())
+      arr.map(obj => String(obj[DATA_SCHEMES.peoples.sheets.pairs.studentGithub] || '').trim())
     );
   });
   return result;
@@ -113,16 +64,12 @@ function mergePairsToMentors(mentors, pairs) {
 }
 
 function normalizeScores(scoresArr) {
-  const keys = scores.sheets['Form Responses 1'];
+  const keys = DATA_SCHEMES.scores.sheets['Form Responses 1'];
   const result = {};
   scoresArr.forEach(obj => {
     const mentorGithub = utils.getUserNameFromGithubLink(obj[keys.mentorGithub]);
     const studentGithub = utils.getUserNameFromGithubLink(obj[keys.studentGithub]);
     const taskName = obj[keys.taskName].trim();
-    // const isExist = _.get(result, [mentorGithub, taskName, studentGithub], undefined);
-    // if (isExist !== undefined) {
-    //   console.log(mentorGithub, taskName, studentGithub);
-    // }
     _.set(result, [mentorGithub, taskName, studentGithub], obj);
   }, {});
   return result;
