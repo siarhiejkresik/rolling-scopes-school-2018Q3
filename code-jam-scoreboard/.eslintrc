@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb-base",
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "import/extensions": "off",
+        "no-restricted-syntax": "off"
+      }
+    }
+  ]
+}
