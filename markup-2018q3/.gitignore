@@ -1,0 +1,7 @@
+.idea
+node_modules
+*.bundle.js
+*.log
+task/
+node_modules/
+package-lock.json
