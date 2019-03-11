@@ -1,0 +1,43 @@
+.dashboard-table {
+  margin: 2em auto;
+  border: 1px solid black;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.dashboard-table td,
+.dashboard-table th {
+  text-align: center;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  font-weight: normal;
+}
+
+.dashboard-table .row-name a,
+.dashboard-table th a {
+  text-decoration: none;
+}
+
+.dashboard-table .row-name {
+  text-align: left;
+}
+
+.dashboard-table .checked {
+  background: #a61c00;
+}
+
+.dashboard-table .marked {
+  background: #d9ead3;
+}
+
+.dashboard-table .checking {
+  background: #ea9998;
+}
+
+.dashboard-table .in_progress {
+  background: #fff2cc;
+}
+
+.dashboard-table .todo {
+  background: #cccccc;
+}
