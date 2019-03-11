@@ -1,0 +1,25 @@
+{
+  "name": "rsschool-codejam",
+  "version": "1.0.0",
+  "description": "CodeJam-3 CoreJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiarheiKresik/rsschool-codejam.git"
+  },
+  "author": "Siarhiej Kresik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiarheiKresik/rsschool-codejam/issues"
+  },
+  "homepage": "https://github.com/SiarheiKresik/rsschool-codejam#readme",
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "mocha": "^5.2.0"
+  }
+}
