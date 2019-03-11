@@ -1,0 +1,12 @@
+.clips {
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.25s;
+
+}
+
+@media only screen and (min-width: 600px) {
+  .clips {
+    transition: transform 1.25s cubic-bezier(0.2, 0.6, 0.19, 0.99);
+  }
+}
