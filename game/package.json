@@ -1,0 +1,53 @@
+{
+  "name": "game",
+  "description": "A Vue.js project",
+  "version": "1.0.0",
+  "author": "SiarhiejKresik <siarhei.kresik@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production --progress --hide-modules",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "lint": "eslint 'src/**/*.{js,vue}'",
+    "lint-fix": "eslint 'src/**/*.{js,vue}' --fix",
+    "start": "node server/index.js",
+    "start-dev": "export MONGOLAB_URI=mongodb://localhost:27017/game2018q3 && node server/index.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.2.0",
+    "@storybook/vue": "^4.1.4",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.2.1",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.2",
+    "popper.js": "^1.14.6",
+    "vue": "^2.5.21",
+    "vuedraggable": "^2.17.0",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.4",
+    "babel-preset-vue": "^2.0.2",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.0",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "file-loader": "^3.0.1",
+    "ignore-loader": "^0.1.2",
+    "prettier": "^1.15.3",
+    "raw-loader": "^1.0.0",
+    "style-loader": "^0.23.1",
+    "vue-loader": "^15.4.2",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.14"
+  }
+}
